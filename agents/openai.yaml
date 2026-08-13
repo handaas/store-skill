@@ -1,0 +1,4 @@
+interface:
+  display_name: "店铺大数据报告"
+  short_description: "基于 HandaaS 店铺大数据 MCP，支持企业模式（餐饮品牌门店 + 门店分布统计）与检索模式（线下门店检索）的专业 HTML / Markdown / JSON 报告。"
+  default_prompt: "使用 $store-report 生成「企业名称 / 门店检索条件」的店铺大数据报告：调用店铺 MCP 工具，产出 HTML + Markdown + JSON 三件套。"
