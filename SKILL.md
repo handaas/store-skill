@@ -1,6 +1,6 @@
 ---
 name: store-report
-description: Use for generating a professional store big-data report (店铺大数据报告) from the HandaaS store MCP — covering 餐饮品牌门店、餐饮门店分布统计、线下门店检索明细. Supports two modes: enterprise (--enterprise) for a company's restaurant brands + branch stats, and search (--store-name/--brand/--category) for offline store retrieval. Trigger when users ask for “店铺大数据报告”, “店铺分析报告”, “查一家公司的餐饮门店”, “餐饮品牌门店”, “门店分布统计”, “线下门店检索”, “找线下门店”, or “企业门店画像”. Infer intent, pick the right MCP tools, and produce HTML + Markdown + JSON reports automatically.
+description: "Use for generating a professional store big-data report (店铺大数据报告) from the HandaaS store MCP — covering 餐饮品牌门店、餐饮门店分布统计、线下门店检索明细. Supports two modes: enterprise (--enterprise) for a company's restaurant brands + branch stats, and search (--store-name/--brand/--category) for offline store retrieval. Trigger when users ask for “店铺大数据报告”, “店铺分析报告”, “查一家公司的餐饮门店”, “餐饮品牌门店”, “门店分布统计”, “线下门店检索”, “找线下门店”, or “企业门店画像”. Infer intent, pick the right MCP tools, and produce HTML + Markdown + JSON reports automatically. MCP 服务名称触发词：线下门店运营。"
 ---
 
 # 店铺大数据报告
@@ -26,7 +26,23 @@ description: Use for generating a professional store big-data report (店铺大�
 - 报告所有章节标题、指标卡标签必须用中文；`core_analysis.sections` 的 `title` 字段必须中文，不可显示英文 key（如 `holders`、`investments`）。
 - 指标值必须可读化：金额格式为"X 亿/万 + 币种"，地址拼接省市区，比率显示百分号。详见 `references/report-output.md` 的「数据格式约束」。
 
+## 付费调用纪律（先规划后查询）
+
+每次真实调用均按接口/页计费，必须先规划再查询，不得默认全量拉取：
+
+1. 每一次业务/工具调用、每一页都可能收费。想算 total / 页数不是无限制取全量的授权。
+2. 调用前先推导：需要哪些结论、需要哪些数据维度、工具与参数计划、必要页数与最大调用预算。total 未知时，第一个必要的明细页同时完成 total 发现并直接作为报告数据，绝不为此多付一次（首屏响应必须复用，不重复拉取）。
+3. 优先用统计 / 画像 / 聚合接口回答能回答的问题（企业模式优先 `store_bigdata_company_restaurant_branches` 的门店总数与城市/省份分布统计）；明细接口（`store_bigdata_offline_store_search`）仅取结论、图表、代表性记录或用户明确的全量/计数需求所需的行数。只有用户明确要全面报告时才跑全面管线，绝不因为工具存在就全部调用。
+4. 在 schema 允许范围内用合理的大 pageSize（≤50），取得所需证据 / 样本即停，且不超出显式预算。更多调用必须有“缺失结论”的正当理由，不能只为填满章节。不得用样本分布冒充全量结论。
+5. 复用当前任务 / 报告内的相同请求（含首屏规划数据）；不要为渲染重跑 compose/MCP，用已保存 JSON 本地重渲染。不自动重试、不重复拉取同一统计或明细、不并行独立拉取相同数据。任何补充查询必须先列缺口并复用已返回记录。
+6. `total_pages` / `remaining_pages` 是按请求 pageSize 的估算；短而非空页面仍有剩余记录时在预算内继续。只有稳定有效的 total 等于实际扫描条数才算完整采集；错误、提前空页、重复页、total 变化/缺失、数量溢出均视为不完整。显式预算 / 样本停止即部分采集，绝不宣称全量。
+7. 预算不足以支撑用户要求的关键结论时：先说明证据缺口与预计需要追加的调用数，再请求扩大授权（提高 `--max-pages`）；不静默降级结论，也不擅自扩大计费范围。
+
+分页收集默认一次明细调用预算 `--max-pages 1`（仅 `store_bigdata_offline_store_search` 检索明细分页；企业模糊补全、品牌门店、分布统计不翻页）；明细接口的 total、实际取数、完整性披露写入报告 `data_source.pagination`，报告级去重统计写入 `data_source.call_usage`。
+
 ## MCP 服务入口
+
+- MCP 服务当前名称：线下门店运营（连接仍使用原服务目录标识）。
 
 - 上游 MCP 项目：`handaas-mcp-server/store-mcp-server`（位于 `HANDAAS_MCP_SERVER_ROOT` 或本仓库同级目录）。
 - Remote MCP：设置环境变量 `STORE_MCP_URL`（streamable-http），可选 `STORE_MCP_TOKEN`。
@@ -55,7 +71,7 @@ description: Use for generating a professional store big-data report (店铺大�
 2. **企业模式**：若输入含“公司/集团/有限/院/厂/中心/事务所/合作社/合伙”等后缀视为全称；否则调 `store_bigdata_fuzzy_search` 取首个命中。
    - 调 `store_bigdata_company_restaurant_branches`（matchKeyword=企业全称）→ 旗下品牌列表 + 门店总数。
    - 取首个品牌的 `brandId` → 调 `store_bigdata_restaurant_branch_stats`（matchKeyword=品牌 id）→ 城市 / 省份分布。
-3. **检索模式**：调 `store_bigdata_offline_store_search`（ooStoreName / ooStoreBrandList / ooStoreCalClassification / address）→ 线下门店检索明细。
+3. **检索模式**：调 `store_bigdata_offline_store_search`（ooStoreName / ooStoreBrandList / ooStoreCalClassification / address）→ 线下门店检索明细（分页，默认 1 页预算；按 total 驱动、在 `--max-pages` 预算内翻页，超出预算在报告中披露未纳入条数）。
 4. **组装统一报告**：核心分析含餐饮品牌门店（表）、餐饮门店分布统计（表）、线下门店检索明细（表）。
 5. **渲染三件套**：`compose_report.py --enterprise ... | --store-name ... --output ... --report-output ...` 直接产出 JSON + HTML + Markdown。
 6. **返回路径**：返回 JSON、HTML、Markdown 文件路径，以及模式与企业全称 / 检索条件映射、数据口径。
@@ -89,6 +105,12 @@ python scripts/compose_report.py \
   --output output/store_search.json \
   --report-output output/store_search.html
 
+# 检索模式 — 明细分页预算（默认 --max-pages 1，按 total 驱动翻页）
+python scripts/compose_report.py \
+  --store-name "示例咖啡" --page-size 50 --max-pages 2 \
+  --output output/store_search.json \
+  --report-output output/store_search.html
+
 # 手动调单个工具
 python scripts/mcp_client.py call-tool \
   --tool store_bigdata_company_restaurant_branches \
@@ -108,6 +130,6 @@ python scripts/render_report.py --input output/store.json --output output/store.
 - `core_analysis`：餐饮品牌门店（表）、餐饮门店分布统计（表）、线下门店检索明细（表）。
 - `representative_records`：代表性门店 / 品牌记录。
 - `insights`：结构化解读（门店资产规模 / 品牌矩阵 / 地域覆盖 / 门店集中度）。
-- `data_source`：MCP server、数据产品、生成时间、是否 dry-run、模式。
+- `data_source`：MCP server、数据产品、生成时间、是否 dry-run、模式、明细分页披露（pagination）与调用去重统计（call_usage）。
 
 若 API 调用失败，明确报出缺失的配置 / 缺失的工具 / MCP 错误 / 参数校验错误 / 上游网络错误，给出 dry-run 命令或配置步骤，绝不暴露密钥。

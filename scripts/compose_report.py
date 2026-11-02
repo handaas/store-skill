@@ -22,10 +22,9 @@ import argparse
 import datetime as dt
 import json
 import pathlib
-import sys
-from typing import Any, Dict, List, Mapping, Optional
+from typing import Any, Dict, List, Mapping, Optional, Sequence
 
-from common import REPORT_BANNER, REPORT_TYPE, json_dumps, load_json_file, print_json
+from common import REPORT_BANNER, REPORT_TYPE, attach_pagination, call_tool_once, collect_detail_pages, json_dumps, load_json_file, paid_call_scope, print_json
 import mcp_client
 from render_report import render_html, render_markdown, html_to_pdf
 
@@ -44,44 +43,71 @@ T_BRANCH_STATS = "store_bigdata_restaurant_branch_stats"
 
 
 def _is_api_error(value: Any) -> bool:
-    """Detect MCP API error responses (not empty data, but actual failures like 405)."""
+    """Return True for failed MCP/tool envelopes, never for a successful empty result."""
     if value is None:
         return False
     if isinstance(value, str):
-        return any(s in value for s in ("接口调用失败", "查询失败", "状态码：4", "状态码：5"))
+        text = value.strip().lower()
+        return any(marker in text for marker in (
+            "接口调用失败", "查询失败", "状态码：4", "状态码：5",
+            "error executing tool", "validation error", "密钥错误", "鉴权失败",
+        ))
+    if isinstance(value, list):
+        return any(_is_api_error(item) for item in value)
     if isinstance(value, dict):
-        for v in value.values():
-            if isinstance(v, str) and any(s in v for s in ("接口调用失败", "查询失败", "状态码：4", "状态码：5")):
-                return True
+        if value.get("isError") is True or value.get("is_error") is True or value.get("success") is False:
+            return True
+        if value.get("_error") not in (None, "", False) or value.get("error") not in (None, "", False):
+            return True
+        if set(value) <= {"text", "code", "status", "message", "msg"} and value.get("text"):
+            text = str(value.get("text")).strip()
+            if "查询数据为空" in text:
+                return False
+            return True
+        return any(
+            _is_api_error(value.get(key))
+            for key in ("text", "message", "msg", "detail", "content")
+            if key in value
+        )
     return False
 
+
 def _first_list(value: Any) -> List[Any]:
-    if isinstance(value, list):
-        return value
-    if isinstance(value, dict):
-        if _is_api_error(value):
-            return []
-        # Treat upstream empty responses ({"text": "查询数据为空"}) and internal
-        # skip markers ({"_error": "未指定..."}) as empty so tables don't render
-        # a phantom all-"-" row.
-        if set(value.keys()) <= {"text", "error", "code", "_error"} and not any(
-            isinstance(value.get(k), list) for k in ("resultList", "storeList", "list", "items", "data")
-        ):
-            return []
-        for key in ("resultList", "storeList", "list", "items", "data"):
-            if isinstance(value.get(key), list):
-                return value[key]
-    if value in (None, "", {}):
+    """Extract business records without turning envelopes into phantom rows."""
+    if _is_api_error(value):
         return []
-    return [value]
+    if isinstance(value, list):
+        cleaned: List[Any] = []
+        for item in value:
+            if _is_api_error(item) or item in (None, "", {}, []):
+                continue
+            if isinstance(item, dict):
+                business_values = [v for k, v in item.items() if k not in {"total", "count", "code", "message", "msg"}]
+                if business_values and all(v in (None, "", "-", [], {}) for v in business_values):
+                    continue
+            cleaned.append(item)
+        return cleaned
+    if isinstance(value, dict):
+        for key in ("resultList", "storeList", "list", "items", "data", "records"):
+            nested = value.get(key)
+            if isinstance(nested, list):
+                return nested
+        envelope_keys = {
+            "text", "message", "msg", "code", "status", "success", "total", "count",
+            "pageIndex", "pageSize", "isError", "is_error", "content", "structuredContent",
+            "structured_content", "_error", "error",
+        }
+        if set(value) <= envelope_keys:
+            return []
+        if value:
+            return [value]
+    return []
 
 
 def _first_record(value: Any) -> Dict[str, Any]:
     for record in _first_list(value):
-        if isinstance(record, dict):
+        if isinstance(record, dict) and not _is_api_error(record):
             return record
-    if isinstance(value, dict):
-        return value
     return {}
 
 
@@ -98,6 +124,19 @@ def _text(value: Any, limit: int = 0) -> str:
     return t
 
 
+def _public_value(value: Any) -> str:
+    """Render an upstream scalar/list/address dict without inventing fields."""
+    if isinstance(value, list):
+        return "、".join(_text(item) for item in value if item not in (None, "", "-"))
+    if isinstance(value, dict):
+        direct = value.get("value") or value.get("address")
+        if direct:
+            return _text(direct)
+        parts = [value.get(key) for key in ("province", "city", "district") if value.get(key)]
+        return "".join(_text(item) for item in parts)
+    return _text(value)
+
+
 def _int(value: Any) -> Optional[int]:
     try:
         return int(value)
@@ -107,21 +146,28 @@ def _int(value: Any) -> Optional[int]:
 
 def _safe_call(tool: str, arguments: Dict[str, Any]) -> Any:
     try:
-        result = mcp_client.call_tool(tool, arguments)
+        result = call_tool_once(mcp_client.call_tool, tool, arguments)
         if _is_api_error(result):
             return {"_error": "API错误"}
         return result
-    except Exception as exc:
-        return {"_error": str(exc)}
+    except Exception:
+        return {"_error": "调用失败"}
 
 
 def _safe_total(payload: Any, *keys: str) -> Any:
     if isinstance(payload, dict):
+        if _is_api_error(payload):
+            return None
         for key in keys:
             if payload.get(key) is not None:
                 return payload.get(key)
         return payload.get("total")
     return None
+
+
+def _failed_tools(sources: Mapping[str, Any]) -> List[str]:
+    """Return only safe tool/dimension labels for failed calls."""
+    return [name for name, payload in sources.items() if _is_api_error(payload)]
 
 
 # --------------------------------------------------------------------------- #
@@ -135,11 +181,21 @@ def resolve_enterprise_name(raw: str) -> Dict[str, Any]:
     if any(suffix in raw for suffix in ("公司", "集团", "有限", "院", "厂", "中心", "事务所", "合作社", "合伙")):
         return {"keyword": raw, "enterprise": raw, "resolved": True, "reason": "视为企业全称"}
     fuzzy = _safe_call(T_FUZZY, {"matchKeyword": raw, "pageSize": 1})
+    fuzzy_total = _int(_safe_total(fuzzy))
+    if fuzzy_total is not None and fuzzy_total > 1:
+        return {
+            "keyword": raw,
+            "enterprise": raw,
+            "resolved": False,
+            "reason": f"模糊查询返回多候选（{fuzzy_total}），未静默选择首条",
+            "fuzzy_total": fuzzy_total,
+            "fuzzy_requested": True,
+        }
     record = _first_record(fuzzy)
     name = str(record.get("name") or "").strip()
     if name:
-        return {"keyword": raw, "enterprise": name, "resolved": True, "reason": "由关键词模糊查询补全", "fuzzy_total": _int(_safe_total(fuzzy)), "record": record}
-    return {"keyword": raw, "enterprise": raw, "resolved": False, "reason": "模糊查询未命中企业全称，按关键词直查"}
+        return {"keyword": raw, "enterprise": name, "resolved": True, "reason": "由关键词模糊查询补全", "fuzzy_total": _int(_safe_total(fuzzy)), "record": record, "fuzzy_requested": True}
+    return {"keyword": raw, "enterprise": raw, "resolved": False, "reason": "模糊查询未命中企业全称，按关键词直查", "fuzzy_requested": True}
 
 
 # --------------------------------------------------------------------------- #
@@ -200,7 +256,7 @@ def _enrich_metrics_with_profile(metrics: List[Dict[str, Any]], record: Any) -> 
 def _derive_core_metrics(metrics: List[Dict[str, Any]], core: Mapping[str, Any]) -> List[Dict[str, Any]]:
     """Derive additional metrics from core analysis sections."""
     brands = core.get("brand_records", []) if isinstance(core, dict) else []
-    branches = core.get("branch_stats", []) if isinstance(core, dict) else []
+    branches = core.get("branch_city_stats", []) if isinstance(core, dict) else []
     if isinstance(brands, list) and brands:
         categories = set(str(r.get("一级类别", "")) for r in brands if r.get("一级类别"))
         if categories:
@@ -243,6 +299,7 @@ def build_subject(mode: str, raw: str, resolved: Mapping[str, Any], keyword_type
             "matchKeyword": resolved.get("enterprise") or raw,
             "resolved": bool(resolved.get("resolved")),
             "resolve_reason": resolved.get("reason", ""),
+            "fuzzy_requested": bool(resolved.get("fuzzy_requested")),
         })
     else:
         subject.update({
@@ -252,6 +309,7 @@ def build_subject(mode: str, raw: str, resolved: Mapping[str, Any], keyword_type
             "brand": filters.get("brand") or "",
             "category": filters.get("category") or "",
             "address": filters.get("address") or "",
+            "address_value": filters.get("address_value") or "",
         })
     return subject
 
@@ -309,19 +367,33 @@ def build_metrics(branches: Any, branch_stats: Any, offline_search: Any) -> List
     return [m for m in metrics if m.get("value") not in ("", None, "-")]
 
 
+def requested_products(subject: Mapping[str, Any]) -> List[Dict[str, str]]:
+    if subject.get("mode") == "search":
+        return [{"name": "线下门店检索", "product_id": "66ed53be15858a879f40242f"}]
+    products: List[Dict[str, str]] = []
+    if subject.get("fuzzy_requested"):
+        products.append({"name": "企业模糊查询", "product_id": "675cea1f0e009a9ea37edaa1"})
+    if subject.get("resolved") and not subject.get("blocked_reason"):
+        products.append({"name": "餐饮品牌门店", "product_id": "66f3d8bf64bd2be52d68a0e9"})
+    return products
+
+
 def build_caliber(subject: Mapping[str, Any]) -> Dict[str, Any]:
     if subject.get("mode") == "enterprise":
         match_target = subject.get("enterprise") or subject.get("match_raw")
-        match_type = f"店铺大数据按企业主体匹配（keywordType={subject.get('keywordType', 'name')}）；门店分布统计按品牌 id 匹配"
+        match_type = f"店铺大数据按企业主体匹配（keywordType={subject.get('keywordType', 'name')}）"
     else:
-        match_target = "、".join([v for v in (subject.get("store_name"), subject.get("brand"), subject.get("category")) if v]) or "线下门店检索条件"
-        match_type = "店铺大数据按门店检索条件匹配（店铺名称 / 经营品牌 / 店铺分类）"
+        match_target = "、".join([v for v in (subject.get("store_name"), subject.get("brand"), subject.get("category"), subject.get("address"), subject.get("address_value")) if v]) or "线下门店检索条件"
+        match_type = "店铺大数据按门店检索条件匹配（店铺名称 / 经营品牌 / 店铺分类 / 地区 / 地址）"
+    products = [item["name"] for item in requested_products(subject)]
+    if products == ["企业模糊查询"]:
+        match_type = "仅执行企业模糊查询；主体未唯一确认，未调用餐饮品牌门店"
     return {
         "match_target": match_target,
         "match_type": match_type,
-        "data_scope": "餐饮品牌门店、餐饮门店分布统计、线下门店检索明细",
-        "products": ["餐饮品牌门店", "餐饮门店分布统计", "线下门店检索"],
-        "limit": "数据来自店铺公开数据库；少量字段可能存在更新延迟。",
+        "data_scope": "、".join(products) or "主体未确认，未调用业务数据产品",
+        "products": products,
+        "limit": "数据来自店铺公开数据库；少量字段可能存在更新延迟。城市与省份分布分别计算，不混合集中度；多品牌检索值是查询条件，不代表每条记录同时命中全部品牌。",
     }
 
 
@@ -344,35 +416,32 @@ def build_core_analysis(branches: Any, branch_stats: Any, offline_search: Any, s
             "商场店数": _text(item.get("mallStoreNum")) or "-",
         })
 
-    # 城市/省份分布：branches 响应里每个品牌已带 brandStoreCityStats /
-    # brandStoreProvinceStats（[{city/province, count}]），无需再调 branch_stats。
-    # 取门店数最大的品牌（主力品牌）作为分布主体，避免多品牌重复计数。
-    stats_rows: List[Dict[str, Any]] = []
+    # 城市与省份保持两个独立统计口径，禁止混合计算集中度。
+    city_rows: List[Dict[str, Any]] = []
+    province_rows: List[Dict[str, Any]] = []
     top_brand_for_stats: Dict[str, Any] = {}
-    if brand_rows:
+    source_brands = _first_list(b.get("storeList") or b)
+    if source_brands:
         try:
-            top_brand_for_stats = max(
-                _first_list(b.get("storeList") or b),
-                key=lambda x: _int((x or {}).get("brandStoreNum")) or 0,
-            )
+            top_brand_for_stats = max(source_brands, key=lambda x: _int((x or {}).get("brandStoreNum")) or 0)
         except (TypeError, ValueError):
             top_brand_for_stats = {}
     if isinstance(top_brand_for_stats, dict):
         for item in _first_list(top_brand_for_stats.get("brandStoreCityStats")):
             if isinstance(item, dict):
-                stats_rows.append({"地区类型": "城市", "地区": _text(item.get("city")) or "-", "门店数量": _text(item.get("count")) or "-"})
+                city_rows.append({"城市": _text(item.get("city")) or "-", "门店数量": _text(item.get("count")) or "-"})
         for item in _first_list(top_brand_for_stats.get("brandStoreProvinceStats")):
             if isinstance(item, dict):
-                stats_rows.append({"地区类型": "省份", "地区": _text(item.get("province")) or "-", "门店数量": _text(item.get("count")) or "-"})
-    # 兜底：若 branches 未带分布数据而 branch_stats 接口（旧逻辑）有数据，则合并使用。
-    bs = branch_stats if isinstance(branch_stats, dict) else {}
-    if not stats_rows:
+                province_rows.append({"省份": _text(item.get("province")) or "-", "门店数量": _text(item.get("count")) or "-"})
+    bs = branch_stats if isinstance(branch_stats, dict) and not _is_api_error(branch_stats) else {}
+    if not city_rows:
         for item in _first_list(bs.get("cityStatsList")):
             if isinstance(item, dict):
-                stats_rows.append({"地区类型": "城市", "地区": _text(item.get("city")) or "-", "门店数量": _text(item.get("count")) or "-"})
+                city_rows.append({"城市": _text(item.get("city")) or "-", "门店数量": _text(item.get("count")) or "-"})
+    if not province_rows:
         for item in _first_list(bs.get("provinceStatsList")):
             if isinstance(item, dict):
-                stats_rows.append({"地区类型": "省份", "地区": _text(item.get("province")) or "-", "门店数量": _text(item.get("count")) or "-"})
+                province_rows.append({"省份": _text(item.get("province")) or "-", "门店数量": _text(item.get("count")) or "-"})
 
     # 线下门店检索明细表
     offline_rows = []
@@ -389,36 +458,45 @@ def build_core_analysis(branches: Any, branch_stats: Any, offline_search: Any, s
             "商圈": _text(item.get("ooStoreTradingArea")) or "-",
             "人均价格": _text(item.get("ooStorePerCapitaConsumption")) or "-",
             "店铺排名": _text(item.get("ooStoreRank")) or "-",
+            "实际品牌": _public_value(
+                item.get("ooStoreBrandList") or item.get("ooStoreBrand") or item.get("brandName")
+            ) or "-",
+            "实际地区": _public_value(item.get("address") or item.get("ooStoreAddress")) or "-",
+            "实际地址": _public_value(item.get("ooStoreAddressValue") or item.get("addressValue")) or "-",
+            "查询品牌条件": _text(subject.get("brand")) or "-",
+            "查询地区条件": _text(subject.get("address")) or "-",
+            "查询地址条件": _text(subject.get("address_value")) or "-",
+            "品牌匹配验证": ("以上游实际品牌字段为准" if item.get("ooStoreBrandList") or item.get("ooStoreBrand") or item.get("brandName")
+                           else ("上游未返回实际品牌，无法逐条验证多品牌条件" if subject.get("brand") else "未设置品牌条件")),
+            "地址匹配验证": ("以上游实际地区/地址字段为准" if item.get("address") or item.get("ooStoreAddress") or item.get("ooStoreAddressValue") or item.get("addressValue")
+                           else ("上游未返回实际地区/地址，无法逐条验证地区条件" if subject.get("address") or subject.get("address_value") else "未设置地址条件")),
         })
 
-    # 统计覆盖的城市/省份数（来自主力品牌的分布）。
-    city_count = sum(1 for r in stats_rows if r.get("地区类型") == "城市")
-    prov_count = sum(1 for r in stats_rows if r.get("地区类型") == "省份")
-
-    sections = []
+    sections: List[Dict[str, Any]] = []
     if subject.get("mode") == "enterprise":
         if brand_rows:
             sections.append({"key": "brand_records", "title": "餐饮品牌门店", "kind": "table",
-                             "note": f"共 {len(brand_rows)} 个品牌，展示前 N 个",
+                             "note": f"展示 {len(brand_rows)} 个品牌",
                              "columns": [("品牌名称", "品牌名称"), ("一级类别", "一级类别"), ("二级类别", "二级类别"), ("起源地", "起源地"), ("门店数", "门店数"), ("商场店数", "商场店数")]})
-        if stats_rows:
-            main_brand = top_brand_for_stats.get("brandName") if isinstance(top_brand_for_stats, dict) else None
-            note_brand = f"（主力品牌“{main_brand}”）" if main_brand else ""
-            sections.append({"key": "branch_stats", "title": "餐饮门店城市/省份分布", "kind": "bar",
-                             "note": f"按主力品牌统计门店地域分布{note_brand}（覆盖城市 {city_count} / 省份 {prov_count}）",
-                             "chart": {"name": "地区", "value": "门店数量", "orient": "h"},
-                             "columns": [("地区类型", "地区类型"), ("地区", "地区"), ("门店数量", "门店数量")]})
+        main_brand = top_brand_for_stats.get("brandName") if isinstance(top_brand_for_stats, dict) else None
+        note_brand = f"；数据对应主力品牌“{main_brand}”" if main_brand else ""
+        if city_rows:
+            sections.append({"key": "branch_city_stats", "title": "餐饮门店城市分布", "kind": "bar",
+                             "note": f"城市口径单独统计{note_brand}", "chart": {"name": "城市", "value": "门店数量", "orient": "h"},
+                             "columns": [("城市", "城市"), ("门店数量", "门店数量")]})
+        if province_rows:
+            sections.append({"key": "branch_province_stats", "title": "餐饮门店省份分布", "kind": "bar",
+                             "note": f"省份口径单独统计{note_brand}", "chart": {"name": "省份", "value": "门店数量", "orient": "h"},
+                             "columns": [("省份", "省份"), ("门店数量", "门店数量")]})
     if offline_rows:
-        sections.append({"key": "offline_records", "title": "线下门店检索明细", "kind": "table",
-                         "note": f"本次检索命中 {offline_total if offline_total is not None else '若干'} 条，展示前 {len(brand_rows)} 条",
-                         "columns": [("店铺名称", "店铺名称"), ("店铺分类", "店铺分类"), ("店铺状态", "店铺状态"), ("商圈", "商圈"), ("人均价格", "人均价格"), ("店铺排名", "店铺排名")]})
+        note = (f"本次命中 {offline_total} 条，展示前 {len(offline_rows)} 条" if offline_total is not None
+                else f"上游未返回总量，展示前 {len(offline_rows)} 条")
+        sections.append({"key": "offline_records", "title": "线下门店检索明细", "kind": "table", "note": note,
+                         "columns": [("店铺名称", "店铺名称"), ("实际品牌", "实际品牌"), ("店铺分类", "店铺分类"), ("店铺状态", "店铺状态"), ("实际地区", "实际地区"), ("实际地址", "实际地址"), ("商圈", "商圈"), ("人均价格", "人均价格"), ("店铺排名", "店铺排名"), ("品牌匹配验证", "品牌匹配验证"), ("地址匹配验证", "地址匹配验证")]})
 
-    return {
-        "sections": sections,
-        "brand_records": brand_rows,
-        "branch_stats": stats_rows,
-        "offline_records": offline_rows,
-    }
+    return {"sections": sections, "brand_records": brand_rows, "branch_city_stats": city_rows,
+            "branch_province_stats": province_rows, "offline_records": offline_rows}
+
 
 
 def build_records(core: Mapping[str, Any]) -> List[Dict[str, Any]]:
@@ -430,8 +508,10 @@ def build_records(core: Mapping[str, Any]) -> List[Dict[str, Any]]:
         })
     for item in core.get("offline_records") or []:
         out.append({
-            "品牌名称": item.get("店铺名称") or "-",
-            "门店数": item.get("店铺状态") or "-",
+            "店铺名称": item.get("店铺名称") or "-",
+            "店铺状态": item.get("店铺状态") or "-",
+            "实际品牌": item.get("实际品牌") or "-",
+            "实际地址": item.get("实际地址") or "-",
         })
     return out[:20]
 
@@ -441,9 +521,9 @@ def _concentration(rows: List[Mapping[str, Any]], top_n: int = 3) -> Dict[str, A
     items = []
     for r in rows:
         try:
-            items.append((r.get("地区", "-"), float(str(r.get("门店数量", 0)).replace(",", ""))))
+            items.append((r.get("城市") or r.get("省份") or "-", float(str(r.get("门店数量", 0)).replace(",", ""))))
         except (TypeError, ValueError):
-            items.append((r.get("地区", "-"), 0.0))
+            items.append((r.get("城市") or r.get("省份") or "-", 0.0))
     total = sum(v for _, v in items)
     if not total:
         return {}
@@ -452,7 +532,7 @@ def _concentration(rows: List[Mapping[str, Any]], top_n: int = 3) -> Dict[str, A
     return {"top": items[0][0], "top_type": "", "top_share": items[0][1] / total * 100, "cr": cr, "total": total}
 
 
-def build_insights(subject: Mapping[str, Any], core: Mapping[str, Any], metrics: List[Mapping[str, Any]]) -> List[Dict[str, Any]]:
+def build_insights(subject: Mapping[str, Any], core: Mapping[str, Any], metrics: Sequence[Mapping[str, Any]]) -> List[Dict[str, Any]]:
     insights: List[Dict[str, Any]] = []
     metric_map = {m["label"]: str(m["value"]) for m in metrics}
     total = metric_map.get("门店总数(汇总)") or metric_map.get("旗下门店总数")
@@ -483,22 +563,16 @@ def build_insights(subject: Mapping[str, Any], core: Mapping[str, Any], metrics:
         insights.append({
             "feature": "线下门店检索",
             "evidence": f"按检索条件命中线下门店 {offline_n} 家。",
-            "interpretation": "检索命中量反映目标门店的密度；可结合商圈与人均消费筛选高价值门店。",
+            "interpretation": "命中量仅反映当前筛选条件下的返回规模；多品牌条件表示查询条件，不代表每条记录同时命中全部品牌。",
         })
-    stats_rows = core.get("branch_stats") or []
-    if stats_rows:
-        conc = _concentration(stats_rows, 3)
+    city_rows = core.get("branch_city_stats") or []
+    if city_rows:
+        conc = _concentration(city_rows, 3)
         if conc:
-            # find type of top region
-            top_type = "-"
-            for r in stats_rows:
-                if r.get("地区") == conc["top"]:
-                    top_type = r.get("地区类型", "-")
-                    break
             insights.append({
-                "feature": "门店集中度",
-                "evidence": f"门店分布最多的{top_type}为“{conc['top']}”（占比约 {conc['top_share']:.0f}%），前 3 地区合计 {conc['cr']:.0f}%（CR3）。",
-                "interpretation": "门店集中度反映品牌核心市场；CR3 越高代表深耕优势区域，但单一区域依赖也意味着区域收缩风险；分散则代表全国化布局。",
+                "feature": "城市门店集中度",
+                "evidence": f"城市门店分布以“{conc['top']}”最多（占比约 {conc['top_share']:.0f}%），城市 CR3 为 {conc['cr']:.0f}%。",
+                "interpretation": "该集中度仅在城市口径内计算，不与省份统计混合；且只代表所选主力品牌，不外推其他品牌。",
             })
     if not insights:
         insights.append({
@@ -509,7 +583,7 @@ def build_insights(subject: Mapping[str, Any], core: Mapping[str, Any], metrics:
     return insights
 
 
-def build_abstract(subject: Mapping[str, Any], core: Mapping[str, Any], metrics: List[Mapping[str, Any]]) -> str:
+def build_abstract(subject: Mapping[str, Any], core: Mapping[str, Any], metrics: Sequence[Mapping[str, Any]]) -> str:
     if subject.get("mode") == "enterprise":
         name = subject.get("enterprise") or subject.get("match_raw") or "目标企业"
         parts = [f"本报告以“{name}”为分析对象，基于店铺公开数据，系统呈现企业旗下餐饮品牌门店、餐饮门店分布统计与线下门店检索明细。"]
@@ -545,7 +619,7 @@ def build_dry_run_payload(mode: str, raw: str, keyword_type: str, filters: Mappi
 # Assembly
 # --------------------------------------------------------------------------- #
 
-def _assemble(subject: Mapping[str, Any], core: Mapping[str, Any], metrics: List[Mapping[str, Any]], *, dry_run: bool) -> Dict[str, Any]:
+def _assemble(subject: Mapping[str, Any], core: Mapping[str, Any], metrics: Sequence[Mapping[str, Any]], *, dry_run: bool, tool_errors: Optional[List[str]] = None) -> Dict[str, Any]:
     abstract = build_abstract(subject, core, metrics)
     records = build_records(core)
     insights = build_insights(subject, core, metrics)
@@ -565,6 +639,12 @@ def _assemble(subject: Mapping[str, Any], core: Mapping[str, Any], metrics: List
         "coverage_pct": round(populated / max(1, total_secs) * 100),
     }
     if populated == 0:
+        if subject.get("blocked_reason"):
+            abstract = f"主体未唯一解析，已停止后续数据产品调用：{subject.get('blocked_reason')}。本报告不包含主体画像或业务结论。"
+        elif tool_errors:
+            abstract = "本次查询未获得有效核心数据，且存在上游调用失败维度：" + "、".join(tool_errors) + "。不据此生成业务规模或市场结论。"
+        else:
+            abstract = "本次查询未返回有效核心数据；报告仅记录查询边界，不生成业务规模或市场结论。"
         import sys
         print("⚠️ 质量门禁警告: 所有核心分析维度均无数据", file=sys.stderr)
     if subject.get("mode") == "enterprise":
@@ -579,7 +659,7 @@ def _assemble(subject: Mapping[str, Any], core: Mapping[str, Any], metrics: List
         "subject": dict(subject),
         "abstract": abstract,
         "summary": abstract,
-        "executive_summary": [item["interpretation"] for item in insights][:5] or [abstract[:120]],
+        "executive_summary": ((["主体解析受阻：" + str(subject.get("blocked_reason")) + "；已停止主体数据调用。"] if subject.get("blocked_reason") else (["数据缺口：" + "、".join(tool_errors or []) + "未成功返回，本报告仅呈现成功维度。"] if tool_errors else [])) + ([item["interpretation"] for item in insights][:5] or [abstract[:120]])),
         "metrics": list(metrics),
         "caliber": build_caliber(subject),
         "core_analysis": dict(core),
@@ -587,21 +667,25 @@ def _assemble(subject: Mapping[str, Any], core: Mapping[str, Any], metrics: List
         "insights": insights,
         "data_source": {
             "mcp_server": "store-mcp-server",
-            "products": [
-                {"name": "餐饮品牌门店", "product_id": "66f3d8bf64bd2be52d68a0e9"},
-                {"name": "企业模糊查询", "product_id": "675cea1f0e009a9ea37edaa1"},
-                {"name": "线下门店检索", "product_id": "66ed53be15858a879f40242f"},
-                {"name": "餐饮门店分布统计", "product_id": "66f3d8c064bd2be52d68a159"},
-            ],
+            "products": requested_products(subject),
             "generated_at": dt.datetime.now().astimezone().isoformat(timespec="seconds"),
             "dry_run": dry_run,
+            "tool_errors": list(tool_errors or []),
+            "blocked_reason": subject.get("blocked_reason"),
             "quality_report": quality_report,
         },
     }
 
 
+@paid_call_scope
 def build_payload_enterprise(raw: str, keyword_type: str, page_size: int) -> Dict[str, Any]:
     resolved = resolve_enterprise_name(raw)
+    if not resolved.get("resolved"):
+        subject = build_subject("enterprise", raw, resolved, keyword_type, {})
+        subject["blocked_reason"] = resolved.get("reason") or "企业主体未唯一解析"
+        report = _assemble(subject, build_core_analysis({}, {}, {}, subject), [], dry_run=False)
+        report["data_source"]["blocked_reason"] = subject["blocked_reason"]
+        return report
     enterprise = resolved["enterprise"]
     mk_args: Dict[str, Any] = {"matchKeyword": enterprise, "keywordType": keyword_type}
     branches = _safe_call(T_BRANCHES, mk_args)
@@ -615,11 +699,14 @@ def build_payload_enterprise(raw: str, keyword_type: str, page_size: int) -> Dic
     core = build_core_analysis(branches, branch_stats, {}, subject)
     metrics = build_metrics(branches, branch_stats, {})
     _derive_core_metrics(metrics, core if isinstance(core, dict) else {})
-    return _assemble(subject, core, metrics, dry_run=False)
+    return _assemble(subject, core, metrics, dry_run=False, tool_errors=_failed_tools({"餐饮品牌门店": branches}))
 
 
-def build_payload_search(filters: Mapping[str, Any], page_size: int) -> Dict[str, Any]:
-    search_args: Dict[str, Any] = {"pageIndex": 1, "pageSize": page_size}
+@paid_call_scope
+def build_payload_search(filters: Mapping[str, Any], page_size: int, max_pages: int = 1) -> Dict[str, Any]:
+    if isinstance(max_pages, bool) or not isinstance(max_pages, int) or max_pages < 1:
+        raise ValueError("max_pages 必须为正整数")
+    search_args: Dict[str, Any] = {"pageSize": page_size}
     if filters.get("store_name"):
         search_args["ooStoreName"] = filters["store_name"]
     if filters.get("brand"):
@@ -628,15 +715,18 @@ def build_payload_search(filters: Mapping[str, Any], page_size: int) -> Dict[str
         search_args["ooStoreCalClassification"] = filters["category"]
     if filters.get("address"):
         search_args["address"] = filters["address"]
-    offline_search = _safe_call(T_OFFLINE_SEARCH, search_args)
+    if filters.get("address_value"):
+        search_args["ooStoreAddressValue"] = filters["address_value"]
+    offline_search = collect_detail_pages(_safe_call, T_OFFLINE_SEARCH, search_args,
+                                          get_rows=_first_list, get_total=_safe_total, is_error=_is_api_error,
+                                          max_pages=max_pages)
 
     raw = filters.get("store_name") or filters.get("brand") or filters.get("category") or ""
     subject = build_subject("search", raw, {}, "name", filters)
     core = build_core_analysis({}, {}, offline_search, subject)
     metrics = build_metrics({}, {}, offline_search)
-    # --- Enterprise profile enrichment (from fuzzy_search) ---
-    _enrich_metrics_with_profile(metrics, resolved.get("record") if isinstance(resolved, dict) else None)
-    return _assemble(subject, core, metrics, dry_run=False)
+    return attach_pagination(_assemble(subject, core, metrics, dry_run=False, tool_errors=_failed_tools({"线下门店检索": offline_search})),
+                             {"线下门店检索": offline_search})
 
 
 # --------------------------------------------------------------------------- #
@@ -651,16 +741,20 @@ def main() -> None:
     parser.add_argument("--brand", default=None, help="经营品牌（启用检索模式，多选用英文分号分隔）")
     parser.add_argument("--category", default=None, help="店铺分类（启用检索模式，格式如 汽车服务,汽车维修；多选用英文分号分隔）")
     parser.add_argument("--address", default=None, help="地区过滤（检索模式），如 广东省,广州市")
+    parser.add_argument("--address-value", default=None, help="店铺地址关键词（检索模式）")
     parser.add_argument("--page-size", type=int, default=10, help="分页大小（最多 50）")
+    parser.add_argument("--max-pages", type=int, default=1, help="检索模式：线下门店检索明细的付费调用页数上限，默认1；先按 total 估算，只有必要且已授权时提高")
     parser.add_argument("--dry-run", action="store_true", help="不调用真实 MCP，使用样例数据组装报告骨架")
     parser.add_argument("--output", help="输出 JSON 路径；省略则打印到 stdout")
     parser.add_argument("--report-output", help="同时输出 HTML 报告（.html）与 Markdown 报告（.md）")
     parser.add_argument("--pdf-output", help="额外输出 PDF 报告（.pdf）；需要 Playwright + Chromium")
     args = parser.parse_args()
 
-    search_mode = any([args.store_name, args.brand, args.category])
+    search_mode = any([args.store_name, args.brand, args.category, args.address, args.address_value])
     if not args.enterprise and not search_mode:
         parser.error("必须提供 --enterprise（企业模式）或 --store-name/--brand/--category 之一（检索模式）")
+    if args.max_pages < 1:
+        raise SystemExit("--max-pages 必须为正整数")
 
     if args.enterprise:
         mode = "enterprise"
@@ -674,6 +768,7 @@ def main() -> None:
         "brand": args.brand,
         "category": args.category,
         "address": args.address,
+        "address_value": args.address_value,
         "enterprise": args.enterprise,
     }
 
@@ -682,7 +777,7 @@ def main() -> None:
     elif mode == "enterprise":
         payload = build_payload_enterprise(args.enterprise, args.keyword_type, args.page_size)
     else:
-        payload = build_payload_search(filters, args.page_size)
+        payload = build_payload_search(filters, args.page_size, args.max_pages)
 
     if args.output:
         out = pathlib.Path(args.output).expanduser()
