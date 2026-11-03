@@ -1,0 +1,164 @@
+[
+  {
+    "tool": "store_bigdata_company_restaurant_branches",
+    "domain": null,
+    "arguments": {
+      "matchKeyword": "四川海底捞餐饮股份有限公司",
+      "keywordType": "name"
+    },
+    "invocation_id": "1793070087495749000",
+    "elapsed_seconds": 0.702,
+    "status": "data",
+    "error_category": null,
+    "result_type": "dict",
+    "top_level_fields": [
+      "storeList",
+      "storeTotal"
+    ],
+    "row_count": null,
+    "reported_total": null,
+    "numeric_evidence": [
+      {
+        "path": "storeList[0].brandStoreCityStats[0].count",
+        "value": 33
+      },
+      {
+        "path": "storeList[0].brandStoreCityStats[1].count",
+        "value": 5
+      },
+      {
+        "path": "storeList[0].brandStoreCityStats[2].count",
+        "value": 1
+      },
+      {
+        "path": "storeList[0].brandStoreCityStats[3].count",
+        "value": 1
+      },
+      {
+        "path": "storeList[0].brandStoreCityStats[4].count",
+        "value": 1
+      },
+      {
+        "path": "storeList[0].brandStoreNum",
+        "value": 50
+      },
+      {
+        "path": "storeList[0].brandStoreProvinceStats[0].count",
+        "value": 39
+      },
+      {
+        "path": "storeList[0].brandStoreProvinceStats[1].count",
+        "value": 1
+      },
+      {
+        "path": "storeList[0].brandStoreProvinceStats[2].count",
+        "value": 1
+      },
+      {
+        "path": "storeList[0].mallStoreNum",
+        "value": 16
+      },
+      {
+        "path": "storeList[1].brandStoreCityStats[0].count",
+        "value": 4
+      },
+      {
+        "path": "storeList[1].brandStoreCityStats[1].count",
+        "value": 4
+      },
+      {
+        "path": "storeList[1].brandStoreCityStats[2].count",
+        "value": 3
+      },
+      {
+        "path": "storeList[1].brandStoreCityStats[3].count",
+        "value": 3
+      },
+      {
+        "path": "storeList[1].brandStoreCityStats[4].count",
+        "value": 3
+      },
+      {
+        "path": "storeList[1].brandStoreNum",
+        "value": 114
+      },
+      {
+        "path": "storeList[1].brandStoreProvinceStats[0].count",
+        "value": 12
+      },
+      {
+        "path": "storeList[1].brandStoreProvinceStats[1].count",
+        "value": 10
+      },
+      {
+        "path": "storeList[1].brandStoreProvinceStats[2].count",
+        "value": 8
+      },
+      {
+        "path": "storeList[1].brandStoreProvinceStats[3].count",
+        "value": 7
+      },
+      {
+        "path": "storeList[1].brandStoreProvinceStats[4].count",
+        "value": 6
+      },
+      {
+        "path": "storeList[1].mallStoreNum",
+        "value": 16
+      },
+      {
+        "path": "storeList[2].brandStoreCityStats[0].count",
+        "value": 125
+      },
+      {
+        "path": "storeList[2].brandStoreCityStats[1].count",
+        "value": 108
+      },
+      {
+        "path": "storeList[2].brandStoreCityStats[2].count",
+        "value": 81
+      },
+      {
+        "path": "storeList[2].brandStoreCityStats[3].count",
+        "value": 62
+      },
+      {
+        "path": "storeList[2].brandStoreCityStats[4].count",
+        "value": 60
+      },
+      {
+        "path": "storeList[2].brandStoreNum",
+        "value": 3005
+      },
+      {
+        "path": "storeList[2].brandStoreProvinceStats[0].count",
+        "value": 238
+      },
+      {
+        "path": "storeList[2].brandStoreProvinceStats[1].count",
+        "value": 191
+      },
+      {
+        "path": "storeList[2].brandStoreProvinceStats[2].count",
+        "value": 145
+      },
+      {
+        "path": "storeList[2].brandStoreProvinceStats[3].count",
+        "value": 122
+      },
+      {
+        "path": "storeList[2].brandStoreProvinceStats[4].count",
+        "value": 108
+      },
+      {
+        "path": "storeList[2].mallStoreNum",
+        "value": 2379
+      },
+      {
+        "path": "storeTotal",
+        "value": 3
+      }
+    ],
+    "response_sha256": "9d83df8bfd2423b35217f0dd3c4abe6ab9a7a0ed799eb244341c681f3cb294b8"
+  }
+]

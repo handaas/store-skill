@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "skill": "store-skill",
+  "case_id": "11-pharmacy-visit-priority",
+  "title": "杭州药店拜访优先字段清单",
+  "invocation_id": "1793070091155402000",
+  "provenance": {
+    "integrator_id": "683e574805537ace146cc05e",
+    "runner_sha256": "05777c2f2b0791cb5157aef691206606dade8df7af3b17212285b7ae74632a66",
+    "credential_policy_sha256": "bcabf08a1ca92f28357c0e57a8bae9bfa910eb1d4b204d8195ee3b7a77106eed",
+    "scenario_sha256": "6899e6ff0dd1d0c238f20576bd76a7bd17d494947a55d30996e9cfe9f1cfec52",
+    "skill_source_hashes": {
+      "scripts/common.py": "ca703146250e231afad76dd163a774bc8b5d8e0444956a76c97237591b438635",
+      "scripts/compose_report.py": "ca49409b231d4d1aa5e025397203bec39aae6730bdac9ba9686284d78c679d94",
+      "scripts/mcp_client.py": "5e6419ff7f0d706a8b687b506e97a9a919de5fe38469099e387ccfb0b382f453",
+      "scripts/render_report.py": "de046911f05f1ffb87d3252ad85661fc14789d1fe598628109202a3f845094d5",
+      "scripts/validate_config.py": "4aaad40d0985becf2a661fe411862562b3b3705b954119b13a9e484d1154df32"
+    },
+    "upstream_source_hashes": {
+      "store-mcp-server": "da9bf93ad0fbf9354d8aedc747acf162331fceec89eb79499f202e7a49108f30"
+    },
+    "upstream_dependency_hashes": {
+      "store-mcp-server/server/mcp_server.py": "da9bf93ad0fbf9354d8aedc747acf162331fceec89eb79499f202e7a49108f30"
+    }
+  },
+  "source_changed_during_run": false,
+  "started_at": "2026-10-27T11:01:31+08:00",
+  "elapsed_seconds": 0.811,
+  "returncode": 0,
+  "exception_type": null,
+  "command": "python3 store-skill/scripts/compose_report.py --category '医疗健康,药店' --address '浙江省,杭州市' --page-size 10 --output store-skill/output/live-replaced-20261027/11-pharmacy-visit-priority/report.json --report-output store-skill/output/live-replaced-20261027/11-pharmacy-visit-priority/report.html",
+  "transport": "local MCP servers via loopback streamable-http",
+  "cache_used": false,
+  "call_count": 1,
+  "successful_data_calls": 1,
+  "empty_calls": 0,
+  "failed_calls": 0,
+  "checks": {
+    "issues": [],
+    "warnings": [],
+    "coverage_pct": 100,
+    "subject": {
+      "mode": "search",
+      "keywordType": "name",
+      "match_raw": "医疗健康,药店",
+      "enterprise": "",
+      "matchKeyword": "医疗健康,药店",
+      "store_name": "",
+      "brand": "",
+      "category": "医疗健康,药店",
+      "address": "浙江省,杭州市",
+      "address_value": ""
+    },
+    "title": "“医疗健康,药店” 店铺大数据报告",
+    "data_mode": null,
+    "metrics": [
+      {
+        "label": "线下门店检索结果",
+        "value": "100",
+        "hint": "本次线下门店检索命中条数"
+      }
+    ],
+    "quality_report": {
+      "total_sections": 1,
+      "populated_sections": 1,
+      "empty_sections": 0,
+      "coverage_pct": 100
+    },
+    "unregistered_tools": [],
+    "checks": {
+      "json_html_markdown": true,
+      "explicit_live": true,
+      "tool_calls_recorded": 1,
+      "offline_scripts": true,
+      "independent_rerender": true
+    }
+  },
+  "status": "passed",
+  "source_hashes": {
+    "scripts/common.py": "ca703146250e231afad76dd163a774bc8b5d8e0444956a76c97237591b438635",
+    "scripts/compose_report.py": "ca49409b231d4d1aa5e025397203bec39aae6730bdac9ba9686284d78c679d94",
+    "scripts/mcp_client.py": "5e6419ff7f0d706a8b687b506e97a9a919de5fe38469099e387ccfb0b382f453",
+    "scripts/render_report.py": "de046911f05f1ffb87d3252ad85661fc14789d1fe598628109202a3f845094d5",
+    "scripts/validate_config.py": "4aaad40d0985becf2a661fe411862562b3b3705b954119b13a9e484d1154df32"
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "skill": "store-skill",
+  "case_id": "10-hotpot-local-operation-snapshot",
+  "title": "成都海底捞门店经营字段快照",
+  "invocation_id": "1793070090495941000",
+  "provenance": {
+    "integrator_id": "683e574805537ace146cc05e",
+    "runner_sha256": "05777c2f2b0791cb5157aef691206606dade8df7af3b17212285b7ae74632a66",
+    "credential_policy_sha256": "bcabf08a1ca92f28357c0e57a8bae9bfa910eb1d4b204d8195ee3b7a77106eed",
+    "scenario_sha256": "1103636174085762560c8db54b0fef7cdc9d4856c45a22001eb2ed57ead981c4",
+    "skill_source_hashes": {
+      "scripts/common.py": "ca703146250e231afad76dd163a774bc8b5d8e0444956a76c97237591b438635",
+      "scripts/compose_report.py": "ca49409b231d4d1aa5e025397203bec39aae6730bdac9ba9686284d78c679d94",
+      "scripts/mcp_client.py": "5e6419ff7f0d706a8b687b506e97a9a919de5fe38469099e387ccfb0b382f453",
+      "scripts/render_report.py": "de046911f05f1ffb87d3252ad85661fc14789d1fe598628109202a3f845094d5",
+      "scripts/validate_config.py": "4aaad40d0985becf2a661fe411862562b3b3705b954119b13a9e484d1154df32"
+    },
+    "upstream_source_hashes": {
+      "store-mcp-server": "da9bf93ad0fbf9354d8aedc747acf162331fceec89eb79499f202e7a49108f30"
+    },
+    "upstream_dependency_hashes": {
+      "store-mcp-server/server/mcp_server.py": "da9bf93ad0fbf9354d8aedc747acf162331fceec89eb79499f202e7a49108f30"
+    }
+  },
+  "source_changed_during_run": false,
+  "started_at": "2026-10-27T11:01:30+08:00",
+  "elapsed_seconds": 1.188,
+  "returncode": 0,
+  "exception_type": null,
+  "command": "python3 store-skill/scripts/compose_report.py --store-name '海底捞' --address '四川省,成都市' --page-size 10 --output store-skill/output/live-replaced-20261027/10-hotpot-local-operation-snapshot/report.json --report-output store-skill/output/live-replaced-20261027/10-hotpot-local-operation-snapshot/report.html",
+  "transport": "local MCP servers via loopback streamable-http",
+  "cache_used": false,
+  "call_count": 1,
+  "successful_data_calls": 1,
+  "empty_calls": 0,
+  "failed_calls": 0,
+  "checks": {
+    "issues": [],
+    "warnings": [],
+    "coverage_pct": 100,
+    "subject": {
+      "mode": "search",
+      "keywordType": "name",
+      "match_raw": "海底捞",
+      "enterprise": "",
+      "matchKeyword": "海底捞",
+      "store_name": "海底捞",
+      "brand": "",
+      "category": "",
+      "address": "四川省,成都市",
+      "address_value": ""
+    },
+    "title": "“海底捞” 店铺大数据报告",
+    "data_mode": null,
+    "metrics": [
+      {
+        "label": "线下门店检索结果",
+        "value": "192",
+        "hint": "本次线下门店检索命中条数"
+      }
+    ],
+    "quality_report": {
+      "total_sections": 1,
+      "populated_sections": 1,
+      "empty_sections": 0,
+      "coverage_pct": 100
+    },
+    "unregistered_tools": [],
+    "checks": {
+      "json_html_markdown": true,
+      "explicit_live": true,
+      "tool_calls_recorded": 1,
+      "offline_scripts": true,
+      "independent_rerender": true,
+      "offline_browser": true
+    }
+  },
+  "status": "passed",
+  "source_hashes": {
+    "scripts/common.py": "ca703146250e231afad76dd163a774bc8b5d8e0444956a76c97237591b438635",
+    "scripts/compose_report.py": "ca49409b231d4d1aa5e025397203bec39aae6730bdac9ba9686284d78c679d94",
+    "scripts/mcp_client.py": "5e6419ff7f0d706a8b687b506e97a9a919de5fe38469099e387ccfb0b382f453",
+    "scripts/render_report.py": "de046911f05f1ffb87d3252ad85661fc14789d1fe598628109202a3f845094d5",
+    "scripts/validate_config.py": "4aaad40d0985becf2a661fe411862562b3b3705b954119b13a9e484d1154df32"
+  },
+  "technical_status": "passed",
+  "audited_at": "2026-10-27T11:13:03+08:00",
+  "evidence_binding": {
+    "report.json": "ada8ab3f411a7c63b9d39d8955e1cd4e899cc7173ea37455a9e9ae5436f0dc6d",
+    "report.html": "5be695c2e049cc4ff93efc0d4d5c5432c1ce886ca23ce130278123dff7ddf1d4",
+    "report.md": "dbd131484e34aacfab198dea62fb6969528f63bf4173df5c5ebe346dc81c51e5",
+    "calls.json": "7d35551410d164cd07d548793c1b91457643587249fd5668a2d5ab18fbdb48c7",
+    "result.json": "e2c5e354611b3adb41493129c8b6dafc5515443887232f9785cd6b67867a6aea",
+    "source_manifest_sha256": "014e0c39ccd221d4b037bfafc75dc705b73521da54c003be18fa8ca62d4dab92"
+  }
+}

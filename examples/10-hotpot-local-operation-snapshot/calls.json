@@ -1,0 +1,130 @@
+[
+  {
+    "tool": "store_bigdata_offline_store_search",
+    "domain": null,
+    "arguments": {
+      "pageIndex": 1,
+      "pageSize": 10,
+      "ooStoreName": "海底捞",
+      "address": "四川省,成都市"
+    },
+    "invocation_id": "1793070090495941000",
+    "elapsed_seconds": 1.082,
+    "status": "data",
+    "error_category": null,
+    "result_type": "dict",
+    "top_level_fields": [
+      "resultList",
+      "total"
+    ],
+    "row_count": 10,
+    "reported_total": 192,
+    "numeric_evidence": [
+      {
+        "path": "resultList[0].contactNumber",
+        "value": 2
+      },
+      {
+        "path": "resultList[0].hasContact",
+        "value": 1
+      },
+      {
+        "path": "resultList[0].hasPhone",
+        "value": 1
+      },
+      {
+        "path": "resultList[0].ooStorePerCapitaConsumption",
+        "value": 111.0
+      },
+      {
+        "path": "resultList[0].ooStoreRank",
+        "value": 893703.0
+      },
+      {
+        "path": "resultList[1].contactNumber",
+        "value": 2
+      },
+      {
+        "path": "resultList[1].hasContact",
+        "value": 1
+      },
+      {
+        "path": "resultList[1].hasPhone",
+        "value": 1
+      },
+      {
+        "path": "resultList[1].ooStorePerCapitaConsumption",
+        "value": 113.0
+      },
+      {
+        "path": "resultList[1].ooStoreRank",
+        "value": 544563.0
+      },
+      {
+        "path": "resultList[2].contactNumber",
+        "value": 2
+      },
+      {
+        "path": "resultList[2].hasContact",
+        "value": 1
+      },
+      {
+        "path": "resultList[2].hasPhone",
+        "value": 1
+      },
+      {
+        "path": "resultList[2].ooStorePerCapitaConsumption",
+        "value": 112.0
+      },
+      {
+        "path": "resultList[2].ooStoreRank",
+        "value": 539303.0
+      },
+      {
+        "path": "resultList[3].contactNumber",
+        "value": 2
+      },
+      {
+        "path": "resultList[3].hasContact",
+        "value": 1
+      },
+      {
+        "path": "resultList[3].hasPhone",
+        "value": 1
+      },
+      {
+        "path": "resultList[3].ooStorePerCapitaConsumption",
+        "value": 99.0
+      },
+      {
+        "path": "resultList[3].ooStoreRank",
+        "value": 465603.0
+      },
+      {
+        "path": "resultList[4].contactNumber",
+        "value": 2
+      },
+      {
+        "path": "resultList[4].hasContact",
+        "value": 1
+      },
+      {
+        "path": "resultList[4].hasPhone",
+        "value": 1
+      },
+      {
+        "path": "resultList[4].ooStorePerCapitaConsumption",
+        "value": 101.0
+      },
+      {
+        "path": "resultList[4].ooStoreRank",
+        "value": 405502.0
+      },
+      {
+        "path": "total",
+        "value": 192
+      }
+    ],
+    "response_sha256": "187b7c8c39f2aee6bdc887fa9238ceaed7af1facb47dbe0c98f82120b90935b6"
+  }
+]

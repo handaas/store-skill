@@ -1,0 +1,126 @@
+[
+  {
+    "tool": "store_bigdata_offline_store_search",
+    "domain": null,
+    "arguments": {
+      "pageIndex": 1,
+      "pageSize": 10,
+      "ooStoreCalClassification": "汽车服务,汽车维修",
+      "address": "广东省,广州市"
+    },
+    "invocation_id": "1793070090235280000",
+    "elapsed_seconds": 1.332,
+    "status": "data",
+    "error_category": null,
+    "result_type": "dict",
+    "top_level_fields": [
+      "resultList",
+      "total"
+    ],
+    "row_count": 10,
+    "reported_total": 33761,
+    "numeric_evidence": [
+      {
+        "path": "resultList[0].contactNumber",
+        "value": 1
+      },
+      {
+        "path": "resultList[0].hasContact",
+        "value": 1
+      },
+      {
+        "path": "resultList[0].hasPhone",
+        "value": 1
+      },
+      {
+        "path": "resultList[0].ooStoreRank",
+        "value": 113001.0
+      },
+      {
+        "path": "resultList[1].contactNumber",
+        "value": 1
+      },
+      {
+        "path": "resultList[1].hasContact",
+        "value": 1
+      },
+      {
+        "path": "resultList[1].hasMobile",
+        "value": 1
+      },
+      {
+        "path": "resultList[1].ooStoreRank",
+        "value": 72961.0
+      },
+      {
+        "path": "resultList[2].contactNumber",
+        "value": 2
+      },
+      {
+        "path": "resultList[2].hasContact",
+        "value": 1
+      },
+      {
+        "path": "resultList[2].hasMobile",
+        "value": 1
+      },
+      {
+        "path": "resultList[2].hasPhone",
+        "value": 1
+      },
+      {
+        "path": "resultList[2].ooStorePerCapitaConsumption",
+        "value": 195.0
+      },
+      {
+        "path": "resultList[2].ooStoreRank",
+        "value": 68203.0
+      },
+      {
+        "path": "resultList[3].contactNumber",
+        "value": 1
+      },
+      {
+        "path": "resultList[3].hasContact",
+        "value": 1
+      },
+      {
+        "path": "resultList[3].hasMobile",
+        "value": 1
+      },
+      {
+        "path": "resultList[3].ooStorePerCapitaConsumption",
+        "value": 258.0
+      },
+      {
+        "path": "resultList[3].ooStoreRank",
+        "value": 49503.0
+      },
+      {
+        "path": "resultList[4].contactNumber",
+        "value": 1
+      },
+      {
+        "path": "resultList[4].hasContact",
+        "value": 1
+      },
+      {
+        "path": "resultList[4].hasPhone",
+        "value": 1
+      },
+      {
+        "path": "resultList[4].ooStorePerCapitaConsumption",
+        "value": 137.0
+      },
+      {
+        "path": "resultList[4].ooStoreRank",
+        "value": 49461.0
+      },
+      {
+        "path": "total",
+        "value": 33761
+      }
+    ],
+    "response_sha256": "7874e9ad53dbc259cc8cdcb7d262faaedc31daa8e73ec9a22d93b79ac43fe87b"
+  }
+]

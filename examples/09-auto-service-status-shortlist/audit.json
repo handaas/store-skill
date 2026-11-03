@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "skill": "store-skill",
+  "case_id": "09-auto-service-status-shortlist",
+  "title": "广州汽车维修营业状态初筛",
+  "invocation_id": "1793070090235280000",
+  "provenance": {
+    "integrator_id": "683e574805537ace146cc05e",
+    "runner_sha256": "05777c2f2b0791cb5157aef691206606dade8df7af3b17212285b7ae74632a66",
+    "credential_policy_sha256": "bcabf08a1ca92f28357c0e57a8bae9bfa910eb1d4b204d8195ee3b7a77106eed",
+    "scenario_sha256": "2c2e1ba4a69eae4cf914c50c36054a471ba25ab7f1acfc4a501b923ee86c3318",
+    "skill_source_hashes": {
+      "scripts/common.py": "ca703146250e231afad76dd163a774bc8b5d8e0444956a76c97237591b438635",
+      "scripts/compose_report.py": "ca49409b231d4d1aa5e025397203bec39aae6730bdac9ba9686284d78c679d94",
+      "scripts/mcp_client.py": "5e6419ff7f0d706a8b687b506e97a9a919de5fe38469099e387ccfb0b382f453",
+      "scripts/render_report.py": "de046911f05f1ffb87d3252ad85661fc14789d1fe598628109202a3f845094d5",
+      "scripts/validate_config.py": "4aaad40d0985becf2a661fe411862562b3b3705b954119b13a9e484d1154df32"
+    },
+    "upstream_source_hashes": {
+      "store-mcp-server": "da9bf93ad0fbf9354d8aedc747acf162331fceec89eb79499f202e7a49108f30"
+    },
+    "upstream_dependency_hashes": {
+      "store-mcp-server/server/mcp_server.py": "da9bf93ad0fbf9354d8aedc747acf162331fceec89eb79499f202e7a49108f30"
+    }
+  },
+  "source_changed_during_run": false,
+  "started_at": "2026-10-27T11:01:30+08:00",
+  "elapsed_seconds": 1.446,
+  "returncode": 0,
+  "exception_type": null,
+  "command": "python3 store-skill/scripts/compose_report.py --category '汽车服务,汽车维修' --address '广东省,广州市' --page-size 10 --output store-skill/output/live-replaced-20261027/09-auto-service-status-shortlist/report.json --report-output store-skill/output/live-replaced-20261027/09-auto-service-status-shortlist/report.html",
+  "transport": "local MCP servers via loopback streamable-http",
+  "cache_used": false,
+  "call_count": 1,
+  "successful_data_calls": 1,
+  "empty_calls": 0,
+  "failed_calls": 0,
+  "checks": {
+    "issues": [],
+    "warnings": [],
+    "coverage_pct": 100,
+    "subject": {
+      "mode": "search",
+      "keywordType": "name",
+      "match_raw": "汽车服务,汽车维修",
+      "enterprise": "",
+      "matchKeyword": "汽车服务,汽车维修",
+      "store_name": "",
+      "brand": "",
+      "category": "汽车服务,汽车维修",
+      "address": "广东省,广州市",
+      "address_value": ""
+    },
+    "title": "“汽车服务,汽车维修” 店铺大数据报告",
+    "data_mode": null,
+    "metrics": [
+      {
+        "label": "线下门店检索结果",
+        "value": "33761",
+        "hint": "本次线下门店检索命中条数"
+      }
+    ],
+    "quality_report": {
+      "total_sections": 1,
+      "populated_sections": 1,
+      "empty_sections": 0,
+      "coverage_pct": 100
+    },
+    "unregistered_tools": [],
+    "checks": {
+      "json_html_markdown": true,
+      "explicit_live": true,
+      "tool_calls_recorded": 1,
+      "offline_scripts": true,
+      "independent_rerender": true,
+      "offline_browser": true
+    }
+  },
+  "status": "passed",
+  "source_hashes": {
+    "scripts/common.py": "ca703146250e231afad76dd163a774bc8b5d8e0444956a76c97237591b438635",
+    "scripts/compose_report.py": "ca49409b231d4d1aa5e025397203bec39aae6730bdac9ba9686284d78c679d94",
+    "scripts/mcp_client.py": "5e6419ff7f0d706a8b687b506e97a9a919de5fe38469099e387ccfb0b382f453",
+    "scripts/render_report.py": "de046911f05f1ffb87d3252ad85661fc14789d1fe598628109202a3f845094d5",
+    "scripts/validate_config.py": "4aaad40d0985becf2a661fe411862562b3b3705b954119b13a9e484d1154df32"
+  },
+  "technical_status": "passed",
+  "audited_at": "2026-10-27T11:13:03+08:00",
+  "evidence_binding": {
+    "report.json": "6928921e2b67c4d29d6fb2c6cdf7b937ae9bc8b03a1664369e971916425ebe57",
+    "report.html": "d3f79e91bc16ac244581b481d81bc3f866a608c345038e21818afc3439502b04",
+    "report.md": "e9dd05dd47a6af1cd16a5f475ede6754f551f92796df100053a96b6e5baaa298",
+    "calls.json": "b76363c0321af603f92e7a22458d40ffeaae6d660ae4a6226c9de217460b77d5",
+    "result.json": "8496b5749b2c89f9a4920a177e1d765ae841f620284256b0451b4996fe6c5f69",
+    "source_manifest_sha256": "014e0c39ccd221d4b037bfafc75dc705b73521da54c003be18fa8ca62d4dab92"
+  }
+}

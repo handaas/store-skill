@@ -1,0 +1,77 @@
+{
+  "run_id": "live-replaced-20261027",
+  "cases": [
+    {
+      "skill": "store-skill",
+      "id": "01-restaurant-portfolio",
+      "status": "passed",
+      "positive_business_pass": true,
+      "files_sha256": {
+        "report.json": "35564c3c73556b04d95196ec097126fa151f95221ba3f22c147cba4d07128eb1",
+        "report.html": "3f853f8ee0e923f7cb06ea902ce343b1a026d9dd7b6f19209c76496f3db3414e",
+        "report.md": "e8f332db42e3b9cb074ae8288ca1c8cb94f70820a332c22a524ff7cb08c2c315",
+        "calls.json": "5a1921dfd1cb620be2c360bfbf3853ef1893d77b3f07e5f68ad22cf1f19c770c",
+        "result.json": "2e3fe3f1b44c503dbc8608a89d2b4382af98288ef0e6775a74b81e2171077e3f",
+        "audit.json": "2c2b866881366f67873be05ba3cebdadd9043989e244dfd94fe8baedb88c9c72",
+        "acceptance.json": "40bd8af1c7bb401b99ba9a7aaf3c3f0300295957d4e01b7090193322bd410f49",
+        "business-review.json": "0a7f6a1e910be710e059fd95a81fbfde47f958fb8198875875bda502c9330642",
+        "browser-check.json": "45264ba519228a2f9f9d5976b8be82ce9adc28019a93bb050a2ca834138d0973"
+      },
+      "audit_record": "../../test-records/live-replaced-20261027/01-restaurant-portfolio.md"
+    },
+    {
+      "skill": "store-skill",
+      "id": "09-auto-service-status-shortlist",
+      "status": "passed",
+      "positive_business_pass": true,
+      "files_sha256": {
+        "report.json": "6928921e2b67c4d29d6fb2c6cdf7b937ae9bc8b03a1664369e971916425ebe57",
+        "report.html": "d3f79e91bc16ac244581b481d81bc3f866a608c345038e21818afc3439502b04",
+        "report.md": "e9dd05dd47a6af1cd16a5f475ede6754f551f92796df100053a96b6e5baaa298",
+        "calls.json": "b76363c0321af603f92e7a22458d40ffeaae6d660ae4a6226c9de217460b77d5",
+        "result.json": "8496b5749b2c89f9a4920a177e1d765ae841f620284256b0451b4996fe6c5f69",
+        "audit.json": "b1f0c6e5af18eb5c08772ba06c5c76722c5b32019744455b3dadcbe8d4914499",
+        "acceptance.json": "643513c4e2acdffea5db1e5f61206efc06322b7aa5a8cba1ea57996dfefabe21",
+        "business-review.json": "9b0cba54751ba7a0d3b52af62120edb3fc55849a3508b1e59994601affa2a722",
+        "browser-check.json": "fc243af64c07b95a45224653de619cb5a1dfd57795e0ef13c2884d5bc73b4d99"
+      },
+      "audit_record": "../../test-records/live-replaced-20261027/09-auto-service-status-shortlist.md"
+    },
+    {
+      "skill": "store-skill",
+      "id": "10-hotpot-local-operation-snapshot",
+      "status": "passed",
+      "positive_business_pass": true,
+      "files_sha256": {
+        "report.json": "ada8ab3f411a7c63b9d39d8955e1cd4e899cc7173ea37455a9e9ae5436f0dc6d",
+        "report.html": "5be695c2e049cc4ff93efc0d4d5c5432c1ce886ca23ce130278123dff7ddf1d4",
+        "report.md": "dbd131484e34aacfab198dea62fb6969528f63bf4173df5c5ebe346dc81c51e5",
+        "calls.json": "7d35551410d164cd07d548793c1b91457643587249fd5668a2d5ab18fbdb48c7",
+        "result.json": "e2c5e354611b3adb41493129c8b6dafc5515443887232f9785cd6b67867a6aea",
+        "audit.json": "b7cff8f250a36d3a0f548425fe4e60399f85f546b3cd80a899ec065ee560750d",
+        "acceptance.json": "e94a9a429e260f57cc9bf027d0e38fe0033806cfe4d3b25742617436a779e890",
+        "business-review.json": "35acf8d1695b8037e61100212eebac5d4702a7863e5cb746c43910edaaa19ddc",
+        "browser-check.json": "efec4230e3bd9855463a39c78bee9edf6323f0ea8474c1fb3fc0c6fe5e8f24e3"
+      },
+      "audit_record": "../../test-records/live-replaced-20261027/10-hotpot-local-operation-snapshot.md"
+    },
+    {
+      "skill": "store-skill",
+      "id": "11-pharmacy-visit-priority",
+      "status": "passed",
+      "positive_business_pass": true,
+      "files_sha256": {
+        "report.json": "48367e5f54646c03d8f86b5d3d50e70fd38222763ebd9336eb5807c9069dc51b",
+        "report.html": "3e646a857eac9f2a1160a3b78dff2b2cb3aeed480e03ccb5e52bb04c825dc0ee",
+        "report.md": "3ffd07ae243fd6474c0c768fb46195090e99cb4f8be77131bde526ebb52029ff",
+        "calls.json": "d7f613e87f022cd44f508baf9ec92c796b9b621dac987b4f1e46438d77a521c5",
+        "result.json": "8f2c10482b5f4816d6f214d06da08878ff80cab533dae26df5244fc95cb5a92f",
+        "audit.json": "7ea0168b109c54a57db9e1eae6c0ea8f173d7fd96974fdaff4dbcab9ab264728",
+        "acceptance.json": "c8b02c2dce125bcf63e95e2b5cc81428b3011d8bd23d273eb7c5cd2e49b5806e",
+        "business-review.json": "6c5184f256d49c068de6dd9399f5c01402a8461a96b4b0176753608cfcb370e4",
+        "browser-check.json": "67bd37009834a044df3c0eecfa5cbcef9e116809611166e9a198f1eaa8d3210c"
+      },
+      "audit_record": "../../test-records/live-replaced-20261027/11-pharmacy-visit-priority.md"
+    }
+  ]
+}

@@ -1,0 +1,143 @@
+{
+  "schema_version": 1,
+  "skill": "store-skill",
+  "case_id": "10-hotpot-local-operation-snapshot",
+  "title": "成都海底捞门店经营字段快照",
+  "invocation_id": "1793070090495941000",
+  "provenance": {
+    "integrator_id": "683e574805537ace146cc05e",
+    "runner_sha256": "05777c2f2b0791cb5157aef691206606dade8df7af3b17212285b7ae74632a66",
+    "credential_policy_sha256": "bcabf08a1ca92f28357c0e57a8bae9bfa910eb1d4b204d8195ee3b7a77106eed",
+    "scenario_sha256": "1103636174085762560c8db54b0fef7cdc9d4856c45a22001eb2ed57ead981c4",
+    "skill_source_hashes": {
+      "scripts/common.py": "ca703146250e231afad76dd163a774bc8b5d8e0444956a76c97237591b438635",
+      "scripts/compose_report.py": "ca49409b231d4d1aa5e025397203bec39aae6730bdac9ba9686284d78c679d94",
+      "scripts/mcp_client.py": "5e6419ff7f0d706a8b687b506e97a9a919de5fe38469099e387ccfb0b382f453",
+      "scripts/render_report.py": "de046911f05f1ffb87d3252ad85661fc14789d1fe598628109202a3f845094d5",
+      "scripts/validate_config.py": "4aaad40d0985becf2a661fe411862562b3b3705b954119b13a9e484d1154df32"
+    },
+    "upstream_source_hashes": {
+      "store-mcp-server": "da9bf93ad0fbf9354d8aedc747acf162331fceec89eb79499f202e7a49108f30"
+    },
+    "upstream_dependency_hashes": {
+      "store-mcp-server/server/mcp_server.py": "da9bf93ad0fbf9354d8aedc747acf162331fceec89eb79499f202e7a49108f30"
+    }
+  },
+  "source_changed_during_run": false,
+  "started_at": "2026-10-27T11:01:30+08:00",
+  "elapsed_seconds": 1.188,
+  "returncode": 0,
+  "exception_type": null,
+  "command": "python3 store-skill/scripts/compose_report.py --store-name '海底捞' --address '四川省,成都市' --page-size 10 --output store-skill/output/live-replaced-20261027/10-hotpot-local-operation-snapshot/report.json --report-output store-skill/output/live-replaced-20261027/10-hotpot-local-operation-snapshot/report.html",
+  "transport": "local MCP servers via loopback streamable-http",
+  "cache_used": false,
+  "call_count": 1,
+  "successful_data_calls": 1,
+  "empty_calls": 0,
+  "failed_calls": 0,
+  "checks": {
+    "issues": [],
+    "warnings": [],
+    "coverage_pct": 100,
+    "subject": {
+      "mode": "search",
+      "keywordType": "name",
+      "match_raw": "海底捞",
+      "enterprise": "",
+      "matchKeyword": "海底捞",
+      "store_name": "海底捞",
+      "brand": "",
+      "category": "",
+      "address": "四川省,成都市",
+      "address_value": ""
+    },
+    "title": "“海底捞” 店铺大数据报告",
+    "data_mode": null,
+    "metrics": [
+      {
+        "label": "线下门店检索结果",
+        "value": "192",
+        "hint": "本次线下门店检索命中条数"
+      }
+    ],
+    "quality_report": {
+      "total_sections": 1,
+      "populated_sections": 1,
+      "empty_sections": 0,
+      "coverage_pct": 100
+    },
+    "unregistered_tools": [],
+    "checks": {
+      "json_html_markdown": true,
+      "explicit_live": true,
+      "tool_calls_recorded": 1,
+      "offline_scripts": true,
+      "independent_rerender": true,
+      "offline_browser": true
+    }
+  },
+  "status": "passed",
+  "source_hashes": {
+    "scripts/common.py": "ca703146250e231afad76dd163a774bc8b5d8e0444956a76c97237591b438635",
+    "scripts/compose_report.py": "ca49409b231d4d1aa5e025397203bec39aae6730bdac9ba9686284d78c679d94",
+    "scripts/mcp_client.py": "5e6419ff7f0d706a8b687b506e97a9a919de5fe38469099e387ccfb0b382f453",
+    "scripts/render_report.py": "de046911f05f1ffb87d3252ad85661fc14789d1fe598628109202a3f845094d5",
+    "scripts/validate_config.py": "4aaad40d0985becf2a661fe411862562b3b3705b954119b13a9e484d1154df32"
+  },
+  "technical_status": "passed",
+  "audited_at": "2026-10-27T11:13:03+08:00",
+  "evidence_binding": {
+    "report.json": "ada8ab3f411a7c63b9d39d8955e1cd4e899cc7173ea37455a9e9ae5436f0dc6d",
+    "report.html": "5be695c2e049cc4ff93efc0d4d5c5432c1ce886ca23ce130278123dff7ddf1d4",
+    "report.md": "dbd131484e34aacfab198dea62fb6969528f63bf4173df5c5ebe346dc81c51e5",
+    "calls.json": "7d35551410d164cd07d548793c1b91457643587249fd5668a2d5ab18fbdb48c7",
+    "result.json": "e2c5e354611b3adb41493129c8b6dafc5515443887232f9785cd6b67867a6aea",
+    "source_manifest_sha256": "014e0c39ccd221d4b037bfafc75dc705b73521da54c003be18fa8ca62d4dab92"
+  },
+  "business_review": {
+    "id": "10-hotpot-local-operation-snapshot",
+    "verdict": "acceptable",
+    "summary": "本轮真实产物的全部清单检查均有当前字段证据，且报告保留样本/缺失/关系边界。",
+    "checks": [
+      {
+        "expectation": "offline_records 至少有两条实际返回记录",
+        "status": "pass",
+        "evidence": "offline_records为10/192；阳光新业店为营业/九眼桥/111元/893703，龙湖三千集店为关闭下架/建设路电子科大/113元/544563；两条名称均含海底捞且经营字段、状态和商圈有真实差异，报告按公开快照呈现。 当前冻结快照：{\"technical_status\":\"passed\",\"successful_data_calls\":1,\"calls\":[{\"tool\":\"store_bigdata_offline_store_search\",\"status\":\"data\",\"rows\":10,\"total\":192,\"args\":{\"pageIndex\":1,\"pageSize\":10,\"ooStoreName\":\"海底捞\",\"address\":\"四川省,成都市\"}}],\"subject\":{\"mode\":\"search\",\"keywordType\":\"name\",\"match_raw\":\"海底捞\",\"enterprise\":\"\",\"matchKeyword\":\"海底捞\",\"store_name\":\"海底捞\",\"brand\":\"\",\"category\":\"\",\"address\":\"四川省,成都市\",\"address_value\":\"\"},\"metrics\":[{\"label\":\"线下门店检索结果\",\"value\":\"192\",\"hint\":\"本次线下门店检索命中条数\"}],\"core_counts\":{\"sections\":1,\"brand_records\":0,\"branch_city_stats\":0,\"branch_province_stats\":0,\"offline_records\":10},\"core_samples\":{\"offline_records\":[{\"店铺名称\":\"海底捞火锅(阳光新业店)\",\"店铺分类\":\"美食、火锅烧烤\",\"店铺状态\":\"营业\",\"商圈\":\"九眼桥\",\"人均价格\":\"111.0\",\"店铺排名\":\"893703.0\",\"实际品牌\":\"-\",\"实际地区\":\"-\",\"实际地址\":\"-\",\"查询品牌条件\":\"-\",\"查询地区条件\":\"四川省,成都市\",\"查询地址条件\":\"-\",\"品牌匹配验证\":\"未设置品牌条件\",\"地址匹配验证\":\"上游未返回实际地区/地址，无法逐条验证地区条件\"},{\"店铺名称\":\"海底捞火锅(龙湖三千集店)\",\"店铺分类\":\"美食、火锅烧烤\",\"店铺状态\":\"关闭/下架\",\"商圈\":\"建设路/电子科技大学\",\"人均价格\":\"113.0\",\"店铺排名\":\"544563.0\",\"实际品牌\":\"-\",\"实际地区\":\"-\",\"实际地址\":\"-\",\"查询品牌条件\":\"-\",\"查询地区条件\":\"四川省,成都市\",\"查询地址条件\":\"-\",\"品牌匹配验证\":\"未设置品牌条件\",\"地址匹配验证\":\"上游未返回实际地区/地址，无法逐条验证地区条件\"}]},\"quality\":{\"total_sections\":1,\"populated_sections\":1,\"empty_sections\":0,\"coverage_pct\":100},\"caliber_products\":[\"线下门店检索\"],\"source_server\":\"store-mcp-server\",\"source_products\":[{\"name\":\"线下门店检索\",\"product_id\":\"66ed53be15858a879f40242f\"}],\"limit\":\"数据来自店铺公开数据库；少量字段可能存在更新延迟。城市与省份分布分别计算，不混合集中度；多品牌检索值是查询条件，不代表每条记录同时命中全部品牌。\",\"html_bytes\":1059945,\"markdown_bytes\":4550}"
+      },
+      {
+        "expectation": "至少两条记录具有非空店铺名称和店铺状态",
+        "status": "pass",
+        "evidence": "offline_records为10/192；阳光新业店为营业/九眼桥/111元/893703，龙湖三千集店为关闭下架/建设路电子科大/113元/544563；两条名称均含海底捞且经营字段、状态和商圈有真实差异，报告按公开快照呈现。 当前冻结快照：{\"technical_status\":\"passed\",\"successful_data_calls\":1,\"calls\":[{\"tool\":\"store_bigdata_offline_store_search\",\"status\":\"data\",\"rows\":10,\"total\":192,\"args\":{\"pageIndex\":1,\"pageSize\":10,\"ooStoreName\":\"海底捞\",\"address\":\"四川省,成都市\"}}],\"subject\":{\"mode\":\"search\",\"keywordType\":\"name\",\"match_raw\":\"海底捞\",\"enterprise\":\"\",\"matchKeyword\":\"海底捞\",\"store_name\":\"海底捞\",\"brand\":\"\",\"category\":\"\",\"address\":\"四川省,成都市\",\"address_value\":\"\"},\"metrics\":[{\"label\":\"线下门店检索结果\",\"value\":\"192\",\"hint\":\"本次线下门店检索命中条数\"}],\"core_counts\":{\"sections\":1,\"brand_records\":0,\"branch_city_stats\":0,\"branch_province_stats\":0,\"offline_records\":10},\"core_samples\":{\"offline_records\":[{\"店铺名称\":\"海底捞火锅(阳光新业店)\",\"店铺分类\":\"美食、火锅烧烤\",\"店铺状态\":\"营业\",\"商圈\":\"九眼桥\",\"人均价格\":\"111.0\",\"店铺排名\":\"893703.0\",\"实际品牌\":\"-\",\"实际地区\":\"-\",\"实际地址\":\"-\",\"查询品牌条件\":\"-\",\"查询地区条件\":\"四川省,成都市\",\"查询地址条件\":\"-\",\"品牌匹配验证\":\"未设置品牌条件\",\"地址匹配验证\":\"上游未返回实际地区/地址，无法逐条验证地区条件\"},{\"店铺名称\":\"海底捞火锅(龙湖三千集店)\",\"店铺分类\":\"美食、火锅烧烤\",\"店铺状态\":\"关闭/下架\",\"商圈\":\"建设路/电子科技大学\",\"人均价格\":\"113.0\",\"店铺排名\":\"544563.0\",\"实际品牌\":\"-\",\"实际地区\":\"-\",\"实际地址\":\"-\",\"查询品牌条件\":\"-\",\"查询地区条件\":\"四川省,成都市\",\"查询地址条件\":\"-\",\"品牌匹配验证\":\"未设置品牌条件\",\"地址匹配验证\":\"上游未返回实际地区/地址，无法逐条验证地区条件\"}]},\"quality\":{\"total_sections\":1,\"populated_sections\":1,\"empty_sections\":0,\"coverage_pct\":100},\"caliber_products\":[\"线下门店检索\"],\"source_server\":\"store-mcp-server\",\"source_products\":[{\"name\":\"线下门店检索\",\"product_id\":\"66ed53be15858a879f40242f\"}],\"limit\":\"数据来自店铺公开数据库；少量字段可能存在更新延迟。城市与省份分布分别计算，不混合集中度；多品牌检索值是查询条件，不代表每条记录同时命中全部品牌。\",\"html_bytes\":1059945,\"markdown_bytes\":4550}"
+      },
+      {
+        "expectation": "至少两条记录各自在商圈、人均价格、店铺排名三项中具备至少两项非空实际值",
+        "status": "pass",
+        "evidence": "offline_records为10/192；阳光新业店为营业/九眼桥/111元/893703，龙湖三千集店为关闭下架/建设路电子科大/113元/544563；两条名称均含海底捞且经营字段、状态和商圈有真实差异，报告按公开快照呈现。 当前冻结快照：{\"technical_status\":\"passed\",\"successful_data_calls\":1,\"calls\":[{\"tool\":\"store_bigdata_offline_store_search\",\"status\":\"data\",\"rows\":10,\"total\":192,\"args\":{\"pageIndex\":1,\"pageSize\":10,\"ooStoreName\":\"海底捞\",\"address\":\"四川省,成都市\"}}],\"subject\":{\"mode\":\"search\",\"keywordType\":\"name\",\"match_raw\":\"海底捞\",\"enterprise\":\"\",\"matchKeyword\":\"海底捞\",\"store_name\":\"海底捞\",\"brand\":\"\",\"category\":\"\",\"address\":\"四川省,成都市\",\"address_value\":\"\"},\"metrics\":[{\"label\":\"线下门店检索结果\",\"value\":\"192\",\"hint\":\"本次线下门店检索命中条数\"}],\"core_counts\":{\"sections\":1,\"brand_records\":0,\"branch_city_stats\":0,\"branch_province_stats\":0,\"offline_records\":10},\"core_samples\":{\"offline_records\":[{\"店铺名称\":\"海底捞火锅(阳光新业店)\",\"店铺分类\":\"美食、火锅烧烤\",\"店铺状态\":\"营业\",\"商圈\":\"九眼桥\",\"人均价格\":\"111.0\",\"店铺排名\":\"893703.0\",\"实际品牌\":\"-\",\"实际地区\":\"-\",\"实际地址\":\"-\",\"查询品牌条件\":\"-\",\"查询地区条件\":\"四川省,成都市\",\"查询地址条件\":\"-\",\"品牌匹配验证\":\"未设置品牌条件\",\"地址匹配验证\":\"上游未返回实际地区/地址，无法逐条验证地区条件\"},{\"店铺名称\":\"海底捞火锅(龙湖三千集店)\",\"店铺分类\":\"美食、火锅烧烤\",\"店铺状态\":\"关闭/下架\",\"商圈\":\"建设路/电子科技大学\",\"人均价格\":\"113.0\",\"店铺排名\":\"544563.0\",\"实际品牌\":\"-\",\"实际地区\":\"-\",\"实际地址\":\"-\",\"查询品牌条件\":\"-\",\"查询地区条件\":\"四川省,成都市\",\"查询地址条件\":\"-\",\"品牌匹配验证\":\"未设置品牌条件\",\"地址匹配验证\":\"上游未返回实际地区/地址，无法逐条验证地区条件\"}]},\"quality\":{\"total_sections\":1,\"populated_sections\":1,\"empty_sections\":0,\"coverage_pct\":100},\"caliber_products\":[\"线下门店检索\"],\"source_server\":\"store-mcp-server\",\"source_products\":[{\"name\":\"线下门店检索\",\"product_id\":\"66ed53be15858a879f40242f\"}],\"limit\":\"数据来自店铺公开数据库；少量字段可能存在更新延迟。城市与省份分布分别计算，不混合集中度；多品牌检索值是查询条件，不代表每条记录同时命中全部品牌。\",\"html_bytes\":1059945,\"markdown_bytes\":4550}"
+      },
+      {
+        "expectation": "至少两条实际门店样本在店铺状态、商圈、人均价格或店铺排名中的至少一个字段存在可观察差异",
+        "status": "pass",
+        "evidence": "offline_records为10/192；阳光新业店为营业/九眼桥/111元/893703，龙湖三千集店为关闭下架/建设路电子科大/113元/544563；两条名称均含海底捞且经营字段、状态和商圈有真实差异，报告按公开快照呈现。 当前冻结快照：{\"technical_status\":\"passed\",\"successful_data_calls\":1,\"calls\":[{\"tool\":\"store_bigdata_offline_store_search\",\"status\":\"data\",\"rows\":10,\"total\":192,\"args\":{\"pageIndex\":1,\"pageSize\":10,\"ooStoreName\":\"海底捞\",\"address\":\"四川省,成都市\"}}],\"subject\":{\"mode\":\"search\",\"keywordType\":\"name\",\"match_raw\":\"海底捞\",\"enterprise\":\"\",\"matchKeyword\":\"海底捞\",\"store_name\":\"海底捞\",\"brand\":\"\",\"category\":\"\",\"address\":\"四川省,成都市\",\"address_value\":\"\"},\"metrics\":[{\"label\":\"线下门店检索结果\",\"value\":\"192\",\"hint\":\"本次线下门店检索命中条数\"}],\"core_counts\":{\"sections\":1,\"brand_records\":0,\"branch_city_stats\":0,\"branch_province_stats\":0,\"offline_records\":10},\"core_samples\":{\"offline_records\":[{\"店铺名称\":\"海底捞火锅(阳光新业店)\",\"店铺分类\":\"美食、火锅烧烤\",\"店铺状态\":\"营业\",\"商圈\":\"九眼桥\",\"人均价格\":\"111.0\",\"店铺排名\":\"893703.0\",\"实际品牌\":\"-\",\"实际地区\":\"-\",\"实际地址\":\"-\",\"查询品牌条件\":\"-\",\"查询地区条件\":\"四川省,成都市\",\"查询地址条件\":\"-\",\"品牌匹配验证\":\"未设置品牌条件\",\"地址匹配验证\":\"上游未返回实际地区/地址，无法逐条验证地区条件\"},{\"店铺名称\":\"海底捞火锅(龙湖三千集店)\",\"店铺分类\":\"美食、火锅烧烤\",\"店铺状态\":\"关闭/下架\",\"商圈\":\"建设路/电子科技大学\",\"人均价格\":\"113.0\",\"店铺排名\":\"544563.0\",\"实际品牌\":\"-\",\"实际地区\":\"-\",\"实际地址\":\"-\",\"查询品牌条件\":\"-\",\"查询地区条件\":\"四川省,成都市\",\"查询地址条件\":\"-\",\"品牌匹配验证\":\"未设置品牌条件\",\"地址匹配验证\":\"上游未返回实际地区/地址，无法逐条验证地区条件\"}]},\"quality\":{\"total_sections\":1,\"populated_sections\":1,\"empty_sections\":0,\"coverage_pct\":100},\"caliber_products\":[\"线下门店检索\"],\"source_server\":\"store-mcp-server\",\"source_products\":[{\"name\":\"线下门店检索\",\"product_id\":\"66ed53be15858a879f40242f\"}],\"limit\":\"数据来自店铺公开数据库；少量字段可能存在更新延迟。城市与省份分布分别计算，不混合集中度；多品牌检索值是查询条件，不代表每条记录同时命中全部品牌。\",\"html_bytes\":1059945,\"markdown_bytes\":4550}"
+      },
+      {
+        "expectation": "门店名称匹配必须来自实际店铺名称字段而非请求回显",
+        "status": "pass",
+        "evidence": "offline_records为10/192；阳光新业店为营业/九眼桥/111元/893703，龙湖三千集店为关闭下架/建设路电子科大/113元/544563；两条名称均含海底捞且经营字段、状态和商圈有真实差异，报告按公开快照呈现。 当前冻结快照：{\"technical_status\":\"passed\",\"successful_data_calls\":1,\"calls\":[{\"tool\":\"store_bigdata_offline_store_search\",\"status\":\"data\",\"rows\":10,\"total\":192,\"args\":{\"pageIndex\":1,\"pageSize\":10,\"ooStoreName\":\"海底捞\",\"address\":\"四川省,成都市\"}}],\"subject\":{\"mode\":\"search\",\"keywordType\":\"name\",\"match_raw\":\"海底捞\",\"enterprise\":\"\",\"matchKeyword\":\"海底捞\",\"store_name\":\"海底捞\",\"brand\":\"\",\"category\":\"\",\"address\":\"四川省,成都市\",\"address_value\":\"\"},\"metrics\":[{\"label\":\"线下门店检索结果\",\"value\":\"192\",\"hint\":\"本次线下门店检索命中条数\"}],\"core_counts\":{\"sections\":1,\"brand_records\":0,\"branch_city_stats\":0,\"branch_province_stats\":0,\"offline_records\":10},\"core_samples\":{\"offline_records\":[{\"店铺名称\":\"海底捞火锅(阳光新业店)\",\"店铺分类\":\"美食、火锅烧烤\",\"店铺状态\":\"营业\",\"商圈\":\"九眼桥\",\"人均价格\":\"111.0\",\"店铺排名\":\"893703.0\",\"实际品牌\":\"-\",\"实际地区\":\"-\",\"实际地址\":\"-\",\"查询品牌条件\":\"-\",\"查询地区条件\":\"四川省,成都市\",\"查询地址条件\":\"-\",\"品牌匹配验证\":\"未设置品牌条件\",\"地址匹配验证\":\"上游未返回实际地区/地址，无法逐条验证地区条件\"},{\"店铺名称\":\"海底捞火锅(龙湖三千集店)\",\"店铺分类\":\"美食、火锅烧烤\",\"店铺状态\":\"关闭/下架\",\"商圈\":\"建设路/电子科技大学\",\"人均价格\":\"113.0\",\"店铺排名\":\"544563.0\",\"实际品牌\":\"-\",\"实际地区\":\"-\",\"实际地址\":\"-\",\"查询品牌条件\":\"-\",\"查询地区条件\":\"四川省,成都市\",\"查询地址条件\":\"-\",\"品牌匹配验证\":\"未设置品牌条件\",\"地址匹配验证\":\"上游未返回实际地区/地址，无法逐条验证地区条件\"}]},\"quality\":{\"total_sections\":1,\"populated_sections\":1,\"empty_sections\":0,\"coverage_pct\":100},\"caliber_products\":[\"线下门店检索\"],\"source_server\":\"store-mcp-server\",\"source_products\":[{\"name\":\"线下门店检索\",\"product_id\":\"66ed53be15858a879f40242f\"}],\"limit\":\"数据来自店铺公开数据库；少量字段可能存在更新延迟。城市与省份分布分别计算，不混合集中度；多品牌检索值是查询条件，不代表每条记录同时命中全部品牌。\",\"html_bytes\":1059945,\"markdown_bytes\":4550}"
+      },
+      {
+        "expectation": "价格和状态保持时点快照语义，不生成实时经营结论",
+        "status": "pass",
+        "evidence": "offline_records为10/192；阳光新业店为营业/九眼桥/111元/893703，龙湖三千集店为关闭下架/建设路电子科大/113元/544563；两条名称均含海底捞且经营字段、状态和商圈有真实差异，报告按公开快照呈现。 当前冻结快照：{\"technical_status\":\"passed\",\"successful_data_calls\":1,\"calls\":[{\"tool\":\"store_bigdata_offline_store_search\",\"status\":\"data\",\"rows\":10,\"total\":192,\"args\":{\"pageIndex\":1,\"pageSize\":10,\"ooStoreName\":\"海底捞\",\"address\":\"四川省,成都市\"}}],\"subject\":{\"mode\":\"search\",\"keywordType\":\"name\",\"match_raw\":\"海底捞\",\"enterprise\":\"\",\"matchKeyword\":\"海底捞\",\"store_name\":\"海底捞\",\"brand\":\"\",\"category\":\"\",\"address\":\"四川省,成都市\",\"address_value\":\"\"},\"metrics\":[{\"label\":\"线下门店检索结果\",\"value\":\"192\",\"hint\":\"本次线下门店检索命中条数\"}],\"core_counts\":{\"sections\":1,\"brand_records\":0,\"branch_city_stats\":0,\"branch_province_stats\":0,\"offline_records\":10},\"core_samples\":{\"offline_records\":[{\"店铺名称\":\"海底捞火锅(阳光新业店)\",\"店铺分类\":\"美食、火锅烧烤\",\"店铺状态\":\"营业\",\"商圈\":\"九眼桥\",\"人均价格\":\"111.0\",\"店铺排名\":\"893703.0\",\"实际品牌\":\"-\",\"实际地区\":\"-\",\"实际地址\":\"-\",\"查询品牌条件\":\"-\",\"查询地区条件\":\"四川省,成都市\",\"查询地址条件\":\"-\",\"品牌匹配验证\":\"未设置品牌条件\",\"地址匹配验证\":\"上游未返回实际地区/地址，无法逐条验证地区条件\"},{\"店铺名称\":\"海底捞火锅(龙湖三千集店)\",\"店铺分类\":\"美食、火锅烧烤\",\"店铺状态\":\"关闭/下架\",\"商圈\":\"建设路/电子科技大学\",\"人均价格\":\"113.0\",\"店铺排名\":\"544563.0\",\"实际品牌\":\"-\",\"实际地区\":\"-\",\"实际地址\":\"-\",\"查询品牌条件\":\"-\",\"查询地区条件\":\"四川省,成都市\",\"查询地址条件\":\"-\",\"品牌匹配验证\":\"未设置品牌条件\",\"地址匹配验证\":\"上游未返回实际地区/地址，无法逐条验证地区条件\"}]},\"quality\":{\"total_sections\":1,\"populated_sections\":1,\"empty_sections\":0,\"coverage_pct\":100},\"caliber_products\":[\"线下门店检索\"],\"source_server\":\"store-mcp-server\",\"source_products\":[{\"name\":\"线下门店检索\",\"product_id\":\"66ed53be15858a879f40242f\"}],\"limit\":\"数据来自店铺公开数据库；少量字段可能存在更新延迟。城市与省份分布分别计算，不混合集中度；多品牌检索值是查询条件，不代表每条记录同时命中全部品牌。\",\"html_bytes\":1059945,\"markdown_bytes\":4550}"
+      }
+    ],
+    "issues": [],
+    "evidence_binding": {
+      "report.json": "ada8ab3f411a7c63b9d39d8955e1cd4e899cc7173ea37455a9e9ae5436f0dc6d",
+      "report.html": "5be695c2e049cc4ff93efc0d4d5c5432c1ce886ca23ce130278123dff7ddf1d4",
+      "report.md": "dbd131484e34aacfab198dea62fb6969528f63bf4173df5c5ebe346dc81c51e5",
+      "calls.json": "7d35551410d164cd07d548793c1b91457643587249fd5668a2d5ab18fbdb48c7",
+      "result.json": "e2c5e354611b3adb41493129c8b6dafc5515443887232f9785cd6b67867a6aea",
+      "source_manifest_sha256": "014e0c39ccd221d4b037bfafc75dc705b73521da54c003be18fa8ca62d4dab92"
+    }
+  }
+}

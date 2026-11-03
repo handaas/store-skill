@@ -1,0 +1,110 @@
+[
+  {
+    "tool": "store_bigdata_offline_store_search",
+    "domain": null,
+    "arguments": {
+      "pageIndex": 1,
+      "pageSize": 10,
+      "ooStoreCalClassification": "医疗健康,药店",
+      "address": "浙江省,杭州市"
+    },
+    "invocation_id": "1793070091155402000",
+    "elapsed_seconds": 0.726,
+    "status": "data",
+    "error_category": null,
+    "result_type": "dict",
+    "top_level_fields": [
+      "resultList",
+      "total"
+    ],
+    "row_count": 10,
+    "reported_total": 100,
+    "numeric_evidence": [
+      {
+        "path": "resultList[0].contactNumber",
+        "value": 2
+      },
+      {
+        "path": "resultList[0].hasContact",
+        "value": 1
+      },
+      {
+        "path": "resultList[0].hasPhone",
+        "value": 1
+      },
+      {
+        "path": "resultList[0].ooStorePerCapitaConsumption",
+        "value": 288.0
+      },
+      {
+        "path": "resultList[0].ooStoreRank",
+        "value": 16103.0
+      },
+      {
+        "path": "resultList[1].ooStoreRank",
+        "value": 15062.0
+      },
+      {
+        "path": "resultList[2].contactNumber",
+        "value": 2
+      },
+      {
+        "path": "resultList[2].hasContact",
+        "value": 1
+      },
+      {
+        "path": "resultList[2].hasPhone",
+        "value": 1
+      },
+      {
+        "path": "resultList[2].ooStorePerCapitaConsumption",
+        "value": 289.0
+      },
+      {
+        "path": "resultList[2].ooStoreRank",
+        "value": 8602.0
+      },
+      {
+        "path": "resultList[3].contactNumber",
+        "value": 2
+      },
+      {
+        "path": "resultList[3].hasContact",
+        "value": 1
+      },
+      {
+        "path": "resultList[3].hasPhone",
+        "value": 1
+      },
+      {
+        "path": "resultList[3].ooStorePerCapitaConsumption",
+        "value": 46.0
+      },
+      {
+        "path": "resultList[3].ooStoreRank",
+        "value": 8302.0
+      },
+      {
+        "path": "resultList[4].contactNumber",
+        "value": 1
+      },
+      {
+        "path": "resultList[4].hasContact",
+        "value": 1
+      },
+      {
+        "path": "resultList[4].hasMobile",
+        "value": 1
+      },
+      {
+        "path": "resultList[4].ooStoreRank",
+        "value": 6903.0
+      },
+      {
+        "path": "total",
+        "value": 100
+      }
+    ],
+    "response_sha256": "7ea0a74ecddc9b120c0115e04213d220c0dd5f6bfa356c3d4a4d66f2d1adf589"
+  }
+]

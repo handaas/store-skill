@@ -1,0 +1,166 @@
+{
+  "schema_version": 1,
+  "skill": "store-skill",
+  "case_id": "01-restaurant-portfolio",
+  "title": "连锁餐饮品牌门店盘点",
+  "invocation_id": "1793070087495749000",
+  "provenance": {
+    "integrator_id": "683e574805537ace146cc05e",
+    "runner_sha256": "05777c2f2b0791cb5157aef691206606dade8df7af3b17212285b7ae74632a66",
+    "credential_policy_sha256": "bcabf08a1ca92f28357c0e57a8bae9bfa910eb1d4b204d8195ee3b7a77106eed",
+    "scenario_sha256": "5dfbc906e6ce9c2bf51025fd2c782424f642664cfc641ae869ff2958e450e24d",
+    "skill_source_hashes": {
+      "scripts/common.py": "ca703146250e231afad76dd163a774bc8b5d8e0444956a76c97237591b438635",
+      "scripts/compose_report.py": "ca49409b231d4d1aa5e025397203bec39aae6730bdac9ba9686284d78c679d94",
+      "scripts/mcp_client.py": "5e6419ff7f0d706a8b687b506e97a9a919de5fe38469099e387ccfb0b382f453",
+      "scripts/render_report.py": "de046911f05f1ffb87d3252ad85661fc14789d1fe598628109202a3f845094d5",
+      "scripts/validate_config.py": "4aaad40d0985becf2a661fe411862562b3b3705b954119b13a9e484d1154df32"
+    },
+    "upstream_source_hashes": {
+      "store-mcp-server": "da9bf93ad0fbf9354d8aedc747acf162331fceec89eb79499f202e7a49108f30"
+    },
+    "upstream_dependency_hashes": {
+      "store-mcp-server/server/mcp_server.py": "da9bf93ad0fbf9354d8aedc747acf162331fceec89eb79499f202e7a49108f30"
+    }
+  },
+  "source_changed_during_run": false,
+  "started_at": "2026-10-27T11:01:27+08:00",
+  "elapsed_seconds": 0.816,
+  "returncode": 0,
+  "exception_type": null,
+  "command": "python3 store-skill/scripts/compose_report.py --enterprise '四川海底捞餐饮股份有限公司' --page-size 10 --output store-skill/output/live-replaced-20261027/01-restaurant-portfolio/report.json --report-output store-skill/output/live-replaced-20261027/01-restaurant-portfolio/report.html",
+  "transport": "local MCP servers via loopback streamable-http",
+  "cache_used": false,
+  "call_count": 1,
+  "successful_data_calls": 1,
+  "empty_calls": 0,
+  "failed_calls": 0,
+  "checks": {
+    "issues": [],
+    "warnings": [],
+    "coverage_pct": 100,
+    "subject": {
+      "mode": "enterprise",
+      "keywordType": "name",
+      "match_raw": "四川海底捞餐饮股份有限公司",
+      "enterprise": "四川海底捞餐饮股份有限公司",
+      "matchKeyword": "四川海底捞餐饮股份有限公司",
+      "resolved": true,
+      "resolve_reason": "视为企业全称",
+      "fuzzy_requested": false
+    },
+    "title": "四川海底捞餐饮股份有限公司 店铺大数据报告",
+    "data_mode": null,
+    "metrics": [
+      {
+        "label": "旗下品牌数",
+        "value": "3",
+        "hint": "企业旗下餐饮品牌总数"
+      },
+      {
+        "label": "门店总数(汇总)",
+        "value": "3169",
+        "hint": "各品牌门店数汇总"
+      },
+      {
+        "label": "主力品牌门店数",
+        "value": "3005",
+        "hint": "主力品牌“海底捞火锅”门店数"
+      },
+      {
+        "label": "覆盖城市数",
+        "value": "10",
+        "hint": "主力品牌门店覆盖城市数"
+      },
+      {
+        "label": "覆盖省份数",
+        "value": "10",
+        "hint": "主力品牌门店覆盖省份数"
+      },
+      {
+        "label": "餐饮类别数",
+        "value": "2",
+        "hint": "覆盖的餐饮一级类别数"
+      },
+      {
+        "label": "主力品牌",
+        "value": "海底捞火锅（3005家）",
+        "hint": "门店数最多的品牌"
+      },
+      {
+        "label": "城市CR3",
+        "value": "44.5%",
+        "hint": "前3大城市门店集中度"
+      }
+    ],
+    "quality_report": {
+      "total_sections": 3,
+      "populated_sections": 3,
+      "empty_sections": 0,
+      "coverage_pct": 100
+    },
+    "unregistered_tools": [],
+    "checks": {
+      "json_html_markdown": true,
+      "explicit_live": true,
+      "tool_calls_recorded": 1,
+      "offline_scripts": true,
+      "independent_rerender": true,
+      "offline_browser": true
+    }
+  },
+  "status": "passed",
+  "source_hashes": {
+    "scripts/common.py": "ca703146250e231afad76dd163a774bc8b5d8e0444956a76c97237591b438635",
+    "scripts/compose_report.py": "ca49409b231d4d1aa5e025397203bec39aae6730bdac9ba9686284d78c679d94",
+    "scripts/mcp_client.py": "5e6419ff7f0d706a8b687b506e97a9a919de5fe38469099e387ccfb0b382f453",
+    "scripts/render_report.py": "de046911f05f1ffb87d3252ad85661fc14789d1fe598628109202a3f845094d5",
+    "scripts/validate_config.py": "4aaad40d0985becf2a661fe411862562b3b3705b954119b13a9e484d1154df32"
+  },
+  "technical_status": "passed",
+  "audited_at": "2026-10-27T11:13:03+08:00",
+  "evidence_binding": {
+    "report.json": "35564c3c73556b04d95196ec097126fa151f95221ba3f22c147cba4d07128eb1",
+    "report.html": "3f853f8ee0e923f7cb06ea902ce343b1a026d9dd7b6f19209c76496f3db3414e",
+    "report.md": "e8f332db42e3b9cb074ae8288ca1c8cb94f70820a332c22a524ff7cb08c2c315",
+    "calls.json": "5a1921dfd1cb620be2c360bfbf3853ef1893d77b3f07e5f68ad22cf1f19c770c",
+    "result.json": "2e3fe3f1b44c503dbc8608a89d2b4382af98288ef0e6775a74b81e2171077e3f",
+    "source_manifest_sha256": "014e0c39ccd221d4b037bfafc75dc705b73521da54c003be18fa8ca62d4dab92"
+  },
+  "business_review": {
+    "id": "01-restaurant-portfolio",
+    "verdict": "acceptable",
+    "summary": "本轮真实产物的全部清单检查均有当前字段证据，且报告保留样本/缺失/关系边界。",
+    "checks": [
+      {
+        "expectation": "报告运行在企业模式",
+        "status": "pass",
+        "evidence": "该项由当前调用参数、报告同名字段、样本与局限说明共同核对。 当前冻结快照：{\"technical_status\":\"passed\",\"successful_data_calls\":1,\"calls\":[{\"tool\":\"store_bigdata_company_restaurant_branches\",\"status\":\"data\",\"rows\":null,\"total\":null,\"args\":{\"matchKeyword\":\"四川海底捞餐饮股份有限公司\",\"keywordType\":\"name\"}}],\"subject\":{\"mode\":\"enterprise\",\"keywordType\":\"name\",\"match_raw\":\"四川海底捞餐饮股份有限公司\",\"enterprise\":\"四川海底捞餐饮股份有限公司\",\"matchKeyword\":\"四川海底捞餐饮股份有限公司\",\"resolved\":true,\"resolve_reason\":\"视为企业全称\",\"fuzzy_requested\":false},\"metrics\":[{\"label\":\"旗下品牌数\",\"value\":\"3\",\"hint\":\"企业旗下餐饮品牌总数\"},{\"label\":\"门店总数(汇总)\",\"value\":\"3169\",\"hint\":\"各品牌门店数汇总\"},{\"label\":\"主力品牌门店数\",\"value\":\"3005\",\"hint\":\"主力品牌“海底捞火锅”门店数\"},{\"label\":\"覆盖城市数\",\"value\":\"10\",\"hint\":\"主力品牌门店覆盖城市数\"},{\"label\":\"覆盖省份数\",\"value\":\"10\",\"hint\":\"主力品牌门店覆盖省份数\"},{\"label\":\"餐饮类别数\",\"value\":\"2\",\"hint\":\"覆盖的餐饮一级类别数\"},{\"label\":\"主力品牌\",\"value\":\"海底捞火锅（3005家）\",\"hint\":\"门店数最多的品牌\"},{\"label\":\"城市CR3\",\"value\":\"44.5%\",\"hint\":\"前3大城市门店集中度\"}],\"core_counts\":{\"sections\":3,\"brand_records\":3,\"branch_city_stats\":10,\"branch_province_stats\":10,\"offline_records\":0},\"core_samples\":{},\"quality\":{\"total_sections\":3,\"populated_sections\":3,\"empty_sections\":0,\"coverage_pct\":100},\"caliber_products\":[\"餐饮品牌门店\"],\"source_server\":\"store-mcp-server\",\"source_products\":[{\"name\":\"餐饮品牌门店\",\"product_id\":\"66f3d8bf64bd2be52d68a0e9\"}],\"limit\":\"数据来自店铺公开数据库；少量字段可能存在更新延迟。城市与省份分布分别计算，不混合集中度；多品牌检索值是查询条件，不代表每条记录同时命中全部品牌。\",\"html_bytes\":1063248,\"markdown_bytes\":3087}"
+      },
+      {
+        "expectation": "品牌门店与城市省份分布口径一致",
+        "status": "pass",
+        "evidence": "该项由当前调用参数、报告同名字段、样本与局限说明共同核对。 当前冻结快照：{\"technical_status\":\"passed\",\"successful_data_calls\":1,\"calls\":[{\"tool\":\"store_bigdata_company_restaurant_branches\",\"status\":\"data\",\"rows\":null,\"total\":null,\"args\":{\"matchKeyword\":\"四川海底捞餐饮股份有限公司\",\"keywordType\":\"name\"}}],\"subject\":{\"mode\":\"enterprise\",\"keywordType\":\"name\",\"match_raw\":\"四川海底捞餐饮股份有限公司\",\"enterprise\":\"四川海底捞餐饮股份有限公司\",\"matchKeyword\":\"四川海底捞餐饮股份有限公司\",\"resolved\":true,\"resolve_reason\":\"视为企业全称\",\"fuzzy_requested\":false},\"metrics\":[{\"label\":\"旗下品牌数\",\"value\":\"3\",\"hint\":\"企业旗下餐饮品牌总数\"},{\"label\":\"门店总数(汇总)\",\"value\":\"3169\",\"hint\":\"各品牌门店数汇总\"},{\"label\":\"主力品牌门店数\",\"value\":\"3005\",\"hint\":\"主力品牌“海底捞火锅”门店数\"},{\"label\":\"覆盖城市数\",\"value\":\"10\",\"hint\":\"主力品牌门店覆盖城市数\"},{\"label\":\"覆盖省份数\",\"value\":\"10\",\"hint\":\"主力品牌门店覆盖省份数\"},{\"label\":\"餐饮类别数\",\"value\":\"2\",\"hint\":\"覆盖的餐饮一级类别数\"},{\"label\":\"主力品牌\",\"value\":\"海底捞火锅（3005家）\",\"hint\":\"门店数最多的品牌\"},{\"label\":\"城市CR3\",\"value\":\"44.5%\",\"hint\":\"前3大城市门店集中度\"}],\"core_counts\":{\"sections\":3,\"brand_records\":3,\"branch_city_stats\":10,\"branch_province_stats\":10,\"offline_records\":0},\"core_samples\":{},\"quality\":{\"total_sections\":3,\"populated_sections\":3,\"empty_sections\":0,\"coverage_pct\":100},\"caliber_products\":[\"餐饮品牌门店\"],\"source_server\":\"store-mcp-server\",\"source_products\":[{\"name\":\"餐饮品牌门店\",\"product_id\":\"66f3d8bf64bd2be52d68a0e9\"}],\"limit\":\"数据来自店铺公开数据库；少量字段可能存在更新延迟。城市与省份分布分别计算，不混合集中度；多品牌检索值是查询条件，不代表每条记录同时命中全部品牌。\",\"html_bytes\":1063248,\"markdown_bytes\":3087}"
+      },
+      {
+        "expectation": "首个品牌统计来源可解释",
+        "status": "pass",
+        "evidence": "该项由当前调用参数、报告同名字段、样本与局限说明共同核对。 当前冻结快照：{\"technical_status\":\"passed\",\"successful_data_calls\":1,\"calls\":[{\"tool\":\"store_bigdata_company_restaurant_branches\",\"status\":\"data\",\"rows\":null,\"total\":null,\"args\":{\"matchKeyword\":\"四川海底捞餐饮股份有限公司\",\"keywordType\":\"name\"}}],\"subject\":{\"mode\":\"enterprise\",\"keywordType\":\"name\",\"match_raw\":\"四川海底捞餐饮股份有限公司\",\"enterprise\":\"四川海底捞餐饮股份有限公司\",\"matchKeyword\":\"四川海底捞餐饮股份有限公司\",\"resolved\":true,\"resolve_reason\":\"视为企业全称\",\"fuzzy_requested\":false},\"metrics\":[{\"label\":\"旗下品牌数\",\"value\":\"3\",\"hint\":\"企业旗下餐饮品牌总数\"},{\"label\":\"门店总数(汇总)\",\"value\":\"3169\",\"hint\":\"各品牌门店数汇总\"},{\"label\":\"主力品牌门店数\",\"value\":\"3005\",\"hint\":\"主力品牌“海底捞火锅”门店数\"},{\"label\":\"覆盖城市数\",\"value\":\"10\",\"hint\":\"主力品牌门店覆盖城市数\"},{\"label\":\"覆盖省份数\",\"value\":\"10\",\"hint\":\"主力品牌门店覆盖省份数\"},{\"label\":\"餐饮类别数\",\"value\":\"2\",\"hint\":\"覆盖的餐饮一级类别数\"},{\"label\":\"主力品牌\",\"value\":\"海底捞火锅（3005家）\",\"hint\":\"门店数最多的品牌\"},{\"label\":\"城市CR3\",\"value\":\"44.5%\",\"hint\":\"前3大城市门店集中度\"}],\"core_counts\":{\"sections\":3,\"brand_records\":3,\"branch_city_stats\":10,\"branch_province_stats\":10,\"offline_records\":0},\"core_samples\":{},\"quality\":{\"total_sections\":3,\"populated_sections\":3,\"empty_sections\":0,\"coverage_pct\":100},\"caliber_products\":[\"餐饮品牌门店\"],\"source_server\":\"store-mcp-server\",\"source_products\":[{\"name\":\"餐饮品牌门店\",\"product_id\":\"66f3d8bf64bd2be52d68a0e9\"}],\"limit\":\"数据来自店铺公开数据库；少量字段可能存在更新延迟。城市与省份分布分别计算，不混合集中度；多品牌检索值是查询条件，不代表每条记录同时命中全部品牌。\",\"html_bytes\":1063248,\"markdown_bytes\":3087}"
+      },
+      {
+        "expectation": "门店出现不等于当前营业状态",
+        "status": "pass",
+        "evidence": "该项由当前调用参数、报告同名字段、样本与局限说明共同核对。 当前冻结快照：{\"technical_status\":\"passed\",\"successful_data_calls\":1,\"calls\":[{\"tool\":\"store_bigdata_company_restaurant_branches\",\"status\":\"data\",\"rows\":null,\"total\":null,\"args\":{\"matchKeyword\":\"四川海底捞餐饮股份有限公司\",\"keywordType\":\"name\"}}],\"subject\":{\"mode\":\"enterprise\",\"keywordType\":\"name\",\"match_raw\":\"四川海底捞餐饮股份有限公司\",\"enterprise\":\"四川海底捞餐饮股份有限公司\",\"matchKeyword\":\"四川海底捞餐饮股份有限公司\",\"resolved\":true,\"resolve_reason\":\"视为企业全称\",\"fuzzy_requested\":false},\"metrics\":[{\"label\":\"旗下品牌数\",\"value\":\"3\",\"hint\":\"企业旗下餐饮品牌总数\"},{\"label\":\"门店总数(汇总)\",\"value\":\"3169\",\"hint\":\"各品牌门店数汇总\"},{\"label\":\"主力品牌门店数\",\"value\":\"3005\",\"hint\":\"主力品牌“海底捞火锅”门店数\"},{\"label\":\"覆盖城市数\",\"value\":\"10\",\"hint\":\"主力品牌门店覆盖城市数\"},{\"label\":\"覆盖省份数\",\"value\":\"10\",\"hint\":\"主力品牌门店覆盖省份数\"},{\"label\":\"餐饮类别数\",\"value\":\"2\",\"hint\":\"覆盖的餐饮一级类别数\"},{\"label\":\"主力品牌\",\"value\":\"海底捞火锅（3005家）\",\"hint\":\"门店数最多的品牌\"},{\"label\":\"城市CR3\",\"value\":\"44.5%\",\"hint\":\"前3大城市门店集中度\"}],\"core_counts\":{\"sections\":3,\"brand_records\":3,\"branch_city_stats\":10,\"branch_province_stats\":10,\"offline_records\":0},\"core_samples\":{},\"quality\":{\"total_sections\":3,\"populated_sections\":3,\"empty_sections\":0,\"coverage_pct\":100},\"caliber_products\":[\"餐饮品牌门店\"],\"source_server\":\"store-mcp-server\",\"source_products\":[{\"name\":\"餐饮品牌门店\",\"product_id\":\"66f3d8bf64bd2be52d68a0e9\"}],\"limit\":\"数据来自店铺公开数据库；少量字段可能存在更新延迟。城市与省份分布分别计算，不混合集中度；多品牌检索值是查询条件，不代表每条记录同时命中全部品牌。\",\"html_bytes\":1063248,\"markdown_bytes\":3087}"
+      }
+    ],
+    "issues": [],
+    "evidence_binding": {
+      "report.json": "35564c3c73556b04d95196ec097126fa151f95221ba3f22c147cba4d07128eb1",
+      "report.html": "3f853f8ee0e923f7cb06ea902ce343b1a026d9dd7b6f19209c76496f3db3414e",
+      "report.md": "e8f332db42e3b9cb074ae8288ca1c8cb94f70820a332c22a524ff7cb08c2c315",
+      "calls.json": "5a1921dfd1cb620be2c360bfbf3853ef1893d77b3f07e5f68ad22cf1f19c770c",
+      "result.json": "2e3fe3f1b44c503dbc8608a89d2b4382af98288ef0e6775a74b81e2171077e3f",
+      "source_manifest_sha256": "014e0c39ccd221d4b037bfafc75dc705b73521da54c003be18fa8ca62d4dab92"
+    }
+  }
+}

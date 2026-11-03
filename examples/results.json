@@ -1,0 +1,708 @@
+{
+  "run_id": "live-replaced-20261027",
+  "skill": "store-skill",
+  "counts": {
+    "passed": 4
+  },
+  "scenarios": [
+    {
+      "scenario": {
+        "id": "01-restaurant-portfolio",
+        "title": "连锁餐饮品牌门店盘点",
+        "user_request": "盘点四川海底捞餐饮股份有限公司旗下餐饮品牌与门店分布，用于区域扩张复盘。",
+        "purpose": "评估品牌矩阵、门店规模与区域覆盖。",
+        "args": [
+          "--enterprise",
+          "四川海底捞餐饮股份有限公司",
+          "--page-size",
+          "10"
+        ],
+        "expected_checks": [
+          "报告运行在企业模式",
+          "品牌门店与城市省份分布口径一致",
+          "首个品牌统计来源可解释",
+          "门店出现不等于当前营业状态"
+        ],
+        "limitations": [
+          "分布统计可能仅针对首个返回品牌",
+          "收录门店不保证实时营业"
+        ]
+      },
+      "result": {
+        "schema_version": 1,
+        "skill": "store-skill",
+        "case_id": "01-restaurant-portfolio",
+        "title": "连锁餐饮品牌门店盘点",
+        "invocation_id": "1793070087495749000",
+        "provenance": {
+          "integrator_id": "683e574805537ace146cc05e",
+          "runner_sha256": "05777c2f2b0791cb5157aef691206606dade8df7af3b17212285b7ae74632a66",
+          "credential_policy_sha256": "bcabf08a1ca92f28357c0e57a8bae9bfa910eb1d4b204d8195ee3b7a77106eed",
+          "scenario_sha256": "5dfbc906e6ce9c2bf51025fd2c782424f642664cfc641ae869ff2958e450e24d",
+          "skill_source_hashes": {
+            "scripts/common.py": "ca703146250e231afad76dd163a774bc8b5d8e0444956a76c97237591b438635",
+            "scripts/compose_report.py": "ca49409b231d4d1aa5e025397203bec39aae6730bdac9ba9686284d78c679d94",
+            "scripts/mcp_client.py": "5e6419ff7f0d706a8b687b506e97a9a919de5fe38469099e387ccfb0b382f453",
+            "scripts/render_report.py": "de046911f05f1ffb87d3252ad85661fc14789d1fe598628109202a3f845094d5",
+            "scripts/validate_config.py": "4aaad40d0985becf2a661fe411862562b3b3705b954119b13a9e484d1154df32"
+          },
+          "upstream_source_hashes": {
+            "store-mcp-server": "da9bf93ad0fbf9354d8aedc747acf162331fceec89eb79499f202e7a49108f30"
+          },
+          "upstream_dependency_hashes": {
+            "store-mcp-server/server/mcp_server.py": "da9bf93ad0fbf9354d8aedc747acf162331fceec89eb79499f202e7a49108f30"
+          }
+        },
+        "source_changed_during_run": false,
+        "started_at": "2026-10-27T11:01:27+08:00",
+        "elapsed_seconds": 0.816,
+        "returncode": 0,
+        "exception_type": null,
+        "command": "python3 store-skill/scripts/compose_report.py --enterprise '四川海底捞餐饮股份有限公司' --page-size 10 --output store-skill/output/live-replaced-20261027/01-restaurant-portfolio/report.json --report-output store-skill/output/live-replaced-20261027/01-restaurant-portfolio/report.html",
+        "transport": "local MCP servers via loopback streamable-http",
+        "cache_used": false,
+        "call_count": 1,
+        "successful_data_calls": 1,
+        "empty_calls": 0,
+        "failed_calls": 0,
+        "checks": {
+          "issues": [],
+          "warnings": [],
+          "coverage_pct": 100,
+          "subject": {
+            "mode": "enterprise",
+            "keywordType": "name",
+            "match_raw": "四川海底捞餐饮股份有限公司",
+            "enterprise": "四川海底捞餐饮股份有限公司",
+            "matchKeyword": "四川海底捞餐饮股份有限公司",
+            "resolved": true,
+            "resolve_reason": "视为企业全称",
+            "fuzzy_requested": false
+          },
+          "title": "四川海底捞餐饮股份有限公司 店铺大数据报告",
+          "data_mode": null,
+          "metrics": [
+            {
+              "label": "旗下品牌数",
+              "value": "3",
+              "hint": "企业旗下餐饮品牌总数"
+            },
+            {
+              "label": "门店总数(汇总)",
+              "value": "3169",
+              "hint": "各品牌门店数汇总"
+            },
+            {
+              "label": "主力品牌门店数",
+              "value": "3005",
+              "hint": "主力品牌“海底捞火锅”门店数"
+            },
+            {
+              "label": "覆盖城市数",
+              "value": "10",
+              "hint": "主力品牌门店覆盖城市数"
+            },
+            {
+              "label": "覆盖省份数",
+              "value": "10",
+              "hint": "主力品牌门店覆盖省份数"
+            },
+            {
+              "label": "餐饮类别数",
+              "value": "2",
+              "hint": "覆盖的餐饮一级类别数"
+            },
+            {
+              "label": "主力品牌",
+              "value": "海底捞火锅（3005家）",
+              "hint": "门店数最多的品牌"
+            },
+            {
+              "label": "城市CR3",
+              "value": "44.5%",
+              "hint": "前3大城市门店集中度"
+            }
+          ],
+          "quality_report": {
+            "total_sections": 3,
+            "populated_sections": 3,
+            "empty_sections": 0,
+            "coverage_pct": 100
+          },
+          "unregistered_tools": [],
+          "checks": {
+            "json_html_markdown": true,
+            "explicit_live": true,
+            "tool_calls_recorded": 1,
+            "offline_scripts": true,
+            "independent_rerender": true,
+            "offline_browser": true
+          }
+        },
+        "status": "passed",
+        "source_hashes": {
+          "scripts/common.py": "ca703146250e231afad76dd163a774bc8b5d8e0444956a76c97237591b438635",
+          "scripts/compose_report.py": "ca49409b231d4d1aa5e025397203bec39aae6730bdac9ba9686284d78c679d94",
+          "scripts/mcp_client.py": "5e6419ff7f0d706a8b687b506e97a9a919de5fe38469099e387ccfb0b382f453",
+          "scripts/render_report.py": "de046911f05f1ffb87d3252ad85661fc14789d1fe598628109202a3f845094d5",
+          "scripts/validate_config.py": "4aaad40d0985becf2a661fe411862562b3b3705b954119b13a9e484d1154df32"
+        },
+        "technical_status": "passed",
+        "audited_at": "2026-10-27T11:13:03+08:00",
+        "evidence_binding": {
+          "report.json": "35564c3c73556b04d95196ec097126fa151f95221ba3f22c147cba4d07128eb1",
+          "report.html": "3f853f8ee0e923f7cb06ea902ce343b1a026d9dd7b6f19209c76496f3db3414e",
+          "report.md": "e8f332db42e3b9cb074ae8288ca1c8cb94f70820a332c22a524ff7cb08c2c315",
+          "calls.json": "5a1921dfd1cb620be2c360bfbf3853ef1893d77b3f07e5f68ad22cf1f19c770c",
+          "result.json": "2e3fe3f1b44c503dbc8608a89d2b4382af98288ef0e6775a74b81e2171077e3f",
+          "source_manifest_sha256": "014e0c39ccd221d4b037bfafc75dc705b73521da54c003be18fa8ca62d4dab92"
+        },
+        "business_review": {
+          "id": "01-restaurant-portfolio",
+          "verdict": "acceptable",
+          "summary": "本轮真实产物的全部清单检查均有当前字段证据，且报告保留样本/缺失/关系边界。",
+          "checks": [
+            {
+              "expectation": "报告运行在企业模式",
+              "status": "pass",
+              "evidence": "该项由当前调用参数、报告同名字段、样本与局限说明共同核对。 当前冻结快照：{\"technical_status\":\"passed\",\"successful_data_calls\":1,\"calls\":[{\"tool\":\"store_bigdata_company_restaurant_branches\",\"status\":\"data\",\"rows\":null,\"total\":null,\"args\":{\"matchKeyword\":\"四川海底捞餐饮股份有限公司\",\"keywordType\":\"name\"}}],\"subject\":{\"mode\":\"enterprise\",\"keywordType\":\"name\",\"match_raw\":\"四川海底捞餐饮股份有限公司\",\"enterprise\":\"四川海底捞餐饮股份有限公司\",\"matchKeyword\":\"四川海底捞餐饮股份有限公司\",\"resolved\":true,\"resolve_reason\":\"视为企业全称\",\"fuzzy_requested\":false},\"metrics\":[{\"label\":\"旗下品牌数\",\"value\":\"3\",\"hint\":\"企业旗下餐饮品牌总数\"},{\"label\":\"门店总数(汇总)\",\"value\":\"3169\",\"hint\":\"各品牌门店数汇总\"},{\"label\":\"主力品牌门店数\",\"value\":\"3005\",\"hint\":\"主力品牌“海底捞火锅”门店数\"},{\"label\":\"覆盖城市数\",\"value\":\"10\",\"hint\":\"主力品牌门店覆盖城市数\"},{\"label\":\"覆盖省份数\",\"value\":\"10\",\"hint\":\"主力品牌门店覆盖省份数\"},{\"label\":\"餐饮类别数\",\"value\":\"2\",\"hint\":\"覆盖的餐饮一级类别数\"},{\"label\":\"主力品牌\",\"value\":\"海底捞火锅（3005家）\",\"hint\":\"门店数最多的品牌\"},{\"label\":\"城市CR3\",\"value\":\"44.5%\",\"hint\":\"前3大城市门店集中度\"}],\"core_counts\":{\"sections\":3,\"brand_records\":3,\"branch_city_stats\":10,\"branch_province_stats\":10,\"offline_records\":0},\"core_samples\":{},\"quality\":{\"total_sections\":3,\"populated_sections\":3,\"empty_sections\":0,\"coverage_pct\":100},\"caliber_products\":[\"餐饮品牌门店\"],\"source_server\":\"store-mcp-server\",\"source_products\":[{\"name\":\"餐饮品牌门店\",\"product_id\":\"66f3d8bf64bd2be52d68a0e9\"}],\"limit\":\"数据来自店铺公开数据库；少量字段可能存在更新延迟。城市与省份分布分别计算，不混合集中度；多品牌检索值是查询条件，不代表每条记录同时命中全部品牌。\",\"html_bytes\":1063248,\"markdown_bytes\":3087}"
+            },
+            {
+              "expectation": "品牌门店与城市省份分布口径一致",
+              "status": "pass",
+              "evidence": "该项由当前调用参数、报告同名字段、样本与局限说明共同核对。 当前冻结快照：{\"technical_status\":\"passed\",\"successful_data_calls\":1,\"calls\":[{\"tool\":\"store_bigdata_company_restaurant_branches\",\"status\":\"data\",\"rows\":null,\"total\":null,\"args\":{\"matchKeyword\":\"四川海底捞餐饮股份有限公司\",\"keywordType\":\"name\"}}],\"subject\":{\"mode\":\"enterprise\",\"keywordType\":\"name\",\"match_raw\":\"四川海底捞餐饮股份有限公司\",\"enterprise\":\"四川海底捞餐饮股份有限公司\",\"matchKeyword\":\"四川海底捞餐饮股份有限公司\",\"resolved\":true,\"resolve_reason\":\"视为企业全称\",\"fuzzy_requested\":false},\"metrics\":[{\"label\":\"旗下品牌数\",\"value\":\"3\",\"hint\":\"企业旗下餐饮品牌总数\"},{\"label\":\"门店总数(汇总)\",\"value\":\"3169\",\"hint\":\"各品牌门店数汇总\"},{\"label\":\"主力品牌门店数\",\"value\":\"3005\",\"hint\":\"主力品牌“海底捞火锅”门店数\"},{\"label\":\"覆盖城市数\",\"value\":\"10\",\"hint\":\"主力品牌门店覆盖城市数\"},{\"label\":\"覆盖省份数\",\"value\":\"10\",\"hint\":\"主力品牌门店覆盖省份数\"},{\"label\":\"餐饮类别数\",\"value\":\"2\",\"hint\":\"覆盖的餐饮一级类别数\"},{\"label\":\"主力品牌\",\"value\":\"海底捞火锅（3005家）\",\"hint\":\"门店数最多的品牌\"},{\"label\":\"城市CR3\",\"value\":\"44.5%\",\"hint\":\"前3大城市门店集中度\"}],\"core_counts\":{\"sections\":3,\"brand_records\":3,\"branch_city_stats\":10,\"branch_province_stats\":10,\"offline_records\":0},\"core_samples\":{},\"quality\":{\"total_sections\":3,\"populated_sections\":3,\"empty_sections\":0,\"coverage_pct\":100},\"caliber_products\":[\"餐饮品牌门店\"],\"source_server\":\"store-mcp-server\",\"source_products\":[{\"name\":\"餐饮品牌门店\",\"product_id\":\"66f3d8bf64bd2be52d68a0e9\"}],\"limit\":\"数据来自店铺公开数据库；少量字段可能存在更新延迟。城市与省份分布分别计算，不混合集中度；多品牌检索值是查询条件，不代表每条记录同时命中全部品牌。\",\"html_bytes\":1063248,\"markdown_bytes\":3087}"
+            },
+            {
+              "expectation": "首个品牌统计来源可解释",
+              "status": "pass",
+              "evidence": "该项由当前调用参数、报告同名字段、样本与局限说明共同核对。 当前冻结快照：{\"technical_status\":\"passed\",\"successful_data_calls\":1,\"calls\":[{\"tool\":\"store_bigdata_company_restaurant_branches\",\"status\":\"data\",\"rows\":null,\"total\":null,\"args\":{\"matchKeyword\":\"四川海底捞餐饮股份有限公司\",\"keywordType\":\"name\"}}],\"subject\":{\"mode\":\"enterprise\",\"keywordType\":\"name\",\"match_raw\":\"四川海底捞餐饮股份有限公司\",\"enterprise\":\"四川海底捞餐饮股份有限公司\",\"matchKeyword\":\"四川海底捞餐饮股份有限公司\",\"resolved\":true,\"resolve_reason\":\"视为企业全称\",\"fuzzy_requested\":false},\"metrics\":[{\"label\":\"旗下品牌数\",\"value\":\"3\",\"hint\":\"企业旗下餐饮品牌总数\"},{\"label\":\"门店总数(汇总)\",\"value\":\"3169\",\"hint\":\"各品牌门店数汇总\"},{\"label\":\"主力品牌门店数\",\"value\":\"3005\",\"hint\":\"主力品牌“海底捞火锅”门店数\"},{\"label\":\"覆盖城市数\",\"value\":\"10\",\"hint\":\"主力品牌门店覆盖城市数\"},{\"label\":\"覆盖省份数\",\"value\":\"10\",\"hint\":\"主力品牌门店覆盖省份数\"},{\"label\":\"餐饮类别数\",\"value\":\"2\",\"hint\":\"覆盖的餐饮一级类别数\"},{\"label\":\"主力品牌\",\"value\":\"海底捞火锅（3005家）\",\"hint\":\"门店数最多的品牌\"},{\"label\":\"城市CR3\",\"value\":\"44.5%\",\"hint\":\"前3大城市门店集中度\"}],\"core_counts\":{\"sections\":3,\"brand_records\":3,\"branch_city_stats\":10,\"branch_province_stats\":10,\"offline_records\":0},\"core_samples\":{},\"quality\":{\"total_sections\":3,\"populated_sections\":3,\"empty_sections\":0,\"coverage_pct\":100},\"caliber_products\":[\"餐饮品牌门店\"],\"source_server\":\"store-mcp-server\",\"source_products\":[{\"name\":\"餐饮品牌门店\",\"product_id\":\"66f3d8bf64bd2be52d68a0e9\"}],\"limit\":\"数据来自店铺公开数据库；少量字段可能存在更新延迟。城市与省份分布分别计算，不混合集中度；多品牌检索值是查询条件，不代表每条记录同时命中全部品牌。\",\"html_bytes\":1063248,\"markdown_bytes\":3087}"
+            },
+            {
+              "expectation": "门店出现不等于当前营业状态",
+              "status": "pass",
+              "evidence": "该项由当前调用参数、报告同名字段、样本与局限说明共同核对。 当前冻结快照：{\"technical_status\":\"passed\",\"successful_data_calls\":1,\"calls\":[{\"tool\":\"store_bigdata_company_restaurant_branches\",\"status\":\"data\",\"rows\":null,\"total\":null,\"args\":{\"matchKeyword\":\"四川海底捞餐饮股份有限公司\",\"keywordType\":\"name\"}}],\"subject\":{\"mode\":\"enterprise\",\"keywordType\":\"name\",\"match_raw\":\"四川海底捞餐饮股份有限公司\",\"enterprise\":\"四川海底捞餐饮股份有限公司\",\"matchKeyword\":\"四川海底捞餐饮股份有限公司\",\"resolved\":true,\"resolve_reason\":\"视为企业全称\",\"fuzzy_requested\":false},\"metrics\":[{\"label\":\"旗下品牌数\",\"value\":\"3\",\"hint\":\"企业旗下餐饮品牌总数\"},{\"label\":\"门店总数(汇总)\",\"value\":\"3169\",\"hint\":\"各品牌门店数汇总\"},{\"label\":\"主力品牌门店数\",\"value\":\"3005\",\"hint\":\"主力品牌“海底捞火锅”门店数\"},{\"label\":\"覆盖城市数\",\"value\":\"10\",\"hint\":\"主力品牌门店覆盖城市数\"},{\"label\":\"覆盖省份数\",\"value\":\"10\",\"hint\":\"主力品牌门店覆盖省份数\"},{\"label\":\"餐饮类别数\",\"value\":\"2\",\"hint\":\"覆盖的餐饮一级类别数\"},{\"label\":\"主力品牌\",\"value\":\"海底捞火锅（3005家）\",\"hint\":\"门店数最多的品牌\"},{\"label\":\"城市CR3\",\"value\":\"44.5%\",\"hint\":\"前3大城市门店集中度\"}],\"core_counts\":{\"sections\":3,\"brand_records\":3,\"branch_city_stats\":10,\"branch_province_stats\":10,\"offline_records\":0},\"core_samples\":{},\"quality\":{\"total_sections\":3,\"populated_sections\":3,\"empty_sections\":0,\"coverage_pct\":100},\"caliber_products\":[\"餐饮品牌门店\"],\"source_server\":\"store-mcp-server\",\"source_products\":[{\"name\":\"餐饮品牌门店\",\"product_id\":\"66f3d8bf64bd2be52d68a0e9\"}],\"limit\":\"数据来自店铺公开数据库；少量字段可能存在更新延迟。城市与省份分布分别计算，不混合集中度；多品牌检索值是查询条件，不代表每条记录同时命中全部品牌。\",\"html_bytes\":1063248,\"markdown_bytes\":3087}"
+            }
+          ],
+          "issues": [],
+          "evidence_binding": {
+            "report.json": "35564c3c73556b04d95196ec097126fa151f95221ba3f22c147cba4d07128eb1",
+            "report.html": "3f853f8ee0e923f7cb06ea902ce343b1a026d9dd7b6f19209c76496f3db3414e",
+            "report.md": "e8f332db42e3b9cb074ae8288ca1c8cb94f70820a332c22a524ff7cb08c2c315",
+            "calls.json": "5a1921dfd1cb620be2c360bfbf3853ef1893d77b3f07e5f68ad22cf1f19c770c",
+            "result.json": "2e3fe3f1b44c503dbc8608a89d2b4382af98288ef0e6775a74b81e2171077e3f",
+            "source_manifest_sha256": "014e0c39ccd221d4b037bfafc75dc705b73521da54c003be18fa8ca62d4dab92"
+          }
+        }
+      }
+    },
+    {
+      "scenario": {
+        "id": "09-auto-service-status-shortlist",
+        "title": "广州汽车维修营业状态初筛",
+        "user_request": "请检索广州汽车服务/汽车维修门店，依据实际店名、分类和门店状态区分可继续核验与已关闭/下架样本；不要验证地址或维修资质。",
+        "purpose": "为售后团队形成按营业状态分组的初筛清单。",
+        "args": [
+          "--category",
+          "汽车服务,汽车维修",
+          "--address",
+          "广东省,广州市",
+          "--page-size",
+          "10"
+        ],
+        "expected_checks": [
+          "offline_records 至少有两条实际返回记录",
+          "至少两条记录同时具备非空店铺名称、店铺分类和店铺状态",
+          "实际店铺状态中必须同时出现至少一条“营业”和至少一条“关闭/下架”，形成两个真实状态组",
+          "分类相关性必须由实际店铺分类字段支持，不能只依赖 category 参数",
+          "状态分组必须引用实际店铺状态，且不得把缺失状态当营业",
+          "不得以命中总数或地区参数回显替代门店业务记录"
+        ],
+        "limitations": [
+          "上游缺少实际地址时不能验证广州过滤效果",
+          "分类命中不代表维修资质，状态是时点快照"
+        ]
+      },
+      "result": {
+        "schema_version": 1,
+        "skill": "store-skill",
+        "case_id": "09-auto-service-status-shortlist",
+        "title": "广州汽车维修营业状态初筛",
+        "invocation_id": "1793070090235280000",
+        "provenance": {
+          "integrator_id": "683e574805537ace146cc05e",
+          "runner_sha256": "05777c2f2b0791cb5157aef691206606dade8df7af3b17212285b7ae74632a66",
+          "credential_policy_sha256": "bcabf08a1ca92f28357c0e57a8bae9bfa910eb1d4b204d8195ee3b7a77106eed",
+          "scenario_sha256": "2c2e1ba4a69eae4cf914c50c36054a471ba25ab7f1acfc4a501b923ee86c3318",
+          "skill_source_hashes": {
+            "scripts/common.py": "ca703146250e231afad76dd163a774bc8b5d8e0444956a76c97237591b438635",
+            "scripts/compose_report.py": "ca49409b231d4d1aa5e025397203bec39aae6730bdac9ba9686284d78c679d94",
+            "scripts/mcp_client.py": "5e6419ff7f0d706a8b687b506e97a9a919de5fe38469099e387ccfb0b382f453",
+            "scripts/render_report.py": "de046911f05f1ffb87d3252ad85661fc14789d1fe598628109202a3f845094d5",
+            "scripts/validate_config.py": "4aaad40d0985becf2a661fe411862562b3b3705b954119b13a9e484d1154df32"
+          },
+          "upstream_source_hashes": {
+            "store-mcp-server": "da9bf93ad0fbf9354d8aedc747acf162331fceec89eb79499f202e7a49108f30"
+          },
+          "upstream_dependency_hashes": {
+            "store-mcp-server/server/mcp_server.py": "da9bf93ad0fbf9354d8aedc747acf162331fceec89eb79499f202e7a49108f30"
+          }
+        },
+        "source_changed_during_run": false,
+        "started_at": "2026-10-27T11:01:30+08:00",
+        "elapsed_seconds": 1.446,
+        "returncode": 0,
+        "exception_type": null,
+        "command": "python3 store-skill/scripts/compose_report.py --category '汽车服务,汽车维修' --address '广东省,广州市' --page-size 10 --output store-skill/output/live-replaced-20261027/09-auto-service-status-shortlist/report.json --report-output store-skill/output/live-replaced-20261027/09-auto-service-status-shortlist/report.html",
+        "transport": "local MCP servers via loopback streamable-http",
+        "cache_used": false,
+        "call_count": 1,
+        "successful_data_calls": 1,
+        "empty_calls": 0,
+        "failed_calls": 0,
+        "checks": {
+          "issues": [],
+          "warnings": [],
+          "coverage_pct": 100,
+          "subject": {
+            "mode": "search",
+            "keywordType": "name",
+            "match_raw": "汽车服务,汽车维修",
+            "enterprise": "",
+            "matchKeyword": "汽车服务,汽车维修",
+            "store_name": "",
+            "brand": "",
+            "category": "汽车服务,汽车维修",
+            "address": "广东省,广州市",
+            "address_value": ""
+          },
+          "title": "“汽车服务,汽车维修” 店铺大数据报告",
+          "data_mode": null,
+          "metrics": [
+            {
+              "label": "线下门店检索结果",
+              "value": "33761",
+              "hint": "本次线下门店检索命中条数"
+            }
+          ],
+          "quality_report": {
+            "total_sections": 1,
+            "populated_sections": 1,
+            "empty_sections": 0,
+            "coverage_pct": 100
+          },
+          "unregistered_tools": [],
+          "checks": {
+            "json_html_markdown": true,
+            "explicit_live": true,
+            "tool_calls_recorded": 1,
+            "offline_scripts": true,
+            "independent_rerender": true,
+            "offline_browser": true
+          }
+        },
+        "status": "passed",
+        "source_hashes": {
+          "scripts/common.py": "ca703146250e231afad76dd163a774bc8b5d8e0444956a76c97237591b438635",
+          "scripts/compose_report.py": "ca49409b231d4d1aa5e025397203bec39aae6730bdac9ba9686284d78c679d94",
+          "scripts/mcp_client.py": "5e6419ff7f0d706a8b687b506e97a9a919de5fe38469099e387ccfb0b382f453",
+          "scripts/render_report.py": "de046911f05f1ffb87d3252ad85661fc14789d1fe598628109202a3f845094d5",
+          "scripts/validate_config.py": "4aaad40d0985becf2a661fe411862562b3b3705b954119b13a9e484d1154df32"
+        },
+        "technical_status": "passed",
+        "audited_at": "2026-10-27T11:13:03+08:00",
+        "evidence_binding": {
+          "report.json": "6928921e2b67c4d29d6fb2c6cdf7b937ae9bc8b03a1664369e971916425ebe57",
+          "report.html": "d3f79e91bc16ac244581b481d81bc3f866a608c345038e21818afc3439502b04",
+          "report.md": "e9dd05dd47a6af1cd16a5f475ede6754f551f92796df100053a96b6e5baaa298",
+          "calls.json": "b76363c0321af603f92e7a22458d40ffeaae6d660ae4a6226c9de217460b77d5",
+          "result.json": "8496b5749b2c89f9a4920a177e1d765ae841f620284256b0451b4996fe6c5f69",
+          "source_manifest_sha256": "014e0c39ccd221d4b037bfafc75dc705b73521da54c003be18fa8ca62d4dab92"
+        },
+        "business_review": {
+          "id": "09-auto-service-status-shortlist",
+          "verdict": "acceptable",
+          "summary": "本轮真实产物的全部清单检查均有当前字段证据，且报告保留样本/缺失/关系边界。",
+          "checks": [
+            {
+              "expectation": "offline_records 至少有两条实际返回记录",
+              "status": "pass",
+              "evidence": "offline_records为10/33761；易合汽车服务=汽车服务、汽车维修=营业，壹伍陆连锁汽车服务(番禺石基店)=同分类=关闭/下架，另有多条两种状态；缺失状态未当营业。 当前冻结快照：{\"technical_status\":\"passed\",\"successful_data_calls\":1,\"calls\":[{\"tool\":\"store_bigdata_offline_store_search\",\"status\":\"data\",\"rows\":10,\"total\":33761,\"args\":{\"pageIndex\":1,\"pageSize\":10,\"ooStoreCalClassification\":\"汽车服务,汽车维修\",\"address\":\"广东省,广州市\"}}],\"subject\":{\"mode\":\"search\",\"keywordType\":\"name\",\"match_raw\":\"汽车服务,汽车维修\",\"enterprise\":\"\",\"matchKeyword\":\"汽车服务,汽车维修\",\"store_name\":\"\",\"brand\":\"\",\"category\":\"汽车服务,汽车维修\",\"address\":\"广东省,广州市\",\"address_value\":\"\"},\"metrics\":[{\"label\":\"线下门店检索结果\",\"value\":\"33761\",\"hint\":\"本次线下门店检索命中条数\"}],\"core_counts\":{\"sections\":1,\"brand_records\":0,\"branch_city_stats\":0,\"branch_province_stats\":0,\"offline_records\":10},\"core_samples\":{\"offline_records\":[{\"店铺名称\":\"易合汽车服务\",\"店铺分类\":\"汽车服务、汽车维修\",\"店铺状态\":\"营业\",\"商圈\":\"-\",\"人均价格\":\"-\",\"店铺排名\":\"113001.0\",\"实际品牌\":\"-\",\"实际地区\":\"-\",\"实际地址\":\"-\",\"查询品牌条件\":\"-\",\"查询地区条件\":\"广东省,广州市\",\"查询地址条件\":\"-\",\"品牌匹配验证\":\"未设置品牌条件\",\"地址匹配验证\":\"上游未返回实际地区/地址，无法逐条验证地区条件\"},{\"店铺名称\":\"壹伍陆连锁汽车服务(番禺石基店)\",\"店铺分类\":\"汽车服务、汽车维修\",\"店铺状态\":\"关闭/下架\",\"商圈\":\"-\",\"人均价格\":\"-\",\"店铺排名\":\"72961.0\",\"实际品牌\":\"-\",\"实际地区\":\"-\",\"实际地址\":\"-\",\"查询品牌条件\":\"-\",\"查询地区条件\":\"广东省,广州市\",\"查询地址条件\":\"-\",\"品牌匹配验证\":\"未设置品牌条件\",\"地址匹配验证\":\"上游未返回实际地区/地址，无法逐条验证地区条件\"}]},\"quality\":{\"total_sections\":1,\"populated_sections\":1,\"empty_sections\":0,\"coverage_pct\":100},\"caliber_products\":[\"线下门店检索\"],\"source_server\":\"store-mcp-server\",\"source_products\":[{\"name\":\"线下门店检索\",\"product_id\":\"66ed53be15858a879f40242f\"}],\"limit\":\"数据来自店铺公开数据库；少量字段可能存在更新延迟。城市与省份分布分别计算，不混合集中度；多品牌检索值是查询条件，不代表每条记录同时命中全部品牌。\",\"html_bytes\":1060022,\"markdown_bytes\":4573}"
+            },
+            {
+              "expectation": "至少两条记录同时具备非空店铺名称、店铺分类和店铺状态",
+              "status": "pass",
+              "evidence": "offline_records为10/33761；易合汽车服务=汽车服务、汽车维修=营业，壹伍陆连锁汽车服务(番禺石基店)=同分类=关闭/下架，另有多条两种状态；缺失状态未当营业。 当前冻结快照：{\"technical_status\":\"passed\",\"successful_data_calls\":1,\"calls\":[{\"tool\":\"store_bigdata_offline_store_search\",\"status\":\"data\",\"rows\":10,\"total\":33761,\"args\":{\"pageIndex\":1,\"pageSize\":10,\"ooStoreCalClassification\":\"汽车服务,汽车维修\",\"address\":\"广东省,广州市\"}}],\"subject\":{\"mode\":\"search\",\"keywordType\":\"name\",\"match_raw\":\"汽车服务,汽车维修\",\"enterprise\":\"\",\"matchKeyword\":\"汽车服务,汽车维修\",\"store_name\":\"\",\"brand\":\"\",\"category\":\"汽车服务,汽车维修\",\"address\":\"广东省,广州市\",\"address_value\":\"\"},\"metrics\":[{\"label\":\"线下门店检索结果\",\"value\":\"33761\",\"hint\":\"本次线下门店检索命中条数\"}],\"core_counts\":{\"sections\":1,\"brand_records\":0,\"branch_city_stats\":0,\"branch_province_stats\":0,\"offline_records\":10},\"core_samples\":{\"offline_records\":[{\"店铺名称\":\"易合汽车服务\",\"店铺分类\":\"汽车服务、汽车维修\",\"店铺状态\":\"营业\",\"商圈\":\"-\",\"人均价格\":\"-\",\"店铺排名\":\"113001.0\",\"实际品牌\":\"-\",\"实际地区\":\"-\",\"实际地址\":\"-\",\"查询品牌条件\":\"-\",\"查询地区条件\":\"广东省,广州市\",\"查询地址条件\":\"-\",\"品牌匹配验证\":\"未设置品牌条件\",\"地址匹配验证\":\"上游未返回实际地区/地址，无法逐条验证地区条件\"},{\"店铺名称\":\"壹伍陆连锁汽车服务(番禺石基店)\",\"店铺分类\":\"汽车服务、汽车维修\",\"店铺状态\":\"关闭/下架\",\"商圈\":\"-\",\"人均价格\":\"-\",\"店铺排名\":\"72961.0\",\"实际品牌\":\"-\",\"实际地区\":\"-\",\"实际地址\":\"-\",\"查询品牌条件\":\"-\",\"查询地区条件\":\"广东省,广州市\",\"查询地址条件\":\"-\",\"品牌匹配验证\":\"未设置品牌条件\",\"地址匹配验证\":\"上游未返回实际地区/地址，无法逐条验证地区条件\"}]},\"quality\":{\"total_sections\":1,\"populated_sections\":1,\"empty_sections\":0,\"coverage_pct\":100},\"caliber_products\":[\"线下门店检索\"],\"source_server\":\"store-mcp-server\",\"source_products\":[{\"name\":\"线下门店检索\",\"product_id\":\"66ed53be15858a879f40242f\"}],\"limit\":\"数据来自店铺公开数据库；少量字段可能存在更新延迟。城市与省份分布分别计算，不混合集中度；多品牌检索值是查询条件，不代表每条记录同时命中全部品牌。\",\"html_bytes\":1060022,\"markdown_bytes\":4573}"
+            },
+            {
+              "expectation": "实际店铺状态中必须同时出现至少一条“营业”和至少一条“关闭/下架”，形成两个真实状态组",
+              "status": "pass",
+              "evidence": "offline_records为10/33761；易合汽车服务=汽车服务、汽车维修=营业，壹伍陆连锁汽车服务(番禺石基店)=同分类=关闭/下架，另有多条两种状态；缺失状态未当营业。 当前冻结快照：{\"technical_status\":\"passed\",\"successful_data_calls\":1,\"calls\":[{\"tool\":\"store_bigdata_offline_store_search\",\"status\":\"data\",\"rows\":10,\"total\":33761,\"args\":{\"pageIndex\":1,\"pageSize\":10,\"ooStoreCalClassification\":\"汽车服务,汽车维修\",\"address\":\"广东省,广州市\"}}],\"subject\":{\"mode\":\"search\",\"keywordType\":\"name\",\"match_raw\":\"汽车服务,汽车维修\",\"enterprise\":\"\",\"matchKeyword\":\"汽车服务,汽车维修\",\"store_name\":\"\",\"brand\":\"\",\"category\":\"汽车服务,汽车维修\",\"address\":\"广东省,广州市\",\"address_value\":\"\"},\"metrics\":[{\"label\":\"线下门店检索结果\",\"value\":\"33761\",\"hint\":\"本次线下门店检索命中条数\"}],\"core_counts\":{\"sections\":1,\"brand_records\":0,\"branch_city_stats\":0,\"branch_province_stats\":0,\"offline_records\":10},\"core_samples\":{\"offline_records\":[{\"店铺名称\":\"易合汽车服务\",\"店铺分类\":\"汽车服务、汽车维修\",\"店铺状态\":\"营业\",\"商圈\":\"-\",\"人均价格\":\"-\",\"店铺排名\":\"113001.0\",\"实际品牌\":\"-\",\"实际地区\":\"-\",\"实际地址\":\"-\",\"查询品牌条件\":\"-\",\"查询地区条件\":\"广东省,广州市\",\"查询地址条件\":\"-\",\"品牌匹配验证\":\"未设置品牌条件\",\"地址匹配验证\":\"上游未返回实际地区/地址，无法逐条验证地区条件\"},{\"店铺名称\":\"壹伍陆连锁汽车服务(番禺石基店)\",\"店铺分类\":\"汽车服务、汽车维修\",\"店铺状态\":\"关闭/下架\",\"商圈\":\"-\",\"人均价格\":\"-\",\"店铺排名\":\"72961.0\",\"实际品牌\":\"-\",\"实际地区\":\"-\",\"实际地址\":\"-\",\"查询品牌条件\":\"-\",\"查询地区条件\":\"广东省,广州市\",\"查询地址条件\":\"-\",\"品牌匹配验证\":\"未设置品牌条件\",\"地址匹配验证\":\"上游未返回实际地区/地址，无法逐条验证地区条件\"}]},\"quality\":{\"total_sections\":1,\"populated_sections\":1,\"empty_sections\":0,\"coverage_pct\":100},\"caliber_products\":[\"线下门店检索\"],\"source_server\":\"store-mcp-server\",\"source_products\":[{\"name\":\"线下门店检索\",\"product_id\":\"66ed53be15858a879f40242f\"}],\"limit\":\"数据来自店铺公开数据库；少量字段可能存在更新延迟。城市与省份分布分别计算，不混合集中度；多品牌检索值是查询条件，不代表每条记录同时命中全部品牌。\",\"html_bytes\":1060022,\"markdown_bytes\":4573}"
+            },
+            {
+              "expectation": "分类相关性必须由实际店铺分类字段支持，不能只依赖 category 参数",
+              "status": "pass",
+              "evidence": "offline_records为10/33761；易合汽车服务=汽车服务、汽车维修=营业，壹伍陆连锁汽车服务(番禺石基店)=同分类=关闭/下架，另有多条两种状态；缺失状态未当营业。 当前冻结快照：{\"technical_status\":\"passed\",\"successful_data_calls\":1,\"calls\":[{\"tool\":\"store_bigdata_offline_store_search\",\"status\":\"data\",\"rows\":10,\"total\":33761,\"args\":{\"pageIndex\":1,\"pageSize\":10,\"ooStoreCalClassification\":\"汽车服务,汽车维修\",\"address\":\"广东省,广州市\"}}],\"subject\":{\"mode\":\"search\",\"keywordType\":\"name\",\"match_raw\":\"汽车服务,汽车维修\",\"enterprise\":\"\",\"matchKeyword\":\"汽车服务,汽车维修\",\"store_name\":\"\",\"brand\":\"\",\"category\":\"汽车服务,汽车维修\",\"address\":\"广东省,广州市\",\"address_value\":\"\"},\"metrics\":[{\"label\":\"线下门店检索结果\",\"value\":\"33761\",\"hint\":\"本次线下门店检索命中条数\"}],\"core_counts\":{\"sections\":1,\"brand_records\":0,\"branch_city_stats\":0,\"branch_province_stats\":0,\"offline_records\":10},\"core_samples\":{\"offline_records\":[{\"店铺名称\":\"易合汽车服务\",\"店铺分类\":\"汽车服务、汽车维修\",\"店铺状态\":\"营业\",\"商圈\":\"-\",\"人均价格\":\"-\",\"店铺排名\":\"113001.0\",\"实际品牌\":\"-\",\"实际地区\":\"-\",\"实际地址\":\"-\",\"查询品牌条件\":\"-\",\"查询地区条件\":\"广东省,广州市\",\"查询地址条件\":\"-\",\"品牌匹配验证\":\"未设置品牌条件\",\"地址匹配验证\":\"上游未返回实际地区/地址，无法逐条验证地区条件\"},{\"店铺名称\":\"壹伍陆连锁汽车服务(番禺石基店)\",\"店铺分类\":\"汽车服务、汽车维修\",\"店铺状态\":\"关闭/下架\",\"商圈\":\"-\",\"人均价格\":\"-\",\"店铺排名\":\"72961.0\",\"实际品牌\":\"-\",\"实际地区\":\"-\",\"实际地址\":\"-\",\"查询品牌条件\":\"-\",\"查询地区条件\":\"广东省,广州市\",\"查询地址条件\":\"-\",\"品牌匹配验证\":\"未设置品牌条件\",\"地址匹配验证\":\"上游未返回实际地区/地址，无法逐条验证地区条件\"}]},\"quality\":{\"total_sections\":1,\"populated_sections\":1,\"empty_sections\":0,\"coverage_pct\":100},\"caliber_products\":[\"线下门店检索\"],\"source_server\":\"store-mcp-server\",\"source_products\":[{\"name\":\"线下门店检索\",\"product_id\":\"66ed53be15858a879f40242f\"}],\"limit\":\"数据来自店铺公开数据库；少量字段可能存在更新延迟。城市与省份分布分别计算，不混合集中度；多品牌检索值是查询条件，不代表每条记录同时命中全部品牌。\",\"html_bytes\":1060022,\"markdown_bytes\":4573}"
+            },
+            {
+              "expectation": "状态分组必须引用实际店铺状态，且不得把缺失状态当营业",
+              "status": "pass",
+              "evidence": "offline_records为10/33761；易合汽车服务=汽车服务、汽车维修=营业，壹伍陆连锁汽车服务(番禺石基店)=同分类=关闭/下架，另有多条两种状态；缺失状态未当营业。 当前冻结快照：{\"technical_status\":\"passed\",\"successful_data_calls\":1,\"calls\":[{\"tool\":\"store_bigdata_offline_store_search\",\"status\":\"data\",\"rows\":10,\"total\":33761,\"args\":{\"pageIndex\":1,\"pageSize\":10,\"ooStoreCalClassification\":\"汽车服务,汽车维修\",\"address\":\"广东省,广州市\"}}],\"subject\":{\"mode\":\"search\",\"keywordType\":\"name\",\"match_raw\":\"汽车服务,汽车维修\",\"enterprise\":\"\",\"matchKeyword\":\"汽车服务,汽车维修\",\"store_name\":\"\",\"brand\":\"\",\"category\":\"汽车服务,汽车维修\",\"address\":\"广东省,广州市\",\"address_value\":\"\"},\"metrics\":[{\"label\":\"线下门店检索结果\",\"value\":\"33761\",\"hint\":\"本次线下门店检索命中条数\"}],\"core_counts\":{\"sections\":1,\"brand_records\":0,\"branch_city_stats\":0,\"branch_province_stats\":0,\"offline_records\":10},\"core_samples\":{\"offline_records\":[{\"店铺名称\":\"易合汽车服务\",\"店铺分类\":\"汽车服务、汽车维修\",\"店铺状态\":\"营业\",\"商圈\":\"-\",\"人均价格\":\"-\",\"店铺排名\":\"113001.0\",\"实际品牌\":\"-\",\"实际地区\":\"-\",\"实际地址\":\"-\",\"查询品牌条件\":\"-\",\"查询地区条件\":\"广东省,广州市\",\"查询地址条件\":\"-\",\"品牌匹配验证\":\"未设置品牌条件\",\"地址匹配验证\":\"上游未返回实际地区/地址，无法逐条验证地区条件\"},{\"店铺名称\":\"壹伍陆连锁汽车服务(番禺石基店)\",\"店铺分类\":\"汽车服务、汽车维修\",\"店铺状态\":\"关闭/下架\",\"商圈\":\"-\",\"人均价格\":\"-\",\"店铺排名\":\"72961.0\",\"实际品牌\":\"-\",\"实际地区\":\"-\",\"实际地址\":\"-\",\"查询品牌条件\":\"-\",\"查询地区条件\":\"广东省,广州市\",\"查询地址条件\":\"-\",\"品牌匹配验证\":\"未设置品牌条件\",\"地址匹配验证\":\"上游未返回实际地区/地址，无法逐条验证地区条件\"}]},\"quality\":{\"total_sections\":1,\"populated_sections\":1,\"empty_sections\":0,\"coverage_pct\":100},\"caliber_products\":[\"线下门店检索\"],\"source_server\":\"store-mcp-server\",\"source_products\":[{\"name\":\"线下门店检索\",\"product_id\":\"66ed53be15858a879f40242f\"}],\"limit\":\"数据来自店铺公开数据库；少量字段可能存在更新延迟。城市与省份分布分别计算，不混合集中度；多品牌检索值是查询条件，不代表每条记录同时命中全部品牌。\",\"html_bytes\":1060022,\"markdown_bytes\":4573}"
+            },
+            {
+              "expectation": "不得以命中总数或地区参数回显替代门店业务记录",
+              "status": "pass",
+              "evidence": "offline_records为10/33761；易合汽车服务=汽车服务、汽车维修=营业，壹伍陆连锁汽车服务(番禺石基店)=同分类=关闭/下架，另有多条两种状态；缺失状态未当营业。 当前冻结快照：{\"technical_status\":\"passed\",\"successful_data_calls\":1,\"calls\":[{\"tool\":\"store_bigdata_offline_store_search\",\"status\":\"data\",\"rows\":10,\"total\":33761,\"args\":{\"pageIndex\":1,\"pageSize\":10,\"ooStoreCalClassification\":\"汽车服务,汽车维修\",\"address\":\"广东省,广州市\"}}],\"subject\":{\"mode\":\"search\",\"keywordType\":\"name\",\"match_raw\":\"汽车服务,汽车维修\",\"enterprise\":\"\",\"matchKeyword\":\"汽车服务,汽车维修\",\"store_name\":\"\",\"brand\":\"\",\"category\":\"汽车服务,汽车维修\",\"address\":\"广东省,广州市\",\"address_value\":\"\"},\"metrics\":[{\"label\":\"线下门店检索结果\",\"value\":\"33761\",\"hint\":\"本次线下门店检索命中条数\"}],\"core_counts\":{\"sections\":1,\"brand_records\":0,\"branch_city_stats\":0,\"branch_province_stats\":0,\"offline_records\":10},\"core_samples\":{\"offline_records\":[{\"店铺名称\":\"易合汽车服务\",\"店铺分类\":\"汽车服务、汽车维修\",\"店铺状态\":\"营业\",\"商圈\":\"-\",\"人均价格\":\"-\",\"店铺排名\":\"113001.0\",\"实际品牌\":\"-\",\"实际地区\":\"-\",\"实际地址\":\"-\",\"查询品牌条件\":\"-\",\"查询地区条件\":\"广东省,广州市\",\"查询地址条件\":\"-\",\"品牌匹配验证\":\"未设置品牌条件\",\"地址匹配验证\":\"上游未返回实际地区/地址，无法逐条验证地区条件\"},{\"店铺名称\":\"壹伍陆连锁汽车服务(番禺石基店)\",\"店铺分类\":\"汽车服务、汽车维修\",\"店铺状态\":\"关闭/下架\",\"商圈\":\"-\",\"人均价格\":\"-\",\"店铺排名\":\"72961.0\",\"实际品牌\":\"-\",\"实际地区\":\"-\",\"实际地址\":\"-\",\"查询品牌条件\":\"-\",\"查询地区条件\":\"广东省,广州市\",\"查询地址条件\":\"-\",\"品牌匹配验证\":\"未设置品牌条件\",\"地址匹配验证\":\"上游未返回实际地区/地址，无法逐条验证地区条件\"}]},\"quality\":{\"total_sections\":1,\"populated_sections\":1,\"empty_sections\":0,\"coverage_pct\":100},\"caliber_products\":[\"线下门店检索\"],\"source_server\":\"store-mcp-server\",\"source_products\":[{\"name\":\"线下门店检索\",\"product_id\":\"66ed53be15858a879f40242f\"}],\"limit\":\"数据来自店铺公开数据库；少量字段可能存在更新延迟。城市与省份分布分别计算，不混合集中度；多品牌检索值是查询条件，不代表每条记录同时命中全部品牌。\",\"html_bytes\":1060022,\"markdown_bytes\":4573}"
+            }
+          ],
+          "issues": [],
+          "evidence_binding": {
+            "report.json": "6928921e2b67c4d29d6fb2c6cdf7b937ae9bc8b03a1664369e971916425ebe57",
+            "report.html": "d3f79e91bc16ac244581b481d81bc3f866a608c345038e21818afc3439502b04",
+            "report.md": "e9dd05dd47a6af1cd16a5f475ede6754f551f92796df100053a96b6e5baaa298",
+            "calls.json": "b76363c0321af603f92e7a22458d40ffeaae6d660ae4a6226c9de217460b77d5",
+            "result.json": "8496b5749b2c89f9a4920a177e1d765ae841f620284256b0451b4996fe6c5f69",
+            "source_manifest_sha256": "014e0c39ccd221d4b037bfafc75dc705b73521da54c003be18fa8ca62d4dab92"
+          }
+        }
+      }
+    },
+    {
+      "scenario": {
+        "id": "10-hotpot-local-operation-snapshot",
+        "title": "成都海底捞门店经营字段快照",
+        "user_request": "请检索成都名称包含海底捞的门店样本，展示实际店名与状态，并从商圈、人均价格、排名中至少提供两项可用字段，用于观察本地样本差异；不核验地址或品牌归属。",
+        "purpose": "建立带状态与消费字段的本地竞对样本快照。",
+        "args": [
+          "--store-name",
+          "海底捞",
+          "--address",
+          "四川省,成都市",
+          "--page-size",
+          "10"
+        ],
+        "expected_checks": [
+          "offline_records 至少有两条实际返回记录",
+          "至少两条记录具有非空店铺名称和店铺状态",
+          "至少两条记录各自在商圈、人均价格、店铺排名三项中具备至少两项非空实际值",
+          "至少两条实际门店样本在店铺状态、商圈、人均价格或店铺排名中的至少一个字段存在可观察差异",
+          "门店名称匹配必须来自实际店铺名称字段而非请求回显",
+          "价格和状态保持时点快照语义，不生成实时经营结论"
+        ],
+        "limitations": [
+          "名称命中不证明品牌直营或授权",
+          "地址字段缺失时不能验证成都过滤效果",
+          "价格和状态可能有更新时差"
+        ]
+      },
+      "result": {
+        "schema_version": 1,
+        "skill": "store-skill",
+        "case_id": "10-hotpot-local-operation-snapshot",
+        "title": "成都海底捞门店经营字段快照",
+        "invocation_id": "1793070090495941000",
+        "provenance": {
+          "integrator_id": "683e574805537ace146cc05e",
+          "runner_sha256": "05777c2f2b0791cb5157aef691206606dade8df7af3b17212285b7ae74632a66",
+          "credential_policy_sha256": "bcabf08a1ca92f28357c0e57a8bae9bfa910eb1d4b204d8195ee3b7a77106eed",
+          "scenario_sha256": "1103636174085762560c8db54b0fef7cdc9d4856c45a22001eb2ed57ead981c4",
+          "skill_source_hashes": {
+            "scripts/common.py": "ca703146250e231afad76dd163a774bc8b5d8e0444956a76c97237591b438635",
+            "scripts/compose_report.py": "ca49409b231d4d1aa5e025397203bec39aae6730bdac9ba9686284d78c679d94",
+            "scripts/mcp_client.py": "5e6419ff7f0d706a8b687b506e97a9a919de5fe38469099e387ccfb0b382f453",
+            "scripts/render_report.py": "de046911f05f1ffb87d3252ad85661fc14789d1fe598628109202a3f845094d5",
+            "scripts/validate_config.py": "4aaad40d0985becf2a661fe411862562b3b3705b954119b13a9e484d1154df32"
+          },
+          "upstream_source_hashes": {
+            "store-mcp-server": "da9bf93ad0fbf9354d8aedc747acf162331fceec89eb79499f202e7a49108f30"
+          },
+          "upstream_dependency_hashes": {
+            "store-mcp-server/server/mcp_server.py": "da9bf93ad0fbf9354d8aedc747acf162331fceec89eb79499f202e7a49108f30"
+          }
+        },
+        "source_changed_during_run": false,
+        "started_at": "2026-10-27T11:01:30+08:00",
+        "elapsed_seconds": 1.188,
+        "returncode": 0,
+        "exception_type": null,
+        "command": "python3 store-skill/scripts/compose_report.py --store-name '海底捞' --address '四川省,成都市' --page-size 10 --output store-skill/output/live-replaced-20261027/10-hotpot-local-operation-snapshot/report.json --report-output store-skill/output/live-replaced-20261027/10-hotpot-local-operation-snapshot/report.html",
+        "transport": "local MCP servers via loopback streamable-http",
+        "cache_used": false,
+        "call_count": 1,
+        "successful_data_calls": 1,
+        "empty_calls": 0,
+        "failed_calls": 0,
+        "checks": {
+          "issues": [],
+          "warnings": [],
+          "coverage_pct": 100,
+          "subject": {
+            "mode": "search",
+            "keywordType": "name",
+            "match_raw": "海底捞",
+            "enterprise": "",
+            "matchKeyword": "海底捞",
+            "store_name": "海底捞",
+            "brand": "",
+            "category": "",
+            "address": "四川省,成都市",
+            "address_value": ""
+          },
+          "title": "“海底捞” 店铺大数据报告",
+          "data_mode": null,
+          "metrics": [
+            {
+              "label": "线下门店检索结果",
+              "value": "192",
+              "hint": "本次线下门店检索命中条数"
+            }
+          ],
+          "quality_report": {
+            "total_sections": 1,
+            "populated_sections": 1,
+            "empty_sections": 0,
+            "coverage_pct": 100
+          },
+          "unregistered_tools": [],
+          "checks": {
+            "json_html_markdown": true,
+            "explicit_live": true,
+            "tool_calls_recorded": 1,
+            "offline_scripts": true,
+            "independent_rerender": true,
+            "offline_browser": true
+          }
+        },
+        "status": "passed",
+        "source_hashes": {
+          "scripts/common.py": "ca703146250e231afad76dd163a774bc8b5d8e0444956a76c97237591b438635",
+          "scripts/compose_report.py": "ca49409b231d4d1aa5e025397203bec39aae6730bdac9ba9686284d78c679d94",
+          "scripts/mcp_client.py": "5e6419ff7f0d706a8b687b506e97a9a919de5fe38469099e387ccfb0b382f453",
+          "scripts/render_report.py": "de046911f05f1ffb87d3252ad85661fc14789d1fe598628109202a3f845094d5",
+          "scripts/validate_config.py": "4aaad40d0985becf2a661fe411862562b3b3705b954119b13a9e484d1154df32"
+        },
+        "technical_status": "passed",
+        "audited_at": "2026-10-27T11:13:03+08:00",
+        "evidence_binding": {
+          "report.json": "ada8ab3f411a7c63b9d39d8955e1cd4e899cc7173ea37455a9e9ae5436f0dc6d",
+          "report.html": "5be695c2e049cc4ff93efc0d4d5c5432c1ce886ca23ce130278123dff7ddf1d4",
+          "report.md": "dbd131484e34aacfab198dea62fb6969528f63bf4173df5c5ebe346dc81c51e5",
+          "calls.json": "7d35551410d164cd07d548793c1b91457643587249fd5668a2d5ab18fbdb48c7",
+          "result.json": "e2c5e354611b3adb41493129c8b6dafc5515443887232f9785cd6b67867a6aea",
+          "source_manifest_sha256": "014e0c39ccd221d4b037bfafc75dc705b73521da54c003be18fa8ca62d4dab92"
+        },
+        "business_review": {
+          "id": "10-hotpot-local-operation-snapshot",
+          "verdict": "acceptable",
+          "summary": "本轮真实产物的全部清单检查均有当前字段证据，且报告保留样本/缺失/关系边界。",
+          "checks": [
+            {
+              "expectation": "offline_records 至少有两条实际返回记录",
+              "status": "pass",
+              "evidence": "offline_records为10/192；阳光新业店为营业/九眼桥/111元/893703，龙湖三千集店为关闭下架/建设路电子科大/113元/544563；两条名称均含海底捞且经营字段、状态和商圈有真实差异，报告按公开快照呈现。 当前冻结快照：{\"technical_status\":\"passed\",\"successful_data_calls\":1,\"calls\":[{\"tool\":\"store_bigdata_offline_store_search\",\"status\":\"data\",\"rows\":10,\"total\":192,\"args\":{\"pageIndex\":1,\"pageSize\":10,\"ooStoreName\":\"海底捞\",\"address\":\"四川省,成都市\"}}],\"subject\":{\"mode\":\"search\",\"keywordType\":\"name\",\"match_raw\":\"海底捞\",\"enterprise\":\"\",\"matchKeyword\":\"海底捞\",\"store_name\":\"海底捞\",\"brand\":\"\",\"category\":\"\",\"address\":\"四川省,成都市\",\"address_value\":\"\"},\"metrics\":[{\"label\":\"线下门店检索结果\",\"value\":\"192\",\"hint\":\"本次线下门店检索命中条数\"}],\"core_counts\":{\"sections\":1,\"brand_records\":0,\"branch_city_stats\":0,\"branch_province_stats\":0,\"offline_records\":10},\"core_samples\":{\"offline_records\":[{\"店铺名称\":\"海底捞火锅(阳光新业店)\",\"店铺分类\":\"美食、火锅烧烤\",\"店铺状态\":\"营业\",\"商圈\":\"九眼桥\",\"人均价格\":\"111.0\",\"店铺排名\":\"893703.0\",\"实际品牌\":\"-\",\"实际地区\":\"-\",\"实际地址\":\"-\",\"查询品牌条件\":\"-\",\"查询地区条件\":\"四川省,成都市\",\"查询地址条件\":\"-\",\"品牌匹配验证\":\"未设置品牌条件\",\"地址匹配验证\":\"上游未返回实际地区/地址，无法逐条验证地区条件\"},{\"店铺名称\":\"海底捞火锅(龙湖三千集店)\",\"店铺分类\":\"美食、火锅烧烤\",\"店铺状态\":\"关闭/下架\",\"商圈\":\"建设路/电子科技大学\",\"人均价格\":\"113.0\",\"店铺排名\":\"544563.0\",\"实际品牌\":\"-\",\"实际地区\":\"-\",\"实际地址\":\"-\",\"查询品牌条件\":\"-\",\"查询地区条件\":\"四川省,成都市\",\"查询地址条件\":\"-\",\"品牌匹配验证\":\"未设置品牌条件\",\"地址匹配验证\":\"上游未返回实际地区/地址，无法逐条验证地区条件\"}]},\"quality\":{\"total_sections\":1,\"populated_sections\":1,\"empty_sections\":0,\"coverage_pct\":100},\"caliber_products\":[\"线下门店检索\"],\"source_server\":\"store-mcp-server\",\"source_products\":[{\"name\":\"线下门店检索\",\"product_id\":\"66ed53be15858a879f40242f\"}],\"limit\":\"数据来自店铺公开数据库；少量字段可能存在更新延迟。城市与省份分布分别计算，不混合集中度；多品牌检索值是查询条件，不代表每条记录同时命中全部品牌。\",\"html_bytes\":1059945,\"markdown_bytes\":4550}"
+            },
+            {
+              "expectation": "至少两条记录具有非空店铺名称和店铺状态",
+              "status": "pass",
+              "evidence": "offline_records为10/192；阳光新业店为营业/九眼桥/111元/893703，龙湖三千集店为关闭下架/建设路电子科大/113元/544563；两条名称均含海底捞且经营字段、状态和商圈有真实差异，报告按公开快照呈现。 当前冻结快照：{\"technical_status\":\"passed\",\"successful_data_calls\":1,\"calls\":[{\"tool\":\"store_bigdata_offline_store_search\",\"status\":\"data\",\"rows\":10,\"total\":192,\"args\":{\"pageIndex\":1,\"pageSize\":10,\"ooStoreName\":\"海底捞\",\"address\":\"四川省,成都市\"}}],\"subject\":{\"mode\":\"search\",\"keywordType\":\"name\",\"match_raw\":\"海底捞\",\"enterprise\":\"\",\"matchKeyword\":\"海底捞\",\"store_name\":\"海底捞\",\"brand\":\"\",\"category\":\"\",\"address\":\"四川省,成都市\",\"address_value\":\"\"},\"metrics\":[{\"label\":\"线下门店检索结果\",\"value\":\"192\",\"hint\":\"本次线下门店检索命中条数\"}],\"core_counts\":{\"sections\":1,\"brand_records\":0,\"branch_city_stats\":0,\"branch_province_stats\":0,\"offline_records\":10},\"core_samples\":{\"offline_records\":[{\"店铺名称\":\"海底捞火锅(阳光新业店)\",\"店铺分类\":\"美食、火锅烧烤\",\"店铺状态\":\"营业\",\"商圈\":\"九眼桥\",\"人均价格\":\"111.0\",\"店铺排名\":\"893703.0\",\"实际品牌\":\"-\",\"实际地区\":\"-\",\"实际地址\":\"-\",\"查询品牌条件\":\"-\",\"查询地区条件\":\"四川省,成都市\",\"查询地址条件\":\"-\",\"品牌匹配验证\":\"未设置品牌条件\",\"地址匹配验证\":\"上游未返回实际地区/地址，无法逐条验证地区条件\"},{\"店铺名称\":\"海底捞火锅(龙湖三千集店)\",\"店铺分类\":\"美食、火锅烧烤\",\"店铺状态\":\"关闭/下架\",\"商圈\":\"建设路/电子科技大学\",\"人均价格\":\"113.0\",\"店铺排名\":\"544563.0\",\"实际品牌\":\"-\",\"实际地区\":\"-\",\"实际地址\":\"-\",\"查询品牌条件\":\"-\",\"查询地区条件\":\"四川省,成都市\",\"查询地址条件\":\"-\",\"品牌匹配验证\":\"未设置品牌条件\",\"地址匹配验证\":\"上游未返回实际地区/地址，无法逐条验证地区条件\"}]},\"quality\":{\"total_sections\":1,\"populated_sections\":1,\"empty_sections\":0,\"coverage_pct\":100},\"caliber_products\":[\"线下门店检索\"],\"source_server\":\"store-mcp-server\",\"source_products\":[{\"name\":\"线下门店检索\",\"product_id\":\"66ed53be15858a879f40242f\"}],\"limit\":\"数据来自店铺公开数据库；少量字段可能存在更新延迟。城市与省份分布分别计算，不混合集中度；多品牌检索值是查询条件，不代表每条记录同时命中全部品牌。\",\"html_bytes\":1059945,\"markdown_bytes\":4550}"
+            },
+            {
+              "expectation": "至少两条记录各自在商圈、人均价格、店铺排名三项中具备至少两项非空实际值",
+              "status": "pass",
+              "evidence": "offline_records为10/192；阳光新业店为营业/九眼桥/111元/893703，龙湖三千集店为关闭下架/建设路电子科大/113元/544563；两条名称均含海底捞且经营字段、状态和商圈有真实差异，报告按公开快照呈现。 当前冻结快照：{\"technical_status\":\"passed\",\"successful_data_calls\":1,\"calls\":[{\"tool\":\"store_bigdata_offline_store_search\",\"status\":\"data\",\"rows\":10,\"total\":192,\"args\":{\"pageIndex\":1,\"pageSize\":10,\"ooStoreName\":\"海底捞\",\"address\":\"四川省,成都市\"}}],\"subject\":{\"mode\":\"search\",\"keywordType\":\"name\",\"match_raw\":\"海底捞\",\"enterprise\":\"\",\"matchKeyword\":\"海底捞\",\"store_name\":\"海底捞\",\"brand\":\"\",\"category\":\"\",\"address\":\"四川省,成都市\",\"address_value\":\"\"},\"metrics\":[{\"label\":\"线下门店检索结果\",\"value\":\"192\",\"hint\":\"本次线下门店检索命中条数\"}],\"core_counts\":{\"sections\":1,\"brand_records\":0,\"branch_city_stats\":0,\"branch_province_stats\":0,\"offline_records\":10},\"core_samples\":{\"offline_records\":[{\"店铺名称\":\"海底捞火锅(阳光新业店)\",\"店铺分类\":\"美食、火锅烧烤\",\"店铺状态\":\"营业\",\"商圈\":\"九眼桥\",\"人均价格\":\"111.0\",\"店铺排名\":\"893703.0\",\"实际品牌\":\"-\",\"实际地区\":\"-\",\"实际地址\":\"-\",\"查询品牌条件\":\"-\",\"查询地区条件\":\"四川省,成都市\",\"查询地址条件\":\"-\",\"品牌匹配验证\":\"未设置品牌条件\",\"地址匹配验证\":\"上游未返回实际地区/地址，无法逐条验证地区条件\"},{\"店铺名称\":\"海底捞火锅(龙湖三千集店)\",\"店铺分类\":\"美食、火锅烧烤\",\"店铺状态\":\"关闭/下架\",\"商圈\":\"建设路/电子科技大学\",\"人均价格\":\"113.0\",\"店铺排名\":\"544563.0\",\"实际品牌\":\"-\",\"实际地区\":\"-\",\"实际地址\":\"-\",\"查询品牌条件\":\"-\",\"查询地区条件\":\"四川省,成都市\",\"查询地址条件\":\"-\",\"品牌匹配验证\":\"未设置品牌条件\",\"地址匹配验证\":\"上游未返回实际地区/地址，无法逐条验证地区条件\"}]},\"quality\":{\"total_sections\":1,\"populated_sections\":1,\"empty_sections\":0,\"coverage_pct\":100},\"caliber_products\":[\"线下门店检索\"],\"source_server\":\"store-mcp-server\",\"source_products\":[{\"name\":\"线下门店检索\",\"product_id\":\"66ed53be15858a879f40242f\"}],\"limit\":\"数据来自店铺公开数据库；少量字段可能存在更新延迟。城市与省份分布分别计算，不混合集中度；多品牌检索值是查询条件，不代表每条记录同时命中全部品牌。\",\"html_bytes\":1059945,\"markdown_bytes\":4550}"
+            },
+            {
+              "expectation": "至少两条实际门店样本在店铺状态、商圈、人均价格或店铺排名中的至少一个字段存在可观察差异",
+              "status": "pass",
+              "evidence": "offline_records为10/192；阳光新业店为营业/九眼桥/111元/893703，龙湖三千集店为关闭下架/建设路电子科大/113元/544563；两条名称均含海底捞且经营字段、状态和商圈有真实差异，报告按公开快照呈现。 当前冻结快照：{\"technical_status\":\"passed\",\"successful_data_calls\":1,\"calls\":[{\"tool\":\"store_bigdata_offline_store_search\",\"status\":\"data\",\"rows\":10,\"total\":192,\"args\":{\"pageIndex\":1,\"pageSize\":10,\"ooStoreName\":\"海底捞\",\"address\":\"四川省,成都市\"}}],\"subject\":{\"mode\":\"search\",\"keywordType\":\"name\",\"match_raw\":\"海底捞\",\"enterprise\":\"\",\"matchKeyword\":\"海底捞\",\"store_name\":\"海底捞\",\"brand\":\"\",\"category\":\"\",\"address\":\"四川省,成都市\",\"address_value\":\"\"},\"metrics\":[{\"label\":\"线下门店检索结果\",\"value\":\"192\",\"hint\":\"本次线下门店检索命中条数\"}],\"core_counts\":{\"sections\":1,\"brand_records\":0,\"branch_city_stats\":0,\"branch_province_stats\":0,\"offline_records\":10},\"core_samples\":{\"offline_records\":[{\"店铺名称\":\"海底捞火锅(阳光新业店)\",\"店铺分类\":\"美食、火锅烧烤\",\"店铺状态\":\"营业\",\"商圈\":\"九眼桥\",\"人均价格\":\"111.0\",\"店铺排名\":\"893703.0\",\"实际品牌\":\"-\",\"实际地区\":\"-\",\"实际地址\":\"-\",\"查询品牌条件\":\"-\",\"查询地区条件\":\"四川省,成都市\",\"查询地址条件\":\"-\",\"品牌匹配验证\":\"未设置品牌条件\",\"地址匹配验证\":\"上游未返回实际地区/地址，无法逐条验证地区条件\"},{\"店铺名称\":\"海底捞火锅(龙湖三千集店)\",\"店铺分类\":\"美食、火锅烧烤\",\"店铺状态\":\"关闭/下架\",\"商圈\":\"建设路/电子科技大学\",\"人均价格\":\"113.0\",\"店铺排名\":\"544563.0\",\"实际品牌\":\"-\",\"实际地区\":\"-\",\"实际地址\":\"-\",\"查询品牌条件\":\"-\",\"查询地区条件\":\"四川省,成都市\",\"查询地址条件\":\"-\",\"品牌匹配验证\":\"未设置品牌条件\",\"地址匹配验证\":\"上游未返回实际地区/地址，无法逐条验证地区条件\"}]},\"quality\":{\"total_sections\":1,\"populated_sections\":1,\"empty_sections\":0,\"coverage_pct\":100},\"caliber_products\":[\"线下门店检索\"],\"source_server\":\"store-mcp-server\",\"source_products\":[{\"name\":\"线下门店检索\",\"product_id\":\"66ed53be15858a879f40242f\"}],\"limit\":\"数据来自店铺公开数据库；少量字段可能存在更新延迟。城市与省份分布分别计算，不混合集中度；多品牌检索值是查询条件，不代表每条记录同时命中全部品牌。\",\"html_bytes\":1059945,\"markdown_bytes\":4550}"
+            },
+            {
+              "expectation": "门店名称匹配必须来自实际店铺名称字段而非请求回显",
+              "status": "pass",
+              "evidence": "offline_records为10/192；阳光新业店为营业/九眼桥/111元/893703，龙湖三千集店为关闭下架/建设路电子科大/113元/544563；两条名称均含海底捞且经营字段、状态和商圈有真实差异，报告按公开快照呈现。 当前冻结快照：{\"technical_status\":\"passed\",\"successful_data_calls\":1,\"calls\":[{\"tool\":\"store_bigdata_offline_store_search\",\"status\":\"data\",\"rows\":10,\"total\":192,\"args\":{\"pageIndex\":1,\"pageSize\":10,\"ooStoreName\":\"海底捞\",\"address\":\"四川省,成都市\"}}],\"subject\":{\"mode\":\"search\",\"keywordType\":\"name\",\"match_raw\":\"海底捞\",\"enterprise\":\"\",\"matchKeyword\":\"海底捞\",\"store_name\":\"海底捞\",\"brand\":\"\",\"category\":\"\",\"address\":\"四川省,成都市\",\"address_value\":\"\"},\"metrics\":[{\"label\":\"线下门店检索结果\",\"value\":\"192\",\"hint\":\"本次线下门店检索命中条数\"}],\"core_counts\":{\"sections\":1,\"brand_records\":0,\"branch_city_stats\":0,\"branch_province_stats\":0,\"offline_records\":10},\"core_samples\":{\"offline_records\":[{\"店铺名称\":\"海底捞火锅(阳光新业店)\",\"店铺分类\":\"美食、火锅烧烤\",\"店铺状态\":\"营业\",\"商圈\":\"九眼桥\",\"人均价格\":\"111.0\",\"店铺排名\":\"893703.0\",\"实际品牌\":\"-\",\"实际地区\":\"-\",\"实际地址\":\"-\",\"查询品牌条件\":\"-\",\"查询地区条件\":\"四川省,成都市\",\"查询地址条件\":\"-\",\"品牌匹配验证\":\"未设置品牌条件\",\"地址匹配验证\":\"上游未返回实际地区/地址，无法逐条验证地区条件\"},{\"店铺名称\":\"海底捞火锅(龙湖三千集店)\",\"店铺分类\":\"美食、火锅烧烤\",\"店铺状态\":\"关闭/下架\",\"商圈\":\"建设路/电子科技大学\",\"人均价格\":\"113.0\",\"店铺排名\":\"544563.0\",\"实际品牌\":\"-\",\"实际地区\":\"-\",\"实际地址\":\"-\",\"查询品牌条件\":\"-\",\"查询地区条件\":\"四川省,成都市\",\"查询地址条件\":\"-\",\"品牌匹配验证\":\"未设置品牌条件\",\"地址匹配验证\":\"上游未返回实际地区/地址，无法逐条验证地区条件\"}]},\"quality\":{\"total_sections\":1,\"populated_sections\":1,\"empty_sections\":0,\"coverage_pct\":100},\"caliber_products\":[\"线下门店检索\"],\"source_server\":\"store-mcp-server\",\"source_products\":[{\"name\":\"线下门店检索\",\"product_id\":\"66ed53be15858a879f40242f\"}],\"limit\":\"数据来自店铺公开数据库；少量字段可能存在更新延迟。城市与省份分布分别计算，不混合集中度；多品牌检索值是查询条件，不代表每条记录同时命中全部品牌。\",\"html_bytes\":1059945,\"markdown_bytes\":4550}"
+            },
+            {
+              "expectation": "价格和状态保持时点快照语义，不生成实时经营结论",
+              "status": "pass",
+              "evidence": "offline_records为10/192；阳光新业店为营业/九眼桥/111元/893703，龙湖三千集店为关闭下架/建设路电子科大/113元/544563；两条名称均含海底捞且经营字段、状态和商圈有真实差异，报告按公开快照呈现。 当前冻结快照：{\"technical_status\":\"passed\",\"successful_data_calls\":1,\"calls\":[{\"tool\":\"store_bigdata_offline_store_search\",\"status\":\"data\",\"rows\":10,\"total\":192,\"args\":{\"pageIndex\":1,\"pageSize\":10,\"ooStoreName\":\"海底捞\",\"address\":\"四川省,成都市\"}}],\"subject\":{\"mode\":\"search\",\"keywordType\":\"name\",\"match_raw\":\"海底捞\",\"enterprise\":\"\",\"matchKeyword\":\"海底捞\",\"store_name\":\"海底捞\",\"brand\":\"\",\"category\":\"\",\"address\":\"四川省,成都市\",\"address_value\":\"\"},\"metrics\":[{\"label\":\"线下门店检索结果\",\"value\":\"192\",\"hint\":\"本次线下门店检索命中条数\"}],\"core_counts\":{\"sections\":1,\"brand_records\":0,\"branch_city_stats\":0,\"branch_province_stats\":0,\"offline_records\":10},\"core_samples\":{\"offline_records\":[{\"店铺名称\":\"海底捞火锅(阳光新业店)\",\"店铺分类\":\"美食、火锅烧烤\",\"店铺状态\":\"营业\",\"商圈\":\"九眼桥\",\"人均价格\":\"111.0\",\"店铺排名\":\"893703.0\",\"实际品牌\":\"-\",\"实际地区\":\"-\",\"实际地址\":\"-\",\"查询品牌条件\":\"-\",\"查询地区条件\":\"四川省,成都市\",\"查询地址条件\":\"-\",\"品牌匹配验证\":\"未设置品牌条件\",\"地址匹配验证\":\"上游未返回实际地区/地址，无法逐条验证地区条件\"},{\"店铺名称\":\"海底捞火锅(龙湖三千集店)\",\"店铺分类\":\"美食、火锅烧烤\",\"店铺状态\":\"关闭/下架\",\"商圈\":\"建设路/电子科技大学\",\"人均价格\":\"113.0\",\"店铺排名\":\"544563.0\",\"实际品牌\":\"-\",\"实际地区\":\"-\",\"实际地址\":\"-\",\"查询品牌条件\":\"-\",\"查询地区条件\":\"四川省,成都市\",\"查询地址条件\":\"-\",\"品牌匹配验证\":\"未设置品牌条件\",\"地址匹配验证\":\"上游未返回实际地区/地址，无法逐条验证地区条件\"}]},\"quality\":{\"total_sections\":1,\"populated_sections\":1,\"empty_sections\":0,\"coverage_pct\":100},\"caliber_products\":[\"线下门店检索\"],\"source_server\":\"store-mcp-server\",\"source_products\":[{\"name\":\"线下门店检索\",\"product_id\":\"66ed53be15858a879f40242f\"}],\"limit\":\"数据来自店铺公开数据库；少量字段可能存在更新延迟。城市与省份分布分别计算，不混合集中度；多品牌检索值是查询条件，不代表每条记录同时命中全部品牌。\",\"html_bytes\":1059945,\"markdown_bytes\":4550}"
+            }
+          ],
+          "issues": [],
+          "evidence_binding": {
+            "report.json": "ada8ab3f411a7c63b9d39d8955e1cd4e899cc7173ea37455a9e9ae5436f0dc6d",
+            "report.html": "5be695c2e049cc4ff93efc0d4d5c5432c1ce886ca23ce130278123dff7ddf1d4",
+            "report.md": "dbd131484e34aacfab198dea62fb6969528f63bf4173df5c5ebe346dc81c51e5",
+            "calls.json": "7d35551410d164cd07d548793c1b91457643587249fd5668a2d5ab18fbdb48c7",
+            "result.json": "e2c5e354611b3adb41493129c8b6dafc5515443887232f9785cd6b67867a6aea",
+            "source_manifest_sha256": "014e0c39ccd221d4b037bfafc75dc705b73521da54c003be18fa8ca62d4dab92"
+          }
+        }
+      }
+    },
+    {
+      "scenario": {
+        "id": "11-pharmacy-visit-priority",
+        "title": "杭州药店拜访优先字段清单",
+        "user_request": "请检索杭州药店类门店，按实际店名、营业状态、商圈以及人均价格或排名整理人工拜访优先字段；不要判断药品许可或地址匹配。",
+        "purpose": "为医药渠道团队提供可人工排序的拜访字段清单。",
+        "args": [
+          "--category",
+          "医疗健康,药店",
+          "--address",
+          "浙江省,杭州市",
+          "--page-size",
+          "10"
+        ],
+        "expected_checks": [
+          "offline_records 至少有两条实际返回记录",
+          "至少两条记录同时具备非空店铺名称、店铺分类和店铺状态",
+          "至少两条记录具备非空商圈，且人均价格或店铺排名至少一项非空",
+          "药店相关性必须由实际店铺分类字段支持，不能只依赖 category 参数",
+          "缺失价格必须保留缺失，不得补零或据此降低优先级"
+        ],
+        "limitations": [
+          "不包含药品经营许可证核验",
+          "实际地址缺失时不能证明地区匹配",
+          "优先字段仅供人工排序，不能自动作准入决定"
+        ]
+      },
+      "result": {
+        "schema_version": 1,
+        "skill": "store-skill",
+        "case_id": "11-pharmacy-visit-priority",
+        "title": "杭州药店拜访优先字段清单",
+        "invocation_id": "1793070091155402000",
+        "provenance": {
+          "integrator_id": "683e574805537ace146cc05e",
+          "runner_sha256": "05777c2f2b0791cb5157aef691206606dade8df7af3b17212285b7ae74632a66",
+          "credential_policy_sha256": "bcabf08a1ca92f28357c0e57a8bae9bfa910eb1d4b204d8195ee3b7a77106eed",
+          "scenario_sha256": "6899e6ff0dd1d0c238f20576bd76a7bd17d494947a55d30996e9cfe9f1cfec52",
+          "skill_source_hashes": {
+            "scripts/common.py": "ca703146250e231afad76dd163a774bc8b5d8e0444956a76c97237591b438635",
+            "scripts/compose_report.py": "ca49409b231d4d1aa5e025397203bec39aae6730bdac9ba9686284d78c679d94",
+            "scripts/mcp_client.py": "5e6419ff7f0d706a8b687b506e97a9a919de5fe38469099e387ccfb0b382f453",
+            "scripts/render_report.py": "de046911f05f1ffb87d3252ad85661fc14789d1fe598628109202a3f845094d5",
+            "scripts/validate_config.py": "4aaad40d0985becf2a661fe411862562b3b3705b954119b13a9e484d1154df32"
+          },
+          "upstream_source_hashes": {
+            "store-mcp-server": "da9bf93ad0fbf9354d8aedc747acf162331fceec89eb79499f202e7a49108f30"
+          },
+          "upstream_dependency_hashes": {
+            "store-mcp-server/server/mcp_server.py": "da9bf93ad0fbf9354d8aedc747acf162331fceec89eb79499f202e7a49108f30"
+          }
+        },
+        "source_changed_during_run": false,
+        "started_at": "2026-10-27T11:01:31+08:00",
+        "elapsed_seconds": 0.811,
+        "returncode": 0,
+        "exception_type": null,
+        "command": "python3 store-skill/scripts/compose_report.py --category '医疗健康,药店' --address '浙江省,杭州市' --page-size 10 --output store-skill/output/live-replaced-20261027/11-pharmacy-visit-priority/report.json --report-output store-skill/output/live-replaced-20261027/11-pharmacy-visit-priority/report.html",
+        "transport": "local MCP servers via loopback streamable-http",
+        "cache_used": false,
+        "call_count": 1,
+        "successful_data_calls": 1,
+        "empty_calls": 0,
+        "failed_calls": 0,
+        "checks": {
+          "issues": [],
+          "warnings": [],
+          "coverage_pct": 100,
+          "subject": {
+            "mode": "search",
+            "keywordType": "name",
+            "match_raw": "医疗健康,药店",
+            "enterprise": "",
+            "matchKeyword": "医疗健康,药店",
+            "store_name": "",
+            "brand": "",
+            "category": "医疗健康,药店",
+            "address": "浙江省,杭州市",
+            "address_value": ""
+          },
+          "title": "“医疗健康,药店” 店铺大数据报告",
+          "data_mode": null,
+          "metrics": [
+            {
+              "label": "线下门店检索结果",
+              "value": "100",
+              "hint": "本次线下门店检索命中条数"
+            }
+          ],
+          "quality_report": {
+            "total_sections": 1,
+            "populated_sections": 1,
+            "empty_sections": 0,
+            "coverage_pct": 100
+          },
+          "unregistered_tools": [],
+          "checks": {
+            "json_html_markdown": true,
+            "explicit_live": true,
+            "tool_calls_recorded": 1,
+            "offline_scripts": true,
+            "independent_rerender": true,
+            "offline_browser": true
+          }
+        },
+        "status": "passed",
+        "source_hashes": {
+          "scripts/common.py": "ca703146250e231afad76dd163a774bc8b5d8e0444956a76c97237591b438635",
+          "scripts/compose_report.py": "ca49409b231d4d1aa5e025397203bec39aae6730bdac9ba9686284d78c679d94",
+          "scripts/mcp_client.py": "5e6419ff7f0d706a8b687b506e97a9a919de5fe38469099e387ccfb0b382f453",
+          "scripts/render_report.py": "de046911f05f1ffb87d3252ad85661fc14789d1fe598628109202a3f845094d5",
+          "scripts/validate_config.py": "4aaad40d0985becf2a661fe411862562b3b3705b954119b13a9e484d1154df32"
+        },
+        "technical_status": "passed",
+        "audited_at": "2026-10-27T11:13:03+08:00",
+        "evidence_binding": {
+          "report.json": "48367e5f54646c03d8f86b5d3d50e70fd38222763ebd9336eb5807c9069dc51b",
+          "report.html": "3e646a857eac9f2a1160a3b78dff2b2cb3aeed480e03ccb5e52bb04c825dc0ee",
+          "report.md": "3ffd07ae243fd6474c0c768fb46195090e99cb4f8be77131bde526ebb52029ff",
+          "calls.json": "d7f613e87f022cd44f508baf9ec92c796b9b621dac987b4f1e46438d77a521c5",
+          "result.json": "8f2c10482b5f4816d6f214d06da08878ff80cab533dae26df5244fc95cb5a92f",
+          "source_manifest_sha256": "014e0c39ccd221d4b037bfafc75dc705b73521da54c003be18fa8ca62d4dab92"
+        },
+        "business_review": {
+          "id": "11-pharmacy-visit-priority",
+          "verdict": "acceptable",
+          "summary": "本轮真实产物的全部清单检查均有当前字段证据，且报告保留样本/缺失/关系边界。",
+          "checks": [
+            {
+              "expectation": "offline_records 至少有两条实际返回记录",
+              "status": "pass",
+              "evidence": "offline_records为10/100；方回春堂和北京同仁堂浙江国医馆均有名称、‘医疗健康、药店’分类、营业状态、非空商圈、人均价格及排名；无价格记录保持‘-’，未补零。 当前冻结快照：{\"technical_status\":\"passed\",\"successful_data_calls\":1,\"calls\":[{\"tool\":\"store_bigdata_offline_store_search\",\"status\":\"data\",\"rows\":10,\"total\":100,\"args\":{\"pageIndex\":1,\"pageSize\":10,\"ooStoreCalClassification\":\"医疗健康,药店\",\"address\":\"浙江省,杭州市\"}}],\"subject\":{\"mode\":\"search\",\"keywordType\":\"name\",\"match_raw\":\"医疗健康,药店\",\"enterprise\":\"\",\"matchKeyword\":\"医疗健康,药店\",\"store_name\":\"\",\"brand\":\"\",\"category\":\"医疗健康,药店\",\"address\":\"浙江省,杭州市\",\"address_value\":\"\"},\"metrics\":[{\"label\":\"线下门店检索结果\",\"value\":\"100\",\"hint\":\"本次线下门店检索命中条数\"}],\"core_counts\":{\"sections\":1,\"brand_records\":0,\"branch_city_stats\":0,\"branch_province_stats\":0,\"offline_records\":10},\"core_samples\":{\"offline_records\":[{\"店铺名称\":\"方回春堂(拱宸桥馆)\",\"店铺分类\":\"医疗健康、药店\",\"店铺状态\":\"营业\",\"商圈\":\"拱宸桥/上塘\",\"人均价格\":\"288.0\",\"店铺排名\":\"16103.0\",\"实际品牌\":\"-\",\"实际地区\":\"-\",\"实际地址\":\"-\",\"查询品牌条件\":\"-\",\"查询地区条件\":\"浙江省,杭州市\",\"查询地址条件\":\"-\",\"品牌匹配验证\":\"未设置品牌条件\",\"地址匹配验证\":\"上游未返回实际地区/地址，无法逐条验证地区条件\"},{\"店铺名称\":\"禧元堂燕窝(余杭店)\",\"店铺分类\":\"医疗健康、药店\",\"店铺状态\":\"关闭/下架\",\"商圈\":\"临平\",\"人均价格\":\"-\",\"店铺排名\":\"15062.0\",\"实际品牌\":\"-\",\"实际地区\":\"-\",\"实际地址\":\"-\",\"查询品牌条件\":\"-\",\"查询地区条件\":\"浙江省,杭州市\",\"查询地址条件\":\"-\",\"品牌匹配验证\":\"未设置品牌条件\",\"地址匹配验证\":\"上游未返回实际地区/地址，无法逐条验证地区条件\"}]},\"quality\":{\"total_sections\":1,\"populated_sections\":1,\"empty_sections\":0,\"coverage_pct\":100},\"caliber_products\":[\"线下门店检索\"],\"source_server\":\"store-mcp-server\",\"source_products\":[{\"name\":\"线下门店检索\",\"product_id\":\"66ed53be15858a879f40242f\"}],\"limit\":\"数据来自店铺公开数据库；少量字段可能存在更新延迟。城市与省份分布分别计算，不混合集中度；多品牌检索值是查询条件，不代表每条记录同时命中全部品牌。\",\"html_bytes\":1059945,\"markdown_bytes\":4520}"
+            },
+            {
+              "expectation": "至少两条记录同时具备非空店铺名称、店铺分类和店铺状态",
+              "status": "pass",
+              "evidence": "offline_records为10/100；方回春堂和北京同仁堂浙江国医馆均有名称、‘医疗健康、药店’分类、营业状态、非空商圈、人均价格及排名；无价格记录保持‘-’，未补零。 当前冻结快照：{\"technical_status\":\"passed\",\"successful_data_calls\":1,\"calls\":[{\"tool\":\"store_bigdata_offline_store_search\",\"status\":\"data\",\"rows\":10,\"total\":100,\"args\":{\"pageIndex\":1,\"pageSize\":10,\"ooStoreCalClassification\":\"医疗健康,药店\",\"address\":\"浙江省,杭州市\"}}],\"subject\":{\"mode\":\"search\",\"keywordType\":\"name\",\"match_raw\":\"医疗健康,药店\",\"enterprise\":\"\",\"matchKeyword\":\"医疗健康,药店\",\"store_name\":\"\",\"brand\":\"\",\"category\":\"医疗健康,药店\",\"address\":\"浙江省,杭州市\",\"address_value\":\"\"},\"metrics\":[{\"label\":\"线下门店检索结果\",\"value\":\"100\",\"hint\":\"本次线下门店检索命中条数\"}],\"core_counts\":{\"sections\":1,\"brand_records\":0,\"branch_city_stats\":0,\"branch_province_stats\":0,\"offline_records\":10},\"core_samples\":{\"offline_records\":[{\"店铺名称\":\"方回春堂(拱宸桥馆)\",\"店铺分类\":\"医疗健康、药店\",\"店铺状态\":\"营业\",\"商圈\":\"拱宸桥/上塘\",\"人均价格\":\"288.0\",\"店铺排名\":\"16103.0\",\"实际品牌\":\"-\",\"实际地区\":\"-\",\"实际地址\":\"-\",\"查询品牌条件\":\"-\",\"查询地区条件\":\"浙江省,杭州市\",\"查询地址条件\":\"-\",\"品牌匹配验证\":\"未设置品牌条件\",\"地址匹配验证\":\"上游未返回实际地区/地址，无法逐条验证地区条件\"},{\"店铺名称\":\"禧元堂燕窝(余杭店)\",\"店铺分类\":\"医疗健康、药店\",\"店铺状态\":\"关闭/下架\",\"商圈\":\"临平\",\"人均价格\":\"-\",\"店铺排名\":\"15062.0\",\"实际品牌\":\"-\",\"实际地区\":\"-\",\"实际地址\":\"-\",\"查询品牌条件\":\"-\",\"查询地区条件\":\"浙江省,杭州市\",\"查询地址条件\":\"-\",\"品牌匹配验证\":\"未设置品牌条件\",\"地址匹配验证\":\"上游未返回实际地区/地址，无法逐条验证地区条件\"}]},\"quality\":{\"total_sections\":1,\"populated_sections\":1,\"empty_sections\":0,\"coverage_pct\":100},\"caliber_products\":[\"线下门店检索\"],\"source_server\":\"store-mcp-server\",\"source_products\":[{\"name\":\"线下门店检索\",\"product_id\":\"66ed53be15858a879f40242f\"}],\"limit\":\"数据来自店铺公开数据库；少量字段可能存在更新延迟。城市与省份分布分别计算，不混合集中度；多品牌检索值是查询条件，不代表每条记录同时命中全部品牌。\",\"html_bytes\":1059945,\"markdown_bytes\":4520}"
+            },
+            {
+              "expectation": "至少两条记录具备非空商圈，且人均价格或店铺排名至少一项非空",
+              "status": "pass",
+              "evidence": "offline_records为10/100；方回春堂和北京同仁堂浙江国医馆均有名称、‘医疗健康、药店’分类、营业状态、非空商圈、人均价格及排名；无价格记录保持‘-’，未补零。 当前冻结快照：{\"technical_status\":\"passed\",\"successful_data_calls\":1,\"calls\":[{\"tool\":\"store_bigdata_offline_store_search\",\"status\":\"data\",\"rows\":10,\"total\":100,\"args\":{\"pageIndex\":1,\"pageSize\":10,\"ooStoreCalClassification\":\"医疗健康,药店\",\"address\":\"浙江省,杭州市\"}}],\"subject\":{\"mode\":\"search\",\"keywordType\":\"name\",\"match_raw\":\"医疗健康,药店\",\"enterprise\":\"\",\"matchKeyword\":\"医疗健康,药店\",\"store_name\":\"\",\"brand\":\"\",\"category\":\"医疗健康,药店\",\"address\":\"浙江省,杭州市\",\"address_value\":\"\"},\"metrics\":[{\"label\":\"线下门店检索结果\",\"value\":\"100\",\"hint\":\"本次线下门店检索命中条数\"}],\"core_counts\":{\"sections\":1,\"brand_records\":0,\"branch_city_stats\":0,\"branch_province_stats\":0,\"offline_records\":10},\"core_samples\":{\"offline_records\":[{\"店铺名称\":\"方回春堂(拱宸桥馆)\",\"店铺分类\":\"医疗健康、药店\",\"店铺状态\":\"营业\",\"商圈\":\"拱宸桥/上塘\",\"人均价格\":\"288.0\",\"店铺排名\":\"16103.0\",\"实际品牌\":\"-\",\"实际地区\":\"-\",\"实际地址\":\"-\",\"查询品牌条件\":\"-\",\"查询地区条件\":\"浙江省,杭州市\",\"查询地址条件\":\"-\",\"品牌匹配验证\":\"未设置品牌条件\",\"地址匹配验证\":\"上游未返回实际地区/地址，无法逐条验证地区条件\"},{\"店铺名称\":\"禧元堂燕窝(余杭店)\",\"店铺分类\":\"医疗健康、药店\",\"店铺状态\":\"关闭/下架\",\"商圈\":\"临平\",\"人均价格\":\"-\",\"店铺排名\":\"15062.0\",\"实际品牌\":\"-\",\"实际地区\":\"-\",\"实际地址\":\"-\",\"查询品牌条件\":\"-\",\"查询地区条件\":\"浙江省,杭州市\",\"查询地址条件\":\"-\",\"品牌匹配验证\":\"未设置品牌条件\",\"地址匹配验证\":\"上游未返回实际地区/地址，无法逐条验证地区条件\"}]},\"quality\":{\"total_sections\":1,\"populated_sections\":1,\"empty_sections\":0,\"coverage_pct\":100},\"caliber_products\":[\"线下门店检索\"],\"source_server\":\"store-mcp-server\",\"source_products\":[{\"name\":\"线下门店检索\",\"product_id\":\"66ed53be15858a879f40242f\"}],\"limit\":\"数据来自店铺公开数据库；少量字段可能存在更新延迟。城市与省份分布分别计算，不混合集中度；多品牌检索值是查询条件，不代表每条记录同时命中全部品牌。\",\"html_bytes\":1059945,\"markdown_bytes\":4520}"
+            },
+            {
+              "expectation": "药店相关性必须由实际店铺分类字段支持，不能只依赖 category 参数",
+              "status": "pass",
+              "evidence": "offline_records为10/100；方回春堂和北京同仁堂浙江国医馆均有名称、‘医疗健康、药店’分类、营业状态、非空商圈、人均价格及排名；无价格记录保持‘-’，未补零。 当前冻结快照：{\"technical_status\":\"passed\",\"successful_data_calls\":1,\"calls\":[{\"tool\":\"store_bigdata_offline_store_search\",\"status\":\"data\",\"rows\":10,\"total\":100,\"args\":{\"pageIndex\":1,\"pageSize\":10,\"ooStoreCalClassification\":\"医疗健康,药店\",\"address\":\"浙江省,杭州市\"}}],\"subject\":{\"mode\":\"search\",\"keywordType\":\"name\",\"match_raw\":\"医疗健康,药店\",\"enterprise\":\"\",\"matchKeyword\":\"医疗健康,药店\",\"store_name\":\"\",\"brand\":\"\",\"category\":\"医疗健康,药店\",\"address\":\"浙江省,杭州市\",\"address_value\":\"\"},\"metrics\":[{\"label\":\"线下门店检索结果\",\"value\":\"100\",\"hint\":\"本次线下门店检索命中条数\"}],\"core_counts\":{\"sections\":1,\"brand_records\":0,\"branch_city_stats\":0,\"branch_province_stats\":0,\"offline_records\":10},\"core_samples\":{\"offline_records\":[{\"店铺名称\":\"方回春堂(拱宸桥馆)\",\"店铺分类\":\"医疗健康、药店\",\"店铺状态\":\"营业\",\"商圈\":\"拱宸桥/上塘\",\"人均价格\":\"288.0\",\"店铺排名\":\"16103.0\",\"实际品牌\":\"-\",\"实际地区\":\"-\",\"实际地址\":\"-\",\"查询品牌条件\":\"-\",\"查询地区条件\":\"浙江省,杭州市\",\"查询地址条件\":\"-\",\"品牌匹配验证\":\"未设置品牌条件\",\"地址匹配验证\":\"上游未返回实际地区/地址，无法逐条验证地区条件\"},{\"店铺名称\":\"禧元堂燕窝(余杭店)\",\"店铺分类\":\"医疗健康、药店\",\"店铺状态\":\"关闭/下架\",\"商圈\":\"临平\",\"人均价格\":\"-\",\"店铺排名\":\"15062.0\",\"实际品牌\":\"-\",\"实际地区\":\"-\",\"实际地址\":\"-\",\"查询品牌条件\":\"-\",\"查询地区条件\":\"浙江省,杭州市\",\"查询地址条件\":\"-\",\"品牌匹配验证\":\"未设置品牌条件\",\"地址匹配验证\":\"上游未返回实际地区/地址，无法逐条验证地区条件\"}]},\"quality\":{\"total_sections\":1,\"populated_sections\":1,\"empty_sections\":0,\"coverage_pct\":100},\"caliber_products\":[\"线下门店检索\"],\"source_server\":\"store-mcp-server\",\"source_products\":[{\"name\":\"线下门店检索\",\"product_id\":\"66ed53be15858a879f40242f\"}],\"limit\":\"数据来自店铺公开数据库；少量字段可能存在更新延迟。城市与省份分布分别计算，不混合集中度；多品牌检索值是查询条件，不代表每条记录同时命中全部品牌。\",\"html_bytes\":1059945,\"markdown_bytes\":4520}"
+            },
+            {
+              "expectation": "缺失价格必须保留缺失，不得补零或据此降低优先级",
+              "status": "pass",
+              "evidence": "offline_records为10/100；方回春堂和北京同仁堂浙江国医馆均有名称、‘医疗健康、药店’分类、营业状态、非空商圈、人均价格及排名；无价格记录保持‘-’，未补零。 当前冻结快照：{\"technical_status\":\"passed\",\"successful_data_calls\":1,\"calls\":[{\"tool\":\"store_bigdata_offline_store_search\",\"status\":\"data\",\"rows\":10,\"total\":100,\"args\":{\"pageIndex\":1,\"pageSize\":10,\"ooStoreCalClassification\":\"医疗健康,药店\",\"address\":\"浙江省,杭州市\"}}],\"subject\":{\"mode\":\"search\",\"keywordType\":\"name\",\"match_raw\":\"医疗健康,药店\",\"enterprise\":\"\",\"matchKeyword\":\"医疗健康,药店\",\"store_name\":\"\",\"brand\":\"\",\"category\":\"医疗健康,药店\",\"address\":\"浙江省,杭州市\",\"address_value\":\"\"},\"metrics\":[{\"label\":\"线下门店检索结果\",\"value\":\"100\",\"hint\":\"本次线下门店检索命中条数\"}],\"core_counts\":{\"sections\":1,\"brand_records\":0,\"branch_city_stats\":0,\"branch_province_stats\":0,\"offline_records\":10},\"core_samples\":{\"offline_records\":[{\"店铺名称\":\"方回春堂(拱宸桥馆)\",\"店铺分类\":\"医疗健康、药店\",\"店铺状态\":\"营业\",\"商圈\":\"拱宸桥/上塘\",\"人均价格\":\"288.0\",\"店铺排名\":\"16103.0\",\"实际品牌\":\"-\",\"实际地区\":\"-\",\"实际地址\":\"-\",\"查询品牌条件\":\"-\",\"查询地区条件\":\"浙江省,杭州市\",\"查询地址条件\":\"-\",\"品牌匹配验证\":\"未设置品牌条件\",\"地址匹配验证\":\"上游未返回实际地区/地址，无法逐条验证地区条件\"},{\"店铺名称\":\"禧元堂燕窝(余杭店)\",\"店铺分类\":\"医疗健康、药店\",\"店铺状态\":\"关闭/下架\",\"商圈\":\"临平\",\"人均价格\":\"-\",\"店铺排名\":\"15062.0\",\"实际品牌\":\"-\",\"实际地区\":\"-\",\"实际地址\":\"-\",\"查询品牌条件\":\"-\",\"查询地区条件\":\"浙江省,杭州市\",\"查询地址条件\":\"-\",\"品牌匹配验证\":\"未设置品牌条件\",\"地址匹配验证\":\"上游未返回实际地区/地址，无法逐条验证地区条件\"}]},\"quality\":{\"total_sections\":1,\"populated_sections\":1,\"empty_sections\":0,\"coverage_pct\":100},\"caliber_products\":[\"线下门店检索\"],\"source_server\":\"store-mcp-server\",\"source_products\":[{\"name\":\"线下门店检索\",\"product_id\":\"66ed53be15858a879f40242f\"}],\"limit\":\"数据来自店铺公开数据库；少量字段可能存在更新延迟。城市与省份分布分别计算，不混合集中度；多品牌检索值是查询条件，不代表每条记录同时命中全部品牌。\",\"html_bytes\":1059945,\"markdown_bytes\":4520}"
+            }
+          ],
+          "issues": [],
+          "evidence_binding": {
+            "report.json": "48367e5f54646c03d8f86b5d3d50e70fd38222763ebd9336eb5807c9069dc51b",
+            "report.html": "3e646a857eac9f2a1160a3b78dff2b2cb3aeed480e03ccb5e52bb04c825dc0ee",
+            "report.md": "3ffd07ae243fd6474c0c768fb46195090e99cb4f8be77131bde526ebb52029ff",
+            "calls.json": "d7f613e87f022cd44f508baf9ec92c796b9b621dac987b4f1e46438d77a521c5",
+            "result.json": "8f2c10482b5f4816d6f214d06da08878ff80cab533dae26df5244fc95cb5a92f",
+            "source_manifest_sha256": "014e0c39ccd221d4b037bfafc75dc705b73521da54c003be18fa8ca62d4dab92"
+          }
+        }
+      }
+    }
+  ]
+}
