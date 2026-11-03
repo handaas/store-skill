@@ -17,7 +17,7 @@
         "business-review.json": "0a7f6a1e910be710e059fd95a81fbfde47f958fb8198875875bda502c9330642",
         "browser-check.json": "45264ba519228a2f9f9d5976b8be82ce9adc28019a93bb050a2ca834138d0973"
       },
-      "audit_record": "../../test-records/live-replaced-20261027/01-restaurant-portfolio.md"
+      "audit_record": "../test-records/live-replaced-20261027/01-restaurant-portfolio.md"
     },
     {
       "skill": "store-skill",
@@ -35,7 +35,7 @@
         "business-review.json": "9b0cba54751ba7a0d3b52af62120edb3fc55849a3508b1e59994601affa2a722",
         "browser-check.json": "fc243af64c07b95a45224653de619cb5a1dfd57795e0ef13c2884d5bc73b4d99"
       },
-      "audit_record": "../../test-records/live-replaced-20261027/09-auto-service-status-shortlist.md"
+      "audit_record": "../test-records/live-replaced-20261027/09-auto-service-status-shortlist.md"
     },
     {
       "skill": "store-skill",
@@ -53,7 +53,7 @@
         "business-review.json": "35acf8d1695b8037e61100212eebac5d4702a7863e5cb746c43910edaaa19ddc",
         "browser-check.json": "efec4230e3bd9855463a39c78bee9edf6323f0ea8474c1fb3fc0c6fe5e8f24e3"
       },
-      "audit_record": "../../test-records/live-replaced-20261027/10-hotpot-local-operation-snapshot.md"
+      "audit_record": "../test-records/live-replaced-20261027/10-hotpot-local-operation-snapshot.md"
     },
     {
       "skill": "store-skill",
@@ -71,7 +71,7 @@
         "business-review.json": "6c5184f256d49c068de6dd9399f5c01402a8461a96b4b0176753608cfcb370e4",
         "browser-check.json": "67bd37009834a044df3c0eecfa5cbcef9e116809611166e9a198f1eaa8d3210c"
       },
-      "audit_record": "../../test-records/live-replaced-20261027/11-pharmacy-visit-priority.md"
+      "audit_record": "../test-records/live-replaced-20261027/11-pharmacy-visit-priority.md"
     }
   ]
 }
