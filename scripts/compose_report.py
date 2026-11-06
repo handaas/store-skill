@@ -28,6 +28,8 @@ from common import REPORT_BANNER, REPORT_TYPE, attach_pagination, call_tool_once
 import mcp_client
 from render_report import render_html, render_markdown, html_to_pdf
 
+from store_content_review import apply_content_review
+
 SAMPLE_PATH = pathlib.Path(__file__).resolve().parent.parent / "assets" / "report.example.json"
 
 # Store MCP tools.
@@ -258,7 +260,7 @@ def _derive_core_metrics(metrics: List[Dict[str, Any]], core: Mapping[str, Any])
     brands = core.get("brand_records", []) if isinstance(core, dict) else []
     branches = core.get("branch_city_stats", []) if isinstance(core, dict) else []
     if isinstance(brands, list) and brands:
-        categories = set(str(r.get("一级类别", "")) for r in brands if r.get("一级类别"))
+        categories = set(str(r.get("一级类别", "")).strip() for r in brands if str(r.get("一级类别", "")).strip() not in ("", "-"))
         if categories:
             metrics.append({"label": "餐饮类别数", "value": str(len(categories)), "hint": "覆盖的餐饮一级类别数"})
         try:
@@ -381,7 +383,7 @@ def requested_products(subject: Mapping[str, Any]) -> List[Dict[str, str]]:
 def build_caliber(subject: Mapping[str, Any]) -> Dict[str, Any]:
     if subject.get("mode") == "enterprise":
         match_target = subject.get("enterprise") or subject.get("match_raw")
-        match_type = f"店铺大数据按企业主体匹配（keywordType={subject.get('keywordType', 'name')}）"
+        match_type = "店铺大数据按企业主体匹配；支持企业名称、注册号、统一社会信用代码和企业 ID"
     else:
         match_target = "、".join([v for v in (subject.get("store_name"), subject.get("brand"), subject.get("category"), subject.get("address"), subject.get("address_value")) if v]) or "线下门店检索条件"
         match_type = "店铺大数据按门店检索条件匹配（店铺名称 / 经营品牌 / 店铺分类 / 地区 / 地址）"
@@ -652,7 +654,7 @@ def _assemble(subject: Mapping[str, Any], core: Mapping[str, Any], metrics: Sequ
     else:
         cond = "、".join([v for v in (subject.get("store_name"), subject.get("brand"), subject.get("category")) if v]) or "线下门店"
         title = f"“{cond}” 店铺大数据报告"
-    return {
+    report = {
         "report_type": REPORT_TYPE,
         "title": title,
         "banner": REPORT_BANNER,
@@ -675,6 +677,7 @@ def _assemble(subject: Mapping[str, Any], core: Mapping[str, Any], metrics: Sequ
             "quality_report": quality_report,
         },
     }
+    return apply_content_review(report)
 
 
 @paid_call_scope

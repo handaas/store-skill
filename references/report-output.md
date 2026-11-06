@@ -84,3 +84,18 @@ python scripts/render_report.py --input output/store.json --output output/store.
 ```
 
 返回：JSON 路径、HTML 路径、Markdown 路径，以及模式与企业全称 / 检索条件映射、数据口径摘要。
+
+## 内容审校（离线）
+
+对已有 `report.json` 复核而不调用 MCP：`python scripts/store_content_review.py --input <report.json> --out-dir <dir>`；纯函数 `store_content_review.apply_content_review(report)`。审校顺序：
+
+1. 主体/条件：检索模式把店铺分类、地区等条件分别标注，不拼成企业名；标题不再用逗号串条件。
+2. 汇总：`门店总数(汇总)` 是品牌级字段相加、未去重，不称实体门店总数。
+3. 地区：城市/省份是 Top 统计行，指标改为 `已返回城市数/省份数`，CR3 只在返回样本内计算，并披露合计门店/主力品牌门店覆盖比例。
+4. 明细：排名、人均价格格式化；实际品牌/地区/地址全空时隐藏空列，同值验证列合并为说明；人均价格在非餐饮场景标注语义可能不适用。
+5. 状态：营业/关闭下架只统计当前样本，不推全量在营率；删除无证据的经营质量结论。
+6. 空结果：无核心明细且 `tool_errors` 为空时保留“本次查询未返回有效核心数据…”摘要，不改成有数据叙述，也不把成功空结果写进 `tool_errors`；显式 `0` 指标仍按 `0` 展示。
+
+交付前按最终 `sections` 与实际 body 刷新 `data_source.quality_report`（`0` 计为已填充；`coverage_pct` 仅为章节填充率）；保留原 `generated_at`。
+
+CLI 会拒绝 `--out-dir` 的 `report.json` 解析为 `--input` 的调用；输出目标应位于本 skill 的 `output/content-quality-review/`，不得覆盖 `examples/` 或 `test-records/`。

@@ -76,6 +76,8 @@ description: "Use for generating a professional store big-data report (店铺大
 5. **渲染三件套**：`compose_report.py --enterprise ... | --store-name ... --output ... --report-output ...` 直接产出 JSON + HTML + Markdown。
 6. **返回路径**：返回 JSON、HTML、Markdown 文件路径，以及模式与企业全称 / 检索条件映射、数据口径。
 
+- **渲染前置检查**：执行会产出含图表 HTML / PDF 的报告命令前，先验证 `node --version` 与本 skill 自带 `assets/vendor/echarts.min.js` 存在；内嵌静态 SVG 的生成需要 Node.js（推荐当前 LTS，无需 npm 包），缺失时报告生成明确报错。查看已生成的 HTML 与 Markdown 输出不需要 Node。
+
 ## 脚本速查
 
 ```bash
@@ -131,5 +133,18 @@ python scripts/render_report.py --input output/store.json --output output/store.
 - `representative_records`：代表性门店 / 品牌记录。
 - `insights`：结构化解读（门店资产规模 / 品牌矩阵 / 地域覆盖 / 门店集中度）。
 - `data_source`：MCP server、数据产品、生成时间、是否 dry-run、模式、明细分页披露（pagination）与调用去重统计（call_usage）。
+
+## 内容整理与交付审校
+
+生成后按“原始值 → 规范标签 → 证据位置”逐项整理，保留原始值供核对。`subject.keywordType`、`subject.matchKeyword` 等机器字段保留在 JSON 供系统集成，只从 caliber / 正文可见文本中移除内部代码：
+
+1. **主体 ≠ 检索条件**：企业模式按企业主体；检索模式的条件（店铺分类、地区、品牌、地址）是并列筛选，不拼成企业名。标题/口径写“店铺分类：…；地区：…”，不写“汽车服务,汽车维修、广东省,广州市”。
+2. **品牌级汇总可能重复**：`门店总数(汇总)` 是各品牌 `门店数` 字段相加，未去重；不得称为“实体门店总数”。品牌数、类别数只表示上游返回记录数。
+3. **地区统计是 Top 样本**：城市/省份表通常只返回前 10 行。`覆盖城市数` 改为 `已返回城市数`，并披露“合计 706 家 / 主力品牌 3005 家（23.5%）”；CR3 只在已返回样本内计算，不推全国覆盖。
+4. **检索明细清洗**：`店铺排名 113001.0` 显示为 `113,001`，`人均价格 195.0` 显示为 `195 元`；实际品牌/地区/地址全空时隐藏空列，验证列全同值时合并为一条说明；人均价格在汽车服务/药店场景标“上游字段，语义可能不适用”。
+5. **状态只做样本统计**：营业/关闭下架的条数只针对当前返回样本，并同时给出命中总量；不推算全量在营率、停业率或经营质量。
+6. **交付前自检**：正文不出现 `keywordType` 等内部参数；不写“门店数量=品牌影响力”“城市越分散风险越低”等无证据结论。
+
+离线复核已有 JSON（不调用 MCP）：`python scripts/store_content_review.py --input <report.json> --out-dir <dir>`；纯函数为 `store_content_review.apply_content_review(report)`。
 
 若 API 调用失败，明确报出缺失的配置 / 缺失的工具 / MCP 错误 / 参数校验错误 / 上游网络错误，给出 dry-run 命令或配置步骤，绝不暴露密钥。
